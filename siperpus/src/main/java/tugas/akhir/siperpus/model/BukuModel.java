@@ -1,6 +1,7 @@
 package tugas.akhir.siperpus.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -44,10 +45,10 @@ public class BukuModel implements Serializable{
     @JsonIgnore
     private JenisBukuModel jenisBuku;
 
-    /** 
-    @OneToMany(mappedBy = "peminjamanBuku", fetch = FetchType.LAZY, cascade= CascadeType.ALL)
+
+    @OneToMany(mappedBy = "buku", fetch = FetchType.LAZY, cascade= CascadeType.ALL)
     private List<PeminjamanBukuModel> listPeminjaman;
-    */
+
 
     /**
      * @return the id

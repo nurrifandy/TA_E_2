@@ -35,5 +35,13 @@ public class BukuController{
         model.addAttribute("book", updateBook);
         return "book/form-update-book";
     }
-    
+
+    @GetMapping("/delete/{id}")
+    public String deleteBuku(@PathVariable Long id, Model model) {
+        BukuModel existingBook = bukuService.findByIdBook(id);
+        model.addAttribute("book", existingBook);
+        bukuService.deleteBook(existingBook);
+        return "book/delete-book";
+    }
+
 }
