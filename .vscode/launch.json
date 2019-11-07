@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - SiperpusApplication",
+            "request": "launch",
+            "mainClass": "tugas.akhir.siperpus.SiperpusApplication",
+            "projectName": "siperpus"
+        }
+    ]
+}

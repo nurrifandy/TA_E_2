@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeLeaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Update Book</title>
+    <object th:include="fragments/fragment :: getBootstrap" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: css-js" th:remove="tag"></object>
+</head>
+<body>
+    <nav th:replace="fragments/fragment :: navbar"></nav>
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">Update Book</div>
+                <div class="card-body">
+                    <div>
+                        <form th:action="@{/book/update/{id}(id=${book.id})}" th:object="${book}" method="POST">
+                            <div class="form-group row">
+                                <label class="col-md-4 col-form-label" for="inputJumlah"><b>Jumlah Buku :</b></label>
+                                <div class="col-md-8">
+                                    <input type="number" id="inputJumlah" th:value="${book.jumlah}" class="form-control border rounded-pill" name="jumlah">
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-center mb-2">
+                                <button class="btn btn-primary" type="submit">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -5,6 +5,8 @@ repo yang akan digunakan untuk tugas akhir APAP.
 
 ## Anggota Kelompok
 - Nur Rifandy - 1706984695
--
+- Oktafia Sutanti - 1706023486
+- Windu Andira - 1706043752
+- Ailsa Zayyan - 1706074682
 
 ## Kontrak Tahap 1 Tugas Akhir
