@@ -44,7 +44,7 @@ public class BookModel implements Serializable{
     @JsonIgnore
     private TypeOfBookModel jenisBuku;
 
-    /** 
+    /**
     @OneToMany(mappedBy = "peminjamanBuku", fetch = FetchType.LAZY, cascade= CascadeType.ALL)
     private List<PeminjamanBukuModel> listPeminjaman;
     */
