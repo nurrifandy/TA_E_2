@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "peminjaman_buku")
+@Table(name = "peminjamanBuku")
 public class PeminjamanBukuModel implements Serializable {
 
     @Id
@@ -18,22 +18,22 @@ public class PeminjamanBukuModel implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "tanggal_peminjaman", nullable = false)
+    @Column(name = "tanggalPeminjaman", nullable = false)
     private Date tanggalPeminjaman;
 
     @NotNull
-    @Column(name = "tanggal_pengembalian", nullable = false)
+    @Column(name = "tanggalPengembalian", nullable = false)
     private Date tanggalPengembalian;
 
     @NotNull
     @Column(name = "status", nullable = false)
     private int status;
 
-//    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-//    @JoinColumn(name = "id_buku", referencedColumnName = "id", nullable = false)
-//    @OnDelete(action = OnDeleteAction.CASCADE)
-//    @JsonIgnore
-//    private BukuModel buku;
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "idBuku", referencedColumnName = "id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private BukuModel buku;
 //
 //    @ManyToOne(fetch = FetchType.EAGER, optional = false)
 //    @JoinColumn(name = "uuid_buku", referencedColumnName = "uuid", nullable = false)
@@ -73,14 +73,14 @@ public class PeminjamanBukuModel implements Serializable {
         this.status = status;
     }
 
-//    public BukuModel getBuku() {
-//        return buku;
-//    }
-//
-//    public void setBuku(BukuModel buku) {
-//        this.buku = buku;
-//    }
-//
+    public BukuModel getBuku() {
+        return buku;
+    }
+
+    public void setBuku(BukuModel buku) {
+        this.buku = buku;
+    }
+
 //    public UserModel getUser() {
 //        return user;
 //    }

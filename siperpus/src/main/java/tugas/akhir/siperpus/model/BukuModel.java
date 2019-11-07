@@ -1,6 +1,7 @@
 package tugas.akhir.siperpus.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -12,8 +13,8 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
-@Table(name = "book")
-public class BookModel implements Serializable{
+@Table(name = "buku")
+public class BukuModel implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,12 +43,12 @@ public class BookModel implements Serializable{
     @JoinColumn(name = "idJenisBuku", updatable = false, insertable = false, referencedColumnName = "id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
-    private TypeOfBookModel jenisBuku;
+    private JenisBukuModel jenisBuku;
 
-    /**
-    @OneToMany(mappedBy = "peminjamanBuku", fetch = FetchType.LAZY, cascade= CascadeType.ALL)
+
+    @OneToMany(mappedBy = "buku", fetch = FetchType.LAZY, cascade= CascadeType.ALL)
     private List<PeminjamanBukuModel> listPeminjaman;
-    */
+
 
     /**
      * @return the id
@@ -122,14 +123,14 @@ public class BookModel implements Serializable{
     /**
      * @return the jenisBukus
      */
-    public TypeOfBookModel getJenisBuku() {
+    public JenisBukuModel getJenisBuku() {
         return jenisBuku;
     }
 
     /**
      * @param jenisBuku the jenisBuku to set
      */
-    public void setJenisBuku(TypeOfBookModel jenisBuku) {
+    public void setJenisBuku(JenisBukuModel jenisBuku) {
         this.jenisBuku = jenisBuku;
     }
     

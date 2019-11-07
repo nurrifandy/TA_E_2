@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,49 +9,75 @@
     <object th:include="fragments/fragment :: css-js" th:remove="tag"></object>
 </head>
 
-<body>
-<header id="home">
-    <nav th:replace="fragments/fragment :: navbar"></nav>
-
-    <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
-        <div class="col-md-5 p-lg-5 mx-auto my-5">
-            <h1 class="display-4 font-weight-normal">Welcome</h1>
+<body class="home-body">
+    <header class="header-custom">
+        <nav th:replace="fragments/fragment :: navbar" class="overlay"></nav>
+        <div class="landing-text-custom">
+            <h1 class="display-4 font-weight-normal" data-aos="fade-in">Welcome</h1>
             <p class="lead font-weight-normal" th:text="${#httpServletRequest.remoteUser}"></p>
         </div>
-    </div>
+    </header>
 
-    <div class="container">
-        <div class="card-deck mb-3 text-center">
-            <div class="card mb-4 shadow-sm">
-                <div class="card-body p-5">
-                    <h2 class="card-title">Explore the Books</h2>
-                </div>
-                <div class="card-body">
-                    <a class="btn btn-lg btn-outline-primary align-bottom" th:href="@{/book/display}">Learn more</a>
-                </div>
+    <section class="section-custom about" id="about">
+        <div class="container">
+            <div class="profile-img" data-aos="fade-right" data-aos-delay="300">
+                <img src="images/perpus.jpg" alt="img">
             </div>
-
-            <div class="card mb-4 shadow-sm">
-                <div class="card-body m-5">
-                    <h2 class="card-title">Apply Loan</h2>
+            <div class="about-details" data-aos="fade-left" data-aos-delay="300">
+                <div>
+                    <h1>About</h1>
                 </div>
-                <div class="card-body">
-                    <a class="btn btn-lg btn-outline-primary align-bottom" th:href="@{/}">Learn more</a>
-                </div>
-            </div>
-
-            <div class="card mb-4 shadow-sm">
-                <div class="card-body p-5">
-                    <h2 class="card-title">Request Procurement</h2>
-                </div>
-                <div class="card-body">
-                    <a class="btn btn-lg btn-outline-primary align-bottom" th:href="@{/}">Learn more</a>
-                </div>
-            </div>
-
+                <p>
+                   Perpustakaan SMART menyediakan berbagai macam buku. Mulai dari buku pelajaran hingga hingga buku populer seperti novel dan juga koran/majalah. Aset buku ini dapat digunakan dalam proses belajar mengajar, sebagai referensi, ataupun sebagai sarana hiburan yang positif bagi siswa. Dengan menggunakan sistem informasi perpustakaan, diharapkan dapat meningkatkan proses bisnis menjadi lebih cepat, tepat, transparan, dan akuntabel.
+                </p>
             </div>
         </div>
-</header>
+    </section>
 
+    <section class="section-custom section-features">
+        <div class="container">
+            <h1 class="text-center m-5" data-aos="fade-down">Our Service</h1>
+            <div class="row">
+                <div class="col-md-4 col-sm-6" data-aos="fade-in" data-aos-delay="300">
+                    <a th:href="@{/book/detail}">
+                        <div class="feature-box">
+                            <div class="icon">
+                                <i style="font-size: 70px" class="flaticon-book"></i>
+                            </div>
+                            <h3>Explore the Books</h3>
+                            <p>Melihat dan mengelola daftar seluruh buku yang terdapat di perpustakaan</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-4 col-sm-6" data-aos="fade-in" data-aos-delay="600">
+                    <a th:href="@{/}">
+                        <div class="feature-box">
+                            <div class="icon">
+                                <i style="font-size: 70px" class="flaticon-business-and-finance"></i>
+                            </div>
+                            <h3>Loan the Books</h3>
+                            <p>Mengajukan peminjaman terhadap buku yang tersedia</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-4 col-sm-6" data-aos="fade-in" data-aos-delay="900">
+                    <a th:href="@{/}">
+                        <div class="feature-box">
+                            <div class="icon">
+                                <i style="font-size: 70px" class="flaticon-question"></i>
+                            </div>
+                            <h3>Request Procurement</h3>
+                            <p>Mengajukan pengadaan buku kepada perpustakawan</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+        <div class="container text-center">
+            <small> &copy; 2019 TA-E-2 APAP FASILKOM Universitas Indonesia. All Rights Reserved </small>
+        </div>
+    </footer>
 </body>
 </html>
