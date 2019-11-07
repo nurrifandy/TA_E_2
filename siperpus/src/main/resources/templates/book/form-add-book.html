@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <title>Add Book</title>
+    <object th:include="fragments/fragment :: getBootstrap" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: css-js" th:remove="tag"></object>
+</head>
+
+<body style="font-family: 'Montserrat', sans-serif; color">
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<h1 class="text-center font-weight-bold mt-5" > Tambah Buku </h1>
+<div class="row mt-5 ">
+    <div class="col-md-10 mx-auto">
+        <div class="card">
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                    <form th:action="@{/book/add}" th:object="${book}" method="POST" id="test">
+                        Judul :
+                        <input class="form-control" type="text" name="judul" />
+                        <br><br>
+
+                        Pengarang :
+                        <input class="form-control" type="text" name="pengarang" />
+                        <br><br>
+
+                        Penerbit :
+                        <input class="form-control" type="text" name="penerbit" />
+                        <br><br>
+
+                        Jumlah
+                        <input class="form-control" type="number" name="jumlah" />
+                        <br>
+                        <br>
+
+                        <label>Jenis : </label>
+                        <select class="form-control" form="test" name="id">
+                            <option value="">--Pilih Jenis--</option>
+                            <option th:each="spes : ${jenisBuku}" th:value="${spes.id}"
+                                    th:text="${spes.nama}"></option>
+                        </select>
+                        <br>
+                        <br>
+
+                        <div class="text-center">
+                            <button class="btn btn-sm btn-dark" type="submit">
+                                <a style="color: white"> Submit</a>
+                            </button>
+                        </div>
+                    </form>
+
+            </div>
+            </tbody>
+            </table>
+</body>
+</html>

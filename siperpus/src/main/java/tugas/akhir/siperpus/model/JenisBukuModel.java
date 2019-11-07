@@ -12,7 +12,12 @@ import javax.validation.constraints.Size;
 public class JenisBukuModel implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @NotNull
+    public Long id;
+
+    public Long getId() {
+        return id;
+    }
 
     @NotNull
     @Size(max = 200)
@@ -22,19 +27,19 @@ public class JenisBukuModel implements Serializable{
     @OneToMany(mappedBy = "jenisBuku", fetch = FetchType.LAZY, cascade= CascadeType.ALL)
     private List<BukuModel> listBuku;
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     /**
      * @return the id
      */
-    public long getId() {
-        return id;
-    }
+
 
     /**
      * @param id the id to set
      */
-    public void setId(long id) {
-        this.id = id;
-    }
+
 
     /**
      * @return the nama
@@ -42,7 +47,7 @@ public class JenisBukuModel implements Serializable{
     public String getNama() {
         return nama;
     }
-    
+
     /**
      * @param nama the nama to set
      */
@@ -63,5 +68,5 @@ public class JenisBukuModel implements Serializable{
     public void setListBuku(List<BukuModel> listBuku) {
         this.listBuku = listBuku;
     }
-    
+
 }

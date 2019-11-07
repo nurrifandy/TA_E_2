@@ -4,14 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import tugas.akhir.siperpus.model.BukuModel;
-import tugas.akhir.siperpus.service.BukuService;
+import tugas.akhir.siperpus.model.JenisBukuModel;
+import tugas.akhir.siperpus.service.*;
+
+import java.util.List;
 
 
 @Controller
@@ -21,6 +20,9 @@ public class BukuController{
 
     @Autowired
     private BukuService bukuService;
+
+    @Autowired
+    private JenisBukuService jenisBukuService;
 
     @GetMapping("/update/{id}")
     public String formUpdateBook(@PathVariable long id, Model model){
@@ -43,5 +45,37 @@ public class BukuController{
         bukuService.deleteBook(existingBook);
         return "book/delete-book";
     }
+
+
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    public String formAddBook(Model model) {
+        BukuModel newBook = new BukuModel();
+        List<JenisBukuModel> listJenisBuku = jenisBukuService.getJenisBukuList();
+        model.addAttribute("book", newBook);
+        model.addAttribute("jenisBuku", listJenisBuku);
+        return "book/form-add-book";
+    }
+
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public String submitAddBook(@RequestParam("id") Long id,
+                                @RequestParam String judul,
+                                @RequestParam String pengarang,
+                                @ModelAttribute BukuModel buku, Model model) {
+        JenisBukuModel jenis = jenisBukuService.getJenisByIdJenis(id).get();
+        buku.setJenisBuku(jenis);
+        List<BukuModel> bukuModelList = bukuService.getListBuku();
+        if (bukuModelList != null){
+            for (BukuModel i : bukuModelList){
+                if(i.getJudul().equals(judul) && i.getPengarang().equals(pengarang)) {
+                    return "book/add-book-fail";
+                }
+            }
+        }
+        bukuService.addBook(buku);
+        model.addAttribute("namaBuku", judul);
+        return "book/add-book-submit";
+    }
+
+
 
 }
