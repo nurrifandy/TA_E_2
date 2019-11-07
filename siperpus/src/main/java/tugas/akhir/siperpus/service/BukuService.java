@@ -6,4 +6,6 @@ public interface BukuService{
     BukuModel findByIdBook(long id);
 
     BukuModel updateBook(BukuModel book);
+
+    void deleteBook(BukuModel book);
 }

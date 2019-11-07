@@ -32,4 +32,9 @@ public class BukuServiceImpl implements BukuService{
 
     }
 
+    @Override
+    public void deleteBook(BukuModel book){
+        bukuDb.deleteById(book.getId());
+    }
+
 }
