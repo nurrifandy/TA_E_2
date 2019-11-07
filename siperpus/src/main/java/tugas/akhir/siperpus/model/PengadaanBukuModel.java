@@ -44,6 +44,22 @@ public class PengadaanBukuModel {
     @Column(name = "status", nullable = false)
     private int status;
 
+
+//    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+//    @JoinColumn(name = "uuid_user", referencedColumnName = "uuid", nullable = false)
+//    @OnDelete(action = OnDeleteAction.CASCADE)
+//    @JsonIgnore
+//    private UserModel user;
+//
+//    public UserModel getUser() {
+//        return user;
+//    }
+//
+//    public void setUser(UserModel user) {
+//        this.user = user;
+//    }
+
+
     public int getStatus() {
         return status;
     }
