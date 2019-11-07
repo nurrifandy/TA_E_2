@@ -9,7 +9,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "jenisBuku")
-public class TypeOfBookModel implements Serializable{
+public class JenisBukuModel implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -20,7 +20,7 @@ public class TypeOfBookModel implements Serializable{
     private String nama;
 
     @OneToMany(mappedBy = "jenisBuku", fetch = FetchType.LAZY, cascade= CascadeType.ALL)
-    private List<BookModel> listBuku;
+    private List<BukuModel> listBuku;
 
     /**
      * @return the id
@@ -53,14 +53,14 @@ public class TypeOfBookModel implements Serializable{
     /**
      * @return the listBuku
      */
-    public List<BookModel> getListBuku() {
+    public List<BukuModel> getListBuku() {
         return listBuku;
     }
 
     /**
      * @param listBuku the listBuku to set
      */
-    public void setListBuku(List<BookModel> listBuku) {
+    public void setListBuku(List<BukuModel> listBuku) {
         this.listBuku = listBuku;
     }
     
