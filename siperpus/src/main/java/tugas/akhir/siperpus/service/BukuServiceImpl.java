@@ -4,27 +4,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import tugas.akhir.siperpus.model.BookModel;
-import tugas.akhir.siperpus.repository.BookDb;
+import tugas.akhir.siperpus.model.BukuModel;
+import tugas.akhir.siperpus.repository.BukuDb;
 
 @Service
 @Transactional
 
-public class BookServiceImpl implements BookService{
+public class BukuServiceImpl implements BukuService{
     @Autowired
-    private BookDb bookDb;
+    private BukuDb bukuDb;
 
     @Override
-    public BookModel findByIdBook(long id){
-        return bookDb.findById(id).get();
+    public BukuModel findByIdBook(long id){
+        return bukuDb.findById(id).get();
     }
 
     @Override
-    public BookModel updateBook(BookModel book){
-        BookModel currBook = bookDb.findById(book.getId()).get();
+    public BukuModel updateBook(BukuModel book){
+        BukuModel currBook = bukuDb.findById(book.getId()).get();
         try{
             currBook.setJumlah(book.getJumlah());
-            bookDb.save(currBook);
+            bukuDb.save(currBook);
             return currBook;
         }catch (NullPointerException e){
             return null;

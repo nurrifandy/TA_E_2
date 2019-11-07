@@ -5,9 +5,10 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import tugas.akhir.siperpus.model.BookModel;
+import tugas.akhir.siperpus.model.BukuModel;
+
 
 @Repository
-public interface BookDb extends JpaRepository<BookModel, Long>{
+public interface BukuDb extends JpaRepository<BukuModel, Long>{
     
 }
