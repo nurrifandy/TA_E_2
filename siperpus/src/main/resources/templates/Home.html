@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home</title>
+    <object th:include="fragments/fragment :: getBootstrap" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: css-js" th:remove="tag"></object>
+</head>
+
+<body>
+<header id="home">
+    <nav th:replace="fragments/fragment :: navbar"></nav>
+
+    <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
+        <div class="col-md-5 p-lg-5 mx-auto my-5">
+            <h1 class="display-4 font-weight-normal">Welcome</h1>
+            <p class="lead font-weight-normal" th:text="${#httpServletRequest.remoteUser}"></p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="card-deck mb-3 text-center">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body p-5">
+                    <h2 class="card-title">Explore the Books</h2>
+                </div>
+                <div class="card-body">
+                    <a class="btn btn-lg btn-outline-primary align-bottom" th:href="@{/book/display}">Learn more</a>
+                </div>
+            </div>
+
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body m-5">
+                    <h2 class="card-title">Apply Loan</h2>
+                </div>
+                <div class="card-body">
+                    <a class="btn btn-lg btn-outline-primary align-bottom" th:href="@{/}">Learn more</a>
+                </div>
+            </div>
+
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body p-5">
+                    <h2 class="card-title">Request Procurement</h2>
+                </div>
+                <div class="card-body">
+                    <a class="btn btn-lg btn-outline-primary align-bottom" th:href="@{/}">Learn more</a>
+                </div>
+            </div>
+
+            </div>
+        </div>
+</header>
+
+</body>
+</html>

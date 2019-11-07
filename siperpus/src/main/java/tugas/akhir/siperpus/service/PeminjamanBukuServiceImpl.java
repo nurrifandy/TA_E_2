@@ -24,9 +24,9 @@ public class PeminjamanBukuServiceImpl implements PeminjamanBukuService {
         return peminjamanBukuDb.findAll();
     }
 
-    public List<PeminjamanBukuModel> findAllPeminjamanBukuByUuidUser(String UuidUser){
-        return peminjamanBukuDb.findByUuidUser(UuidUser);
-    }
+//    public List<PeminjamanBukuModel> findAllPeminjamanBukuByUuidUser(String UuidUser){
+//        return peminjamanBukuDb.findByUuidUser(UuidUser);
+//    }
 
     public PeminjamanBukuModel updateStatus(PeminjamanBukuModel peminjamanBuku, int status){
         try{

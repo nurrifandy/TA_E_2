@@ -7,6 +7,6 @@ import tugas.akhir.siperpus.model.PeminjamanBukuModel;
 import java.util.List;
 
 @Repository
-public class PeminjamanBukuDb extends JpaRepository<PeminjamanBukuModel, Long> {
-    List<PeminjamanBukuModel> findByUuidUser(String UuidUser);
+public interface PeminjamanBukuDb extends JpaRepository<PeminjamanBukuModel, Long> {
+//    List<PeminjamanBukuModel> findByUuidUser(String UuidUser);
 }

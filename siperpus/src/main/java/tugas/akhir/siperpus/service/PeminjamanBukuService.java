@@ -4,13 +4,13 @@ import tugas.akhir.siperpus.model.PeminjamanBukuModel;
 
 import java.util.List;
 
-public class PeminjamanBukuService {
+public interface PeminjamanBukuService {
 
     void addPeminjamanBuku(PeminjamanBukuModel peminjamanBuku);
 
     List<PeminjamanBukuModel> findAll();
 
-    List<PeminjamanBukuModel> findAllPeminjamanBukuByUuidUser(String UuidUser);
+//    List<PeminjamanBukuModel> findAllPeminjamanBukuByUuidUser(String UuidUser);
 
-    void updateStatus(PeminjamanBukuModel peminjamanBuku, int Status);
+    PeminjamanBukuModel updateStatus(PeminjamanBukuModel peminjamanBuku, int Status);
 }

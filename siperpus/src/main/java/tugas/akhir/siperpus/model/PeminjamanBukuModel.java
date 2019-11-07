@@ -41,7 +41,7 @@ public class PeminjamanBukuModel implements Serializable {
 //    @JsonIgnore
 //    private UserModel user;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
