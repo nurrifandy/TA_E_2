@@ -60,8 +60,6 @@ public class PengadaanBukuModel {
 //    }
 
 
-
-
     public int getStatus() {
         return status;
     }
