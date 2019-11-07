@@ -1,7 +1,7 @@
+
 package tugas.akhir.siperpus.model;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -39,16 +39,16 @@ public class BukuModel implements Serializable{
     @Column(name = "jumlah", nullable = false)
     private int jumlah;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "idJenisBuku", updatable = false, insertable = false, referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "idJenisBuku", referencedColumnName = "id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private JenisBukuModel jenisBuku;
 
-
-    @OneToMany(mappedBy = "buku", fetch = FetchType.LAZY, cascade= CascadeType.ALL)
-    private List<PeminjamanBukuModel> listPeminjaman;
-
+    /**
+     @OneToMany(mappedBy = "peminjamanBuku", fetch = FetchType.LAZY, cascade= CascadeType.ALL)
+     private List<PeminjamanBukuModel> listPeminjaman;
+     */
 
     /**
      * @return the id
@@ -133,6 +133,6 @@ public class BukuModel implements Serializable{
     public void setJenisBuku(JenisBukuModel jenisBuku) {
         this.jenisBuku = jenisBuku;
     }
-    
-    
+
+
 }

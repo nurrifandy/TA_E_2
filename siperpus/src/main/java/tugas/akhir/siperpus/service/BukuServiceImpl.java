@@ -7,6 +7,9 @@ import org.springframework.transaction.annotation.Transactional;
 import tugas.akhir.siperpus.model.BukuModel;
 import tugas.akhir.siperpus.repository.BukuDb;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 @Transactional
 
@@ -35,6 +38,22 @@ public class BukuServiceImpl implements BukuService{
     @Override
     public void deleteBook(BukuModel book){
         bukuDb.deleteById(book.getId());
+    }
+
+    @Override
+    public void addBook(BukuModel book) {
+        bukuDb.save(book);
+    }
+
+    @Override
+    public List<BukuModel> getListBuku(){
+        return bukuDb.findAll();
+    }
+
+
+    @Override
+    public Optional<BukuModel> getBukuByIdBuku(Long id){
+        return bukuDb.findBukuModelById(id);
     }
 
 }

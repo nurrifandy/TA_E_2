@@ -10,5 +10,5 @@ import tugas.akhir.siperpus.model.BukuModel;
 
 @Repository
 public interface BukuDb extends JpaRepository<BukuModel, Long>{
-    
+    Optional<BukuModel> findBukuModelById(Long id);
 }
