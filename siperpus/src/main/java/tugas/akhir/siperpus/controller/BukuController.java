@@ -11,6 +11,7 @@ import tugas.akhir.siperpus.model.JenisBukuModel;
 import tugas.akhir.siperpus.model.PeminjamanBukuModel;
 import tugas.akhir.siperpus.service.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -84,15 +85,21 @@ public class BukuController{
     public String bookDetails(Model model){
         BukuModel buku;
         List<BukuModel> bookList = bukuService.getListBuku();
-        List<PeminjamanBukuModel> borrowingList = peminjamanBukuService.findAll();
-        int bookSum=0;
-        for (PeminjamanBukuModel peminjaman:borrowingList){
-            if (peminjaman.getStatus() == 4){
-                bookSum+=1;
+        List<Integer> bookSum = new ArrayList<Integer>();
+        for (BukuModel book:bookList){
+            int jumlah = 0;
+            int available = 0;
+            for (PeminjamanBukuModel peminjaman:book.getListPeminjaman()){
+                if (peminjaman.getStatus() != 4){
+                    jumlah++;
+                }
             }
+            available = book.getJumlah()-jumlah;
+            bookSum.add(Integer.valueOf(available));
         }
+
         model.addAttribute("bookList", bookList);
-        model.addAttribute("sum", bookSum);
+        model.addAttribute("available", bookSum);
         return "book/view-detail";
     }
 
