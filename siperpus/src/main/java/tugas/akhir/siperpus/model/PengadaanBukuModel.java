@@ -46,7 +46,7 @@ public class PengadaanBukuModel {
 
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "uuidUser", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "uuidUser", referencedColumnName = "uuid", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private UserModel user;

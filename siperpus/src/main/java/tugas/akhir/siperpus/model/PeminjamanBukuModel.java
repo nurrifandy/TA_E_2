@@ -36,7 +36,7 @@ public class PeminjamanBukuModel implements Serializable {
     private BukuModel buku;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "uuidBuku", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "uuidUser", referencedColumnName = "uuid", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private UserModel user;
