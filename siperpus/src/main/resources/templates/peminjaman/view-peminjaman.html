@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <title>Loan the Book</title>
+    <object th:include="fragments/fragment :: getBootstrap" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: css-js" th:remove="tag"></object>
+</head>
+
+<body style="font-family: 'Montserrat', sans-serif; color">
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<div class="row mt-5 ">
+    <div class="col-md-9 mx-auto">
+        <div class="card">
+            <div class="card-header bg-dark text-white">
+                Daftar Peminjaman
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Judul Buku</th>
+                        <th>Tanggal Peminjaman</th>
+                        <th>Tanggal Pengembalian</th>
+                        <th>Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="pinjam, iterationStatus : *{peminjamanList}">
+                        <td th:text="${iterationStatus.count}"> </td>
+                        <td th:text="${pinjam.buku.getJudul()}"></td>
+                        <td th:text="${#dates.format(pinjam.tanggalPeminjaman,'dd-MMM-yyyy')}"></td>
+                        <td th:text="${#dates.format(pinjam.tanggalPengembalian,'dd-MMM-yyyy')}"></td>
+                        <td>
+                            <span th:if="${pinjam.status==0}">Menunggu Persetujuan</span>
+                            <span th:if="${pinjam.status==1}">Ditolak</span>
+                            <span th:if="${pinjam.status==2}">Disetujui</span>
+                            <span th:if="${pinjam.status==3}">Sudah Diambil</span>
+                            <span th:if="${pinjam.status==4}">Sudah Dikembalikan</span>
+                            <span th:if="${pinjam.status==5}">Overdue</span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

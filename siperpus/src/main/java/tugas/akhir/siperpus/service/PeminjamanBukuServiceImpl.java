@@ -20,6 +20,11 @@ public class PeminjamanBukuServiceImpl implements PeminjamanBukuService {
         peminjamanBukuDb.save(peminjamanBuku);
     }
 
+    @Override
+    public List<PeminjamanBukuModel> getPeminjamanList(){
+        return peminjamanBukuDb.findAll();
+    }
+
     public List<PeminjamanBukuModel> findAll(){
         return peminjamanBukuDb.findAll();
     }
