@@ -20,15 +20,15 @@ repo yang akan digunakan untuk tugas akhir APAP.
 ## Kontrak Tahap 2 Tugas Akhir
 | NPM | Nama Lengkap | Fitur yang akan diselesaikan |
 | --- | --- | --- |
-| 1706984695 | Nur Rifandy | 15, 11 |
-| 1706023486 | Oktafia Sutanti | 17, 9 |
-| 1706043752 | Windu Andira | 14, 10 |
-| 1706074682 | Ailsa Zayyan | 16, 8 |
+| 1706984695 | Nur Rifandy | 12, 15 |
+| 1706023486 | Oktafia Sutanti | 9, 17 |
+| 1706043752 | Windu Andira | 10, 14 |
+| 1706074682 | Ailsa Zayyan | 8, 16 |
 
 ## Kontrak Tahap 3 Tugas Akhir
 | NPM | Nama Lengkap | Fitur yang akan diselesaikan |
 | --- | --- | --- |
-| 1706984695 | Nur Rifandy | 12 |
+| 1706984695 | Nur Rifandy | 11 |
 | 1706023486 | Oktafia Sutanti | 13 |
 | 1706043752 | Windu Andira | 2 |
 | 1706074682 | Ailsa Zayyan | 3 |
