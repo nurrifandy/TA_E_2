@@ -11,7 +11,7 @@
 <body>
     <nav th:replace="fragments/fragment :: navbar"></nav>
 
-    <table class="table table-hover small">
+    <table class="table table-hover small table-responsive-sm">
         <thead>
         <tr>
             <th>No</th>
@@ -19,6 +19,7 @@
             <th>Author</th>
             <th>Type</th>
             <th>Book available</th>
+            <th>Action</th>
         </tr>
         </thead>
         <tbody>
@@ -28,6 +29,13 @@
             <td th:text="${book.pengarang}"></td>
             <td th:text="${book.getJenisBuku().nama}"></td>
             <td th:text="${available[__${iterationStatus.index}__]}"></td>
+            <td>
+                <div class="btn-group">
+                    <button class="btn btn-primary mr-2"><a class="text-light" th:href="@{/book/update/{idBook}(idBook=${book.id})}" style="text-decoration: none;">update</a></button>
+                
+                    <button class="btn btn-danger"><a class="text-light" th:href="@{/book/delete/{idBook}(idBook=${book.id})}">delete</a></button>
+                </div>
+            </td>
         </tr>
         </tbody>
     </table>

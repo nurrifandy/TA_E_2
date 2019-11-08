@@ -1,6 +1,7 @@
 package tugas.akhir.siperpus.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -37,6 +38,12 @@ public class UserModel implements Serializable{
     @JsonIgnore
     private RoleModel role;
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade= CascadeType.ALL)
+    private List<PengadaanBukuModel> listPengadaan;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade= CascadeType.ALL)
+    private List<PeminjamanBukuModel> listPeminjaman;
+
     public String getId() {
         return id;
     }
@@ -68,4 +75,33 @@ public class UserModel implements Serializable{
     public void setRole(RoleModel role) {
         this.role = role;
     }
+
+    /**
+     * @return the listPengadaan
+     */
+    public List<PengadaanBukuModel> getListPengadaan() {
+        return listPengadaan;
+    }
+
+    /**
+     * @param listPengadaan the listPengadaan to set
+     */
+    public void setListPengadaan(List<PengadaanBukuModel> listPengadaan) {
+        this.listPengadaan = listPengadaan;
+    }
+
+    /**
+     * @return the listPeminjaman
+     */
+    public List<PeminjamanBukuModel> getListPeminjaman() {
+        return listPeminjaman;
+    }
+
+    /**
+     * @param listPeminjaman the listPeminjaman to set
+     */
+    public void setListPeminjaman(List<PeminjamanBukuModel> listPeminjaman) {
+        this.listPeminjaman = listPeminjaman;
+    }
+
 }

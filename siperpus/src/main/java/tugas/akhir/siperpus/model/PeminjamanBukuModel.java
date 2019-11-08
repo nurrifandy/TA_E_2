@@ -34,12 +34,12 @@ public class PeminjamanBukuModel implements Serializable {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private BukuModel buku;
-//
-//    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-//    @JoinColumn(name = "uuid_buku", referencedColumnName = "uuid", nullable = false)
-//    @OnDelete(action = OnDeleteAction.CASCADE)
-//    @JsonIgnore
-//    private UserModel user;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "uuidBuku", referencedColumnName = "id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private UserModel user;
 
     public Long getId() {
         return id;
@@ -81,11 +81,11 @@ public class PeminjamanBukuModel implements Serializable {
         this.buku = buku;
     }
 
-//    public UserModel getUser() {
-//        return user;
-//    }
-//
-//    public void setUser(UserModel user) {
-//        this.user = user;
-//    }
+   public UserModel getUser() {
+       return user;
+   }
+
+   public void setUser(UserModel user) {
+       this.user = user;
+   }
 }
