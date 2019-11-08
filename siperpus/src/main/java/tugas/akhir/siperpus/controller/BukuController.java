@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import tugas.akhir.siperpus.model.BukuModel;
 import tugas.akhir.siperpus.model.JenisBukuModel;
+import tugas.akhir.siperpus.model.PeminjamanBukuModel;
 import tugas.akhir.siperpus.service.*;
 
 import java.util.List;
@@ -23,6 +24,9 @@ public class BukuController{
 
     @Autowired
     private JenisBukuService jenisBukuService;
+
+    @Autowired
+    private PeminjamanBukuService peminjamanBukuService;
 
     @GetMapping("/update/{id}")
     public String formUpdateBook(@PathVariable long id, Model model){
@@ -74,6 +78,22 @@ public class BukuController{
         bukuService.addBook(buku);
         model.addAttribute("namaBuku", judul);
         return "book/add-book-submit";
+    }
+
+    @RequestMapping("/detail")
+    public String bookDetails(Model model){
+        BukuModel buku;
+        List<BukuModel> bookList = bukuService.getListBuku();
+        List<PeminjamanBukuModel> borrowingList = peminjamanBukuService.findAll();
+        int bookSum=0;
+        for (PeminjamanBukuModel peminjaman:borrowingList){
+            if (peminjaman.getStatus() == 4){
+                bookSum+=1;
+            }
+        }
+        model.addAttribute("bookList", bookList);
+        model.addAttribute("sum", bookSum);
+        return "book/view-detail";
     }
 
 
