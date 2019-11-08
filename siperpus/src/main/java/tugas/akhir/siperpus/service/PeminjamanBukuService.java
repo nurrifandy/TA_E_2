@@ -13,4 +13,6 @@ public interface PeminjamanBukuService {
 //    List<PeminjamanBukuModel> findAllPeminjamanBukuByUuidUser(String UuidUser);
 
     PeminjamanBukuModel updateStatus(PeminjamanBukuModel peminjamanBuku, int Status);
+
+    List<PeminjamanBukuModel> getPeminjamanList();
 }
