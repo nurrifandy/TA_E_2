@@ -14,7 +14,7 @@
     <table class="table table-hover small">
         <thead>
         <tr>
-            <th>Num</th>
+            <th>No</th>
             <th>Title</th>
             <th>Author</th>
             <th>Type</th>
@@ -26,8 +26,8 @@
             <td th:text="${iterationStatus.count}"> </td>
             <td th:text="${book.judul}"></td>
             <td th:text="${book.pengarang}"></td>
-            <td th:text="${book.jenis}"></td>
-            <td th:text="${sum}"></td>
+            <td th:text="${book.getJenisBuku().nama}"></td>
+            <td th:text="${available[__${iterationStatus.index}__]}"></td>
         </tr>
         </tbody>
     </table>

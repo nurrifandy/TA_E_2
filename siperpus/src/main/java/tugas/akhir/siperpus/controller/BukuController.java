@@ -84,15 +84,20 @@ public class BukuController{
     public String bookDetails(Model model){
         BukuModel buku;
         List<BukuModel> bookList = bukuService.getListBuku();
-        List<PeminjamanBukuModel> borrowingList = peminjamanBukuService.findAll();
-        int bookSum=0;
-        for (PeminjamanBukuModel peminjaman:borrowingList){
-            if (peminjaman.getStatus() == 4){
-                bookSum+=1;
+        List<Integer> bookSum = null;
+        for (BukuModel book:bookList){
+            int jumlah = 0;
+            for (PeminjamanBukuModel peminjaman:book.getListPeminjaman()){
+                if (!(peminjaman.getStatus() == 4)){
+                    jumlah+=1;
+                }
             }
+            int available = book.getJumlah()-jumlah;
+            bookSum.add(Integer.valueOf(available));
         }
+
         model.addAttribute("bookList", bookList);
-        model.addAttribute("sum", bookSum);
+        model.addAttribute("available", bookSum);
         return "book/view-detail";
     }
 
