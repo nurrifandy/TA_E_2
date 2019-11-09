@@ -21,22 +21,27 @@ public class PeminjamanBukuServiceImpl implements PeminjamanBukuService {
     }
 
     @Override
+    public PeminjamanBukuModel findLoanByIdLoan(Long id) { return peminjamanBukuDb.findPeminjamanBukuModelById(id).get(); }
+
+    @Override
     public List<PeminjamanBukuModel> getPeminjamanList(){
         return peminjamanBukuDb.findAll();
     }
 
+    @Override
     public List<PeminjamanBukuModel> findAll(){
         return peminjamanBukuDb.findAll();
     }
 
-//    public List<PeminjamanBukuModel> findAllPeminjamanBukuByUuidUser(String UuidUser){
-//        return peminjamanBukuDb.findByUuidUser(UuidUser);
-//    }
+    public List<PeminjamanBukuModel> findAllPeminjamanBukuByUuidUser(String UuidUser){
+        return peminjamanBukuDb.findPeminjamanBukuModelByUserUuid(UuidUser);
+    }
 
-    public PeminjamanBukuModel updateStatus(PeminjamanBukuModel peminjamanBuku, int status){
+    @Override
+    public PeminjamanBukuModel updateStatus(PeminjamanBukuModel peminjamanBuku){
         try{
             PeminjamanBukuModel targetPeminjamanBuku = peminjamanBukuDb.findById(peminjamanBuku.getId()).get();
-            targetPeminjamanBuku.setStatus(status);
+            targetPeminjamanBuku.setStatus(peminjamanBuku.getStatus());
             peminjamanBukuDb.save(targetPeminjamanBuku);
             return targetPeminjamanBuku;
         } catch (NullPointerException nullException) {

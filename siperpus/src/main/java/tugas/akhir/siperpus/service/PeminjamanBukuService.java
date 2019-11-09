@@ -10,9 +10,11 @@ public interface PeminjamanBukuService {
 
     List<PeminjamanBukuModel> findAll();
 
-//    List<PeminjamanBukuModel> findAllPeminjamanBukuByUuidUser(String UuidUser);
+    List<PeminjamanBukuModel> findAllPeminjamanBukuByUuidUser(String UuidUser);
 
-    PeminjamanBukuModel updateStatus(PeminjamanBukuModel peminjamanBuku, int Status);
+    PeminjamanBukuModel findLoanByIdLoan(Long id);
+
+    PeminjamanBukuModel updateStatus(PeminjamanBukuModel peminjamanBuku);
 
     List<PeminjamanBukuModel> getPeminjamanList();
 }

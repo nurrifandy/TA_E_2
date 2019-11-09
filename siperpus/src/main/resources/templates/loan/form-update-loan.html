@@ -1,10 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://thymeLeaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Update Book</title>
+    <title>Update Loan</title>
     <object th:include="fragments/fragment :: js" th:remove="tag"></object>
     <object th:include="fragments/fragment :: css" th:remove="tag"></object>
 </head>
@@ -14,14 +11,21 @@
         <div class="col-md-4"></div>
         <div class="col-md-4">
             <div class="card">
-                <div class="card-header">Update Book</div>
+                <div class="card-header">Update Loan</div>
                 <div class="card-body">
                     <div>
-                        <form th:action="@{/book/update/{id}(id=${book.id})}" th:object="${book}" method="POST">
+                        <form th:action="@{/loan/update/{id}(id=${loan.id})}" th:object="${loan}" method="POST">
                             <div class="form-group row">
-                                <label class="col-md-4 col-form-label" for="inputJumlah"><b>Jumlah Buku :</b></label>
+                                <label class="col-md-4 col-form-label" for="inputStatus"><b>Status:</b></label>
                                 <div class="col-md-8">
-                                    <input type="number" id="inputJumlah" th:value="${book.jumlah}" class="form-control border rounded-pill" name="jumlah">
+                                    <select id="inputStatus" class="form-control border rounded-pill" th:field="${loan.status}" name="status">
+                                        <option th:value="0">Menunggu Persetujuan</option>
+                                        <option th:value="1">Ditolak</option>
+                                        <option th:value="2">Disetujui</option>
+                                        <option th:value="3">Sudah Diambil</option>
+                                        <option th:value="4">Sudah Dikembalikan</option>
+                                        <option th:value="5">Overdue</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="d-flex justify-content-center mb-2">

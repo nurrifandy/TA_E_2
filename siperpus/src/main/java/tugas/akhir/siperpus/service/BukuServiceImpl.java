@@ -24,8 +24,8 @@ public class BukuServiceImpl implements BukuService{
 
     @Override
     public BukuModel updateBook(BukuModel book){
-        BukuModel currBook = bukuDb.findById(book.getId()).get();
         try{
+            BukuModel currBook = bukuDb.findById(book.getId()).get();
             currBook.setJumlah(book.getJumlah());
             bukuDb.save(currBook);
             return currBook;
