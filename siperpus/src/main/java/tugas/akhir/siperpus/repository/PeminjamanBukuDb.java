@@ -5,8 +5,10 @@ import org.springframework.stereotype.Repository;
 import tugas.akhir.siperpus.model.PeminjamanBukuModel;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface PeminjamanBukuDb extends JpaRepository<PeminjamanBukuModel, Long> {
-//    List<PeminjamanBukuModel> findByUuidUser(String UuidUser);
+    Optional<PeminjamanBukuModel> findPeminjamanBukuModelById(Long id);
+    List<PeminjamanBukuModel> findPeminjamanBukuModelByUserUuid(String UuidUser);
 }

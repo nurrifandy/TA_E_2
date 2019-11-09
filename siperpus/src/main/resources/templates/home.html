@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Home</title>
-    <object th:include="fragments/fragment :: getBootstrap" th:remove="tag"></object>
-    <object th:include="fragments/fragment :: css-js" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
 </head>
 
 <body class="home-body">
@@ -14,7 +14,8 @@
         <nav th:replace="fragments/fragment :: navbar" class="overlay"></nav>
         <div class="landing-text-custom">
             <h1 class="display-4 font-weight-normal" data-aos="fade-in">Welcome</h1>
-            <p class="lead font-weight-normal" th:text="${#httpServletRequest.remoteUser}"></p>
+            <p class="lead font-weight-normal"data-aos="fade-in" data-aos-delay="100"> Kucingku </p>
+            <a href="#service" class="main-btn" data-aos="fade-in" data-aos-delay="200">Explore</a>
         </div>
     </header>
 
@@ -25,7 +26,7 @@
             </div>
             <div class="about-details" data-aos="fade-left" data-aos-delay="300">
                 <div>
-                    <h1>About</h1>
+                    <h1 class="home-title">About</h1>
                 </div>
                 <p>
                    Perpustakaan SMART menyediakan berbagai macam buku. Mulai dari buku pelajaran hingga hingga buku populer seperti novel dan juga koran/majalah. Aset buku ini dapat digunakan dalam proses belajar mengajar, sebagai referensi, ataupun sebagai sarana hiburan yang positif bagi siswa. Dengan menggunakan sistem informasi perpustakaan, diharapkan dapat meningkatkan proses bisnis menjadi lebih cepat, tepat, transparan, dan akuntabel.
@@ -34,15 +35,15 @@
         </div>
     </section>
 
-    <section class="section-custom section-features">
+    <section class="section-custom section-features" id="service">
         <div class="container">
-            <h1 class="text-center m-5" data-aos="fade-down">Our Service</h1>
+            <h1 class="text-left mb-5 home-title" data-aos="fade-down"> Our Services </h1>
             <div class="row">
                 <div class="col-md-4 col-sm-6" data-aos="fade-in" data-aos-delay="300">
                     <a th:href="@{/book/detail}">
                         <div class="feature-box">
                             <div class="icon">
-                                <i style="font-size: 70px" class="flaticon-book"></i>
+                                <i class="flaticon-book"></i>
                             </div>
                             <h3>Explore the Books</h3>
                             <p>Melihat dan mengelola daftar seluruh buku yang terdapat di perpustakaan</p>
@@ -50,10 +51,10 @@
                     </a>
                 </div>
                 <div class="col-md-4 col-sm-6" data-aos="fade-in" data-aos-delay="600">
-                    <a th:href="@{/loan/view}">
+                    <a th:href="@{/loan/add}">
                         <div class="feature-box">
                             <div class="icon">
-                                <i style="font-size: 70px" class="flaticon-business-and-finance"></i>
+                                <i class="flaticon-loan"></i>
                             </div>
                             <h3>Loan the Books</h3>
                             <p>Mengajukan peminjaman terhadap buku yang tersedia</p>
@@ -64,7 +65,7 @@
                     <a th:href="@{/}">
                         <div class="feature-box">
                             <div class="icon">
-                                <i style="font-size: 70px" class="flaticon-question"></i>
+                                <i class="flaticon-application"></i>
                             </div>
                             <h3>Request Procurement</h3>
                             <p>Mengajukan pengadaan buku kepada perpustakawan</p>
@@ -74,8 +75,157 @@
             </div>
         </div>
     </section>
-    <footer class="footer">
-        <div class="container text-center">
+
+    <section class="section-custom section-features">
+        <div class="container">
+            <h1 class="text-right mb-5 home-title" data-aos="fade-down"> Our Features </h1>
+            <div class="row">
+                <div class="col-md-4 col-sm-6" style="border-right: 2px solid #ACADBC; border-bottom: 2px solid #ACADBC;" data-aos="fade-in" data-aos-delay="100">
+                    <div class="feature-icon">
+                        <i class="flaticon-loupe"></i>
+                    </div>
+                    <div class="service-text">
+                        <h5>Melihat Detail Buku</h5>
+                        <p>Dengan fitur ini, anda dapat melihat daftar buku yang tersedia pada perpustakaan SMART.
+                        Informasi yang dapat anda lihat berupa judul, pengarang, tipe, dan jumlah buku yang tersedia.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6" style="border-right: 2px solid #ACADBC; border-bottom: 2px solid #ACADBC;" data-aos="fade-in" data-aos-delay="200">
+                    <div class="feature-icon">
+                        <i class="flaticon-content"></i>
+                    </div>
+                    <div class="service-text">
+                        <h5>Mengelola Buku</h5>
+                        <p>Fitur ini dapat diakses oleh pustakawan seperti menambah buku, mengubah jumlah buku, dan menghapus buku.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6" style="border-bottom: 2px solid #ACADBC;" data-aos="fade-in" data-aos-delay="300">
+                    <div class="feature-icon">
+                        <i class="flaticon-loan"></i>
+                    </div>
+                    <div class="service-text">
+                        <h5>Mengajukan Peminjaman Buku</h5>
+                        <p>Anda dapat melakukan peminjaman terhadap buku yang tersedia di perpustakaan SMART dengan batas pengembalian
+                            selama 7 hari setelah permintaan anda disetujui. Ingat, jika telat mengembalikan ada dendanya lho!</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 col-sm-6" style="border-right: 2px solid #ACADBC; border-bottom: 2px solid #ACADBC;" data-aos="fade-in" data-aos-delay="200">
+                    <div class="feature-icon">
+                        <i class="flaticon-file"></i>
+                    </div>
+                    <div class="service-text">
+                        <h5>Melihat Daftar Pengajuan Peminjaman Buku</h5>
+                        <p>fitur ini dapat menampilkan daftar pengajuan peminjaman yang anda lakukan.
+                            Jika anda seorang pustakawan, fitur ini dapat menampilkan daftar seluruh peminjaman yang sedang terjadi di perpustakaan SMART.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6" style="border-right: 2px solid #ACADBC; border-bottom: 2px solid #ACADBC;" data-aos="fade-in" data-aos-delay="300">
+                    <div class="feature-icon">
+                        <i class="flaticon-implement"></i>
+                    </div>
+                    <div class="service-text">
+                        <h5>Mengelola Pengajuan Peminjaman Buku</h5>
+                        <p>Dengan fitur ini, seorang pustakawan dapat menyetujui atau menolak pengajuan peminjaman buku yang ada di perpustakaan SMART.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6" style="border-bottom: 2px solid #ACADBC;" data-aos="fade-in" data-aos-delay="400">
+                    <div class="feature-icon">
+                        <i class="flaticon-box"></i>
+                    </div>
+                    <div class="service-text">
+                        <h5>Mengajukan Pengadaan Buku</h5>
+                        <p>Buku yang anda cari tidak ada? tenang saja. Dengan fitur ini anda dapat mengajukan kepada perpustakaan SMART untuk mengadakan buku yang anda cari.
+                        Nantinya pengajuan anda akan diproses oleh koperasi SMART untuk diputuskan apakah buku yang anda usulkan akan disetujui atau tidak.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 col-sm-6" style="border-right: 2px solid #ACADBC" data-aos="fade-in" data-aos-delay="300">
+                    <div class="feature-icon">
+                        <i class="flaticon-inspection"></i>
+                    </div>
+                    <div class="service-text">
+                        <h5>Melihat Daftar Pengajuan Pengadaan Buku</h5>
+                        <p>Dengan fitur ini,anda dapat melihat daftar pengajuan pengadaan buku yang anda lakukan.
+                            Jika anda seorang pustakawan, fitur ini dapat menampilkan daftar seluruh pengajuan pengadaan yang sedang terjadi di perpustakaan SMART.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6" style="border-right: 2px solid #ACADBC" data-aos="fade-in" data-aos-delay="400">
+                    <div class="feature-icon">
+                        <i class="flaticon-execution"></i>
+                    </div>
+                    <div class="service-text">
+                        <h5>Mengelola Pengajuan Pengadaan Buku</h5>
+                        <p>Fitur ini dapat memberikan akses kepada anda untuk menghapus pengajuan pengadaan yang telah anda lakukan sebelum disetujui.
+                        Jika anda seorang pustakawan, anda juga dapat menghapus pengajuan pengadaan yang sedang terjadi di perpustakaan SMART.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6" data-aos="fade-in" data-aos-delay="500">
+                    <div class="feature-icon">
+                        <i class="flaticon-shield"></i>
+                    </div>
+                    <div class="service-text">
+                        <h5>Sistem Dilengkapi dengan Keamanan Ekstra</h5>
+                        <p>Sistem Informasi Perpustakaan dilengkapi dengan sistem Login dan Logout untuk seluruh pengguna untuk menangani otentifikasi.
+                        Sistem juga dilengkapi dengan pemberian role kepada setiap pengguna agar otorisasi sistem tetap terjaga.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-team mt-5">
+        <div class="container">
+            <div class="up float-right" id="up">
+                <i class="fas fa-chevron-up"></i>
+            </div>
+            <div class="row">
+                <div class="col-sm-7" data-aos="fade-right">
+                    <h1 class="ml-5 mt-5 mb-4 p-3 col-md-5 team-title"> Our Team </h1>
+                    <div class="row">
+                        <div class="mr-2 mb-5 ml-5">
+                            <figure class="team-shape">
+                                <img src="images/1.jpg" alt="Profile" class="team-image">
+                                <figcaption class="team-name">Nur Rifandy</figcaption>
+                            </figure>
+                        </div>
+                        <div class="mr-2 mb-5">
+                            <figure class="team-shape">
+                                <img src="images/2.jpg" alt="Profile" class="team-image">
+                                <figcaption class="team-name">Oktafia Sutanti</figcaption>
+                            </figure>
+                        </div>
+                        <div class="mr-2 mb-5">
+                            <figure class="team-shape">
+                                <img src="images/3.jpg" alt="Profile" class="team-image">
+                                <figcaption class="team-name">Windu Andira</figcaption>
+                            </figure>
+                        </div>
+                        <div class="mr-2 mb-5">
+                            <figure class="team-shape">
+                                <img src="images/4.jpg" alt="Profile" class="team-image">
+                                <figcaption class="team-name">Ailsa Zayyan</figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-5 mt-5 text-right text-white" data-aos="fade-left">
+                    <h1 class="mt-5 pt-3 pb-3"> Contact Us </h1>
+                    <p class="mb-0"> Fakultas Ilmu Komputer </p>
+                    <p class="mb-0"> Universitas Indonesia </p>
+                    <p class="mb-0"> 0877 5208 3362 </p>
+                    <p class="mb-0"> nur.rifandy@ui.ac.id </p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <footer class="footer" style="background-color: #7F7EFF">
+        <div class="container text-center text-white">
             <small> &copy; 2019 TA-E-2 APAP FASILKOM Universitas Indonesia. All Rights Reserved </small>
         </div>
     </footer>
