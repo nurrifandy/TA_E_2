@@ -1,5 +1,7 @@
 package tugas.akhir.siperpus.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -20,6 +22,7 @@ public class RoleModel implements Serializable{
     private String nama;
 
     @OneToMany(mappedBy = "role", fetch = FetchType.LAZY, cascade= CascadeType.ALL)
+    @JsonIgnore
     private List<UserModel> listUser;
 
     public long getId() {
