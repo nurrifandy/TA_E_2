@@ -1,4 +1,4 @@
-package tugas.akhir.siperpus.controller.restController;
+package tugas.akhir.siperpus.restController;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
