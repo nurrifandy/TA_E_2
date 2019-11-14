@@ -20,6 +20,7 @@ public class UserModel implements Serializable{
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name="system-uuid", strategy = "uuid")
+    @JsonIgnore
     private String uuid;
 
     @NotNull
@@ -30,27 +31,25 @@ public class UserModel implements Serializable{
     @NotNull
     @Lob
     @Column(name = "password", nullable = false)
+    @JsonIgnore
     private String password;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "idRole", updatable = false, insertable = false, referencedColumnName = "id")
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
     private RoleModel role;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade= CascadeType.ALL)
+    @JsonIgnore
     private List<PengadaanBukuModel> listPengadaan;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade= CascadeType.ALL)
+    @JsonIgnore
     private List<PeminjamanBukuModel> listPeminjaman;
 
-    public String getId() {
-        return uuid;
-    }
+    public String getUuid() { return uuid; }
 
-    public void setId(String uuid) {
-        this.uuid = uuid;
-    }
+    public void setUuid(String uuid) { this.uuid = uuid; }
 
     public String getUsername() {
         return username;
