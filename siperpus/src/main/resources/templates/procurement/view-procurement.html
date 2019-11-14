@@ -20,7 +20,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p th:text="'Status pengajuan peminjaman buku dengan id ' + ${loan.id} + ' berhasil diubah!'"> </p>
+                <p th:text="'Status pengajuan peminjaman buku dengan id ' + ' berhasil diubah!'"> </p>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-sm btn-danger text-white" data-dismiss="modal">Tutup</button>
@@ -28,42 +28,46 @@
         </div>
     </div>
 </div>
-<div class="row mt-5 ">
+<div class="row mt-5 text-center">
     <div class="col-md-9 mx-auto">
         <div class="card">
             <div class="card-header bg-dark text-white">
-                Daftar Peminjaman
+                Daftar Pengadaan
             </div>
             <div class="card-body">
-                <table class="table table-striped">
+                <table class="table table-striped table-responsive">
                     <thead>
                     <tr>
                         <th>No</th>
                         <th>Judul Buku</th>
-                        <th>Tanggal Peminjaman</th>
-                        <th>Tanggal Pengembalian</th>
+                        <th>Pengarang</th>
+                        <th>Penerbit</th>
+                        <th>Jumlah</th>
+                        <th>Harga</th>
                         <th>Status</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="pinjam, iterationStatus : *{peminjamanList}">
+                    <tr th:each="pengadaan, iterationStatus : *{listPengadaan}">
                         <td th:text="${iterationStatus.count}"> </td>
-                        <td th:text="${pinjam.buku.getJudul()}"></td>
-                        <td th:text="${#dates.format(pinjam.tanggalPeminjaman,'dd-MMM-yyyy')}"></td>
-                        <td th:text="${#dates.format(pinjam.tanggalPengembalian,'dd-MMM-yyyy')}"></td>
+                        <td th:text="${pengadaan.judul}"></td>
+                        <td th:text="${pengadaan.pengarang}"></td>
+                        <td th:text="${pengadaan.penerbit}"></td>
+                        <td th:text="${pengadaan.jumlah}"></td>
+                        <td th:text="${pengadaan.harga}"></td>
                         <td>
-                            <span th:if="${pinjam.status==0}">Menunggu Persetujuan</span>
-                            <span th:if="${pinjam.status==1}">Ditolak</span>
-                            <span th:if="${pinjam.status==2}">Disetujui</span>
-                            <span th:if="${pinjam.status==3}">Sudah Diambil</span>
-                            <span th:if="${pinjam.status==4}">Sudah Dikembalikan</span>
-                            <span th:if="${pinjam.status==5}">Overdue</span>
+                            <span th:if="${pengadaan.status==0}">Usulan Pengguna</span>
+                            <span th:if="${pengadaan.status==1}">Menunggu Persutujuan</span>
+                            <span th:if="${pengadaan.status==2}">Ditolak</span>
+                            <span th:if="${pengadaan.status==3}">Disetujui</span>
+                            <span th:if="${pengadaan.status==4}">Sudah Dikembalikan</span>
+                            <span th:if="${pengadaan.status==5}">Overdue</span>
                         </td>
                         <td>
                             <div class="btn-group">
-                                <button class="btn btn-primary mr-2"><a class="text-light" th:href="@{/loan/update/{id}(id=${pinjam.id})}" style="text-decoration: none;">update</a></button>
+                                <button class="btn btn-primary mr-2"><a class="text-light" th:href="@{/loan/update/{id}(id=${pengadaan.id})}" style="text-decoration: none;">update</a></button>
 
-                                <button class="btn btn-danger"><a class="text-light" th:href="@{/loan/delete/{id}(id=${pinjam.id})}">delete</a></button>
+                                <button class="btn btn-danger"><a class="text-light" th:href="@{/loan/delete/{id}(id=${pengadaan.id})}">delete</a></button>
                             </div>
                         </td>
                     </tr>
