@@ -13,6 +13,9 @@ import tugas.akhir.siperpus.service.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 @Controller
@@ -103,6 +106,15 @@ public class BukuController{
         return "book/view-detail";
     }
 
-
-
+    /**
+     * api untuk overdue book
+     * 
+     * @param model
+     * @return
+     */
+    @PostMapping(value="/overdue")
+    public String postMethodName(Model model) {
+        //TODO: process POST request
+        return "";
+    }
 }

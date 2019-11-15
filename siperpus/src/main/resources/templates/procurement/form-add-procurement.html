@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeLeaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Add Pengadaan</title>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+</head>
+<body class="h-100">
+        <nav th:replace="fragments/fragment :: navbar"></nav>
+        <content class="m-3">
+            <div class="container border p-3 rounded shadow">
+            <div class="h3 mb-3 text-center p-2">Tambah Pengadaan</div>
+            <div>
+                <form th:action="@{/procurement/add}" th:object="${pengadaan}" method="POST">
+                    <div class="form-group row">
+                        <label for="inputNama" class="col-md-2 col-form-label"><b>Judul</b></label>
+                        <div class="col-md-10">
+                            <input class="form-control form-control-plaintext border rounded-pill" type="text" id="inputNama" name="judul" placeholder=" example : Laskar Pelangi ">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputNIK" class="col-md-2 col-form-label"><b>Pengarang</b></label>
+                        <div class="col-md-10">
+                            <input class="form-control form-control-plaintext border rounded-pill" type="text" id="inputNIK" name="pengarang" placeholder=" example : Andria Hirata ">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputTgl" class="col-md-2 col-form-label"><b>Penerbit</b></label>
+                        <div class="col-md-10">
+                            <input class="form-control-plaintext form-control border rounded-pill" type="text" id="inputTgl" name="penerbit" placeholder=" example : Media Kita">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputTmp" class="col-md-2 col-form-label"><b>Jumlah</b></label>
+                        <div class="col-md-10">
+                            <input class="form-control form-control-plaintext border rounded-pill" type="number" id="inputTmp" name="jumlah" placeholder=" example : 7 ">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                            <label for="inputTmp" class="col-md-2 col-form-label"><b>Harga</b></label>
+                            <div class="col-md-10">
+                                <input class="form-control form-control-plaintext border rounded-pill" type="number" id="inputTmp" name="harga" placeholder=" example : 78000 ">
+                            </div>
+                        </div>
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary mt-2" name="save">Submit</button>
+                    </div>
+                </form>
+            </div>
+            </div>
+        </content>
+    </body>
+</html>
