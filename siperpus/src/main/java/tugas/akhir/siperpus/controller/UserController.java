@@ -44,7 +44,11 @@ public class UserController {
         newUser.setUsername(user.getUsername());
         newUser.setPassword(user.getPassword());
         userService.addUser(newUser);
-        userRestService.register(user,newUser);
+        userRestService.register(user,newUser).subscribe(
+                value -> System.out.println(value),
+                error -> error.printStackTrace(),
+                () -> System.out.println("completed without a value")
+        );
         return "book/add-user-submit";
     }
 }
