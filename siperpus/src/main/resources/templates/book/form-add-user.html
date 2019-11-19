@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <title>Add Book</title>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+</head>
+
+<body style="font-family: 'Montserrat', sans-serif; color">
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<h1 class="text-center font-weight-bold mt-5" > Tambah User </h1>
+<div class="row mt-5 ">
+    <div class="col-md-10 mx-auto">
+        <div class="card">
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                    <form th:action="@{/user/addUser}" th:object="${user}" method="POST" id="test">
+                        User :
+                        <input class="form-control" type="text" name="username" />
+                        <br><br>
+
+                        Password :
+                        <input class="form-control" type="text" name="password" />
+                        <br><br>
+
+                        <label>Role : </label>
+                        <select class="form-control" form="test" name="role">
+                            <option value="">--Pilih Role--</option>
+                            <option th:each="spes : ${roleList}" th:value="${spes.id}"
+                                    th:text="${spes.nama}"></option>
+                        </select>
+                        <br><br>
+                        Nama :
+                        <input class="form-control" type="text" name="nama" />
+                        <br><br>
+
+                        Tempat Lahir :
+                        <input class="form-control" type="text" name="tempatLahir" />
+                        <br><br>
+
+                        Tanggal Lahir :
+                        <input class="form-control" type="date" name="tanggalLahir" />
+                        <br><br>
+
+                        Alamat :
+                        <input class="form-control" type="text" name="alamat" />
+                        <br><br>
+
+                        Telepon :
+                        <input class="form-control" type="text" name="telepon" />
+                        <br><br>
+
+
+                        <div class="text-center">
+                            <button class="btn btn-sm btn-dark" type="submit">
+                                <a style="color: white"> Submit</a>
+                            </button>
+                        </div>
+                    </form>
+
+            </div>
+            </tbody>
+            </table>
+</body>
+</html>

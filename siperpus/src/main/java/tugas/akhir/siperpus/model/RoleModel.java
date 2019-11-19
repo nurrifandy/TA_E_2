@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
 public class RoleModel implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @NotNull
     @Size(max = 200)
@@ -22,8 +22,9 @@ public class RoleModel implements Serializable{
     private String nama;
 
     @OneToMany(mappedBy = "role", fetch = FetchType.LAZY, cascade= CascadeType.ALL)
-    @JsonIgnore
     private List<UserModel> listUser;
+
+
 
     public long getId() {
         return id;
