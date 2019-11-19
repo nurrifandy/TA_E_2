@@ -29,14 +29,14 @@ public class UserModel implements Serializable{
     private String username;
 
     @NotNull
-    @Lob
     @Column(name = "password", nullable = false)
     @JsonIgnore
     private String password;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "idRole", updatable = false, insertable = false, referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "idRole", referencedColumnName = "id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private RoleModel role;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade= CascadeType.ALL)
