@@ -1,5 +1,6 @@
 package tugas.akhir.siperpus.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,13 +15,21 @@ import reactor.core.publisher.Mono;
 import tugas.akhir.siperpus.model.AnggotaDetailModel;
 import tugas.akhir.siperpus.model.PengadaanBukuModel;
 import tugas.akhir.siperpus.model.UserModel;
+import tugas.akhir.siperpus.service.PengadaanBukuRestService;
 import tugas.akhir.siperpus.service.PengadaanBukuService;
+import tugas.akhir.siperpus.service.UserService;
 
 @Controller
 @RequestMapping("/procurement")
 public class PengadaanBukuController{
     @Autowired
     PengadaanBukuService pengadaanBukuService;
+
+    @Autowired
+    PengadaanBukuRestService pengadaanBukuRestService;
+
+    @Autowired
+    UserService userService;
 
     @GetMapping(value="/add")
     public String formAddProcurement(Model model){
@@ -35,15 +44,26 @@ public class PengadaanBukuController{
             status = 1;
         }
         
-        //Mono<AnggotaDetailModel> koperasi = pengadaanBukuService.getAnggotaDetail();
+        //cari getAnggotaDetail(uuid) :)
+        AnggotaDetailModel koperasi = pengadaanBukuRestService.getAnggotaDetail(1).block();
         
         Boolean anggotaKoperasi= false;
-        if(anggotaKoperasi){
+        if(koperasi.getIsPengurus() && koperasi.getTotalSimpanan() == 1000000){
             status = 3;
         }
-        //set pengadaan untuk user
-        pengadaan.setStatus(status);
 
+        //set status pengadaan untuk user yang sedang login, dilakukan pengecekan terlebih dahulu
+        pengadaan.setStatus(status);
+        
+        //uuid user yang sedang login
+        UserModel user = userService.getUserByUuid("8a85de596e875f58016e8767eebe0000");
+        //set user untuk mengisi uuid
+        pengadaan.setUser(user);
+        //set user terhadap pengadaan buku
+        List<PengadaanBukuModel> listPengadaan = new ArrayList<>();
+        listPengadaan.add(pengadaan);
+        user.setListPengadaan(listPengadaan);
+        
         pengadaanBukuService.addProcurement(pengadaan);
         model.addAttribute("pengadaan", pengadaan);
         return"procurement/add-procurement-submit";

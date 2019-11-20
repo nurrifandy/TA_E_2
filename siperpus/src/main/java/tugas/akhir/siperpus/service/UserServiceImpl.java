@@ -9,6 +9,7 @@ import tugas.akhir.siperpus.model.UserModel;
 import tugas.akhir.siperpus.repository.UserDb;
 import tugas.akhir.siperpus.rest.UserDetail;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
@@ -22,6 +23,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserModel addUser (UserModel user){
         return userDb.save(user);
+    }
+
+    @Override
+    public UserModel getUserByUuid(String uuid){
+        List<UserModel> user = userDb.findByUuid(uuid);
+        return user.get(0);
     }
 
     @Override
@@ -39,6 +46,7 @@ public class UserServiceImpl implements UserService {
             return getUserByRole(role).get();
         }
     }
+
     private static int getRandomIntegerWithinRange(int min, int max) {
         int spread = max - min;
         return new Random().nextInt(spread + 1) + min;

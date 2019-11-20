@@ -1,6 +1,6 @@
 package tugas.akhir.siperpus.rest;
 
 public class Setting{
-    final public static String restoranUrl="https://a8ffe008-d582-47f6-86a8-9a0ff786e781.mock.pstmn.io";
+    final public static String mockApi="https://b90a6709-17a1-41a5-84bc-950db3bc7730.mock.pstmn.io";
     final public static String sivitasUrl="http://sivitas.herokuapp.com/api";
 }
