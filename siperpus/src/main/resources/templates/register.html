@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Home</title>
+
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+<div class="container-fluid">
+    <h2>Hello !</h2>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    Register
+                </div>
+                <div class="card-body">
+                    <div th:if="${param.error}">
+                        <span style="color: red">Invalid username or password</span>
+                    </div>
+                    <form th:action="@{/register}" method="POST" id="register">
+                        <label> Username </label>
+                        <input type="text" name="username" class="form-control"/>
+
+                        <label> Password </label>
+                        <input type="password" name="password" class="form-control"/>
+
+                        <label> Role </label>
+                        <select class="form-control" form="register" name="role">
+                            <option value="">--Pilih Role--</option>
+                            <option th:each="roleAvailable : ${listRole}" th:value="${roleAvailable.id}" th:text="${roleAvailable.nama}"></option>
+                        </select>
+
+                        <br>
+                        <button type="submit" class="btn btn-primary"> Register </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
