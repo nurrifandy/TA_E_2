@@ -6,10 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import reactor.core.publisher.Mono;
 import tugas.akhir.siperpus.model.AnggotaDetailModel;
@@ -85,4 +82,16 @@ public class PengadaanBukuController{
         model.addAttribute("listPengadaan", listPengadaan);
         return"procurement/view-procurement";
     }
+
+    @GetMapping("/delete/{id}")
+    public String deleteProcurement(@PathVariable Long id, Model model) {
+        PengadaanBukuModel existingProcurement = pengadaanBukuService.getProcurementById(id);
+        model.addAttribute("procurement", existingProcurement.getJudul());
+        if(existingProcurement.getStatus() == 0 || existingProcurement.getStatus() == 1){
+            pengadaanBukuService.delete(existingProcurement);
+            return "procurement/delete";
+        }
+        return "procurement/delete-fail";
+    }
+
 }
