@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import tugas.akhir.siperpus.model.PengadaanBukuModel;
-import tugas.akhir.siperpus.model.UserModel;
 import tugas.akhir.siperpus.repository.PengadaanBukuDb;
 
 import javax.transaction.Transactional;
@@ -18,7 +17,6 @@ public class PengadaanBukuRestServiceImpl implements PengadaanBukuRestService{
     //ServiceProducer
     @Override
     public PengadaanBukuModel addProcurement(PengadaanBukuModel pengadaanBuku) {
-        UserModel userNya = UserService
         return pengadaanBukuDb.save(pengadaanBuku);
     }
 }
