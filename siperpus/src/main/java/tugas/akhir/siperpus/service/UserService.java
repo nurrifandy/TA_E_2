@@ -12,4 +12,5 @@ public interface UserService {
     UserModel createDummyUserPengadaanIfNotExist (RoleModel role);
 //    String generateNIP(UserDetail userDetail);
     UserModel getUserByUuid(String uuid);
+    String encrypt(String password);
 }
