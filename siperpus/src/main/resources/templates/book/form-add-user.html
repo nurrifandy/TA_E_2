@@ -26,11 +26,15 @@
                         <input class="form-control" type="text" name="password" />
                         <br><br>
 
+<!--                        Role :-->
+<!--                        <input class="form-control" type="text"  disabled field="'Pustakawan'">-->
+<!--                        <br><br>-->
+
                         <label>Role : </label>
                         <select class="form-control" form="test" name="role">
                             <option value="">--Pilih Role--</option>
-                            <option th:each="spes : ${roleList}" th:value="${spes.id}"
-                                    th:text="${spes.nama}"></option>
+                            <option th:value=5
+                                    th:text="Pustakawan"></option>
                         </select>
                         <br><br>
                         Nama :
