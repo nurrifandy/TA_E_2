@@ -10,7 +10,7 @@ import tugas.akhir.siperpus.service.UserRestService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/")
 public class UserRestController {
     @Autowired
     private UserRestService userRestService;
