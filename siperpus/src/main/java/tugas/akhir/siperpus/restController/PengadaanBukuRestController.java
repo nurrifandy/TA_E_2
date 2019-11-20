@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import tugas.akhir.siperpus.model.PengadaanBukuModel;
 import tugas.akhir.siperpus.model.RoleModel;
-import tugas.akhir.siperpus.model.UserModel;
+import tugas.akhir.siperpus.rest.BaseResponse;
 import tugas.akhir.siperpus.service.PengadaanBukuRestService;
 import tugas.akhir.siperpus.service.RoleService;
 import tugas.akhir.siperpus.service.UserService;
@@ -30,14 +30,18 @@ public class PengadaanBukuRestController {
     private RoleService roleService;
 
     @PostMapping(value = "/addProcurement")
-    private PengadaanBukuModel addProcurement(@Valid @RequestBody PengadaanBukuModel pengadaanBuku, BindingResult bindingResult) {
+    private BaseResponse<PengadaanBukuModel> addProcurement(@Valid @RequestBody PengadaanBukuModel pengadaanBuku, BindingResult bindingResult) {
+        BaseResponse<PengadaanBukuModel> response = new BaseResponse<>();
         if (bindingResult.hasFieldErrors()) {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST, "Request body has invalid type or missing field");
         } else {
             RoleModel roleNya = roleService.getRoleByIdRole(6L).get();
             pengadaanBuku.setUser(userService.createDummyUserPengadaanIfNotExist(roleNya));
-            return pengadaanBukuRestService.addProcurement(pengadaanBuku);
-        }
+            response.setStatus(200);
+            response.setMessage("success");
+            response.setResult(pengadaanBukuRestService.addProcurement(pengadaanBuku));
+
+        } return response;
     }
 }
