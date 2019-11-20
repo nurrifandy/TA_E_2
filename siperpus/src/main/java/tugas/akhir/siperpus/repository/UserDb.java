@@ -12,5 +12,9 @@ import tugas.akhir.siperpus.model.UserModel;
 
 @Repository
 public interface UserDb extends JpaRepository<UserModel, Long>{
+
     List<UserModel> findByUuid(String uuid);
+
+    Optional<UserModel> findByRoleId(Long id);
+
 }

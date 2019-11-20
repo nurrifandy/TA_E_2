@@ -48,7 +48,7 @@ public class PengadaanBukuController{
         AnggotaDetailModel koperasi = pengadaanBukuRestService.getAnggotaDetail(1).block();
         
         Boolean anggotaKoperasi= false;
-        if(koperasi.getIsPengurus()){
+        if(koperasi.getIsPengurus() && koperasi.getTotalSimpanan() == 1000000){
             status = 3;
         }
 

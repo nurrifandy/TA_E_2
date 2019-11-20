@@ -18,7 +18,7 @@ public class AnggotaDetailModel{
     private String uuidUser;
 
     @JsonProperty("total_simpanan")
-    private String totalSimpanan;
+    private int totalSimpanan;
 
     /**
      * @return the id
@@ -74,14 +74,14 @@ public class AnggotaDetailModel{
     /**
      * @return the totalSimpanan
      */
-    public String getTotalSimpanan() {
+    public int getTotalSimpanan() {
         return totalSimpanan;
     }
 
     /**
      * @param totalSimpanan the totalSimpanan to set
      */
-    public void setTotalSimpanan(String totalSimpanan) {
+    public void setTotalSimpanan(int totalSimpanan) {
         this.totalSimpanan = totalSimpanan;
     }
 }

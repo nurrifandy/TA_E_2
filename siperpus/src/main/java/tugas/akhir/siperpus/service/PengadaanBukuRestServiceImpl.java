@@ -7,7 +7,6 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 import tugas.akhir.siperpus.model.AnggotaDetailModel;
 import tugas.akhir.siperpus.model.PengadaanBukuModel;
-import tugas.akhir.siperpus.model.UserModel;
 import tugas.akhir.siperpus.repository.PengadaanBukuDb;
 import tugas.akhir.siperpus.rest.Setting;
 

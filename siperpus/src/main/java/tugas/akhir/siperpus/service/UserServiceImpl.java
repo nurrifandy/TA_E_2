@@ -1,13 +1,16 @@
 package tugas.akhir.siperpus.service;
 
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import tugas.akhir.siperpus.model.RoleModel;
 import tugas.akhir.siperpus.model.UserModel;
 import tugas.akhir.siperpus.repository.UserDb;
 import tugas.akhir.siperpus.rest.UserDetail;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 @Service
@@ -26,6 +29,22 @@ public class UserServiceImpl implements UserService {
     public UserModel getUserByUuid(String uuid){
         List<UserModel> user = userDb.findByUuid(uuid);
         return user.get(0);
+    }
+
+    @Override
+    public Optional<UserModel> getUserByRole (RoleModel role) { return userDb.findByRoleId(role.getId()); }
+
+    @Override
+    public UserModel createDummyUserPengadaanIfNotExist (RoleModel role) {
+        if(getUserByRole(role).isEmpty()){
+            UserModel userNya = new UserModel();
+            userNya.setUsername("PengajuPengadaanBukuEksternal");
+            userNya.setPassword("PasswordPengajuPengadaanBukuEksternal");
+            userNya.setRole(role);
+            return addUser(userNya);
+        } else {
+            return getUserByRole(role).get();
+        }
     }
 
     private static int getRandomIntegerWithinRange(int min, int max) {
