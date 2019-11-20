@@ -44,7 +44,7 @@ public class PengadaanBukuModel {
     @Column(name = "status", nullable = false)
     private int status;
 
-
+ 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "uuidUser", referencedColumnName = "uuid", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)

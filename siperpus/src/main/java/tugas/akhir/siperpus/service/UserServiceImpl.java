@@ -7,6 +7,7 @@ import tugas.akhir.siperpus.model.UserModel;
 import tugas.akhir.siperpus.repository.UserDb;
 import tugas.akhir.siperpus.rest.UserDetail;
 
+import java.util.List;
 import java.util.Random;
 
 @Service
@@ -19,6 +20,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserModel addUser (UserModel user){
         return userDb.save(user);
+    }
+
+    @Override
+    public UserModel getUserByUuid(String uuid){
+        List<UserModel> user = userDb.findByUuid(uuid);
+        return user.get(0);
     }
 
     private static int getRandomIntegerWithinRange(int min, int max) {

@@ -11,8 +11,14 @@ public class AnggotaDetailModel{
     @JsonProperty("nama")
     private String nama;
 
-    @JsonProperty("is-pengurus")
+    @JsonProperty("is_pengurus")
     private Boolean isPengurus;
+
+    @JsonProperty("uuid_user")
+    private String uuidUser;
+
+    @JsonProperty("total_simpanan")
+    private String totalSimpanan;
 
     /**
      * @return the id
@@ -49,5 +55,33 @@ public class AnggotaDetailModel{
      */
     public void setIsPengurus(Boolean isPengurus) {
         this.isPengurus = isPengurus;
+    }
+
+    /**
+     * @return the uuidUser
+     */
+    public String getUuidUser() {
+        return uuidUser;
+    }
+
+    /**
+     * @param uuidUser the uuidUser to set
+     */
+    public void setUuidUser(String uuidUser) {
+        this.uuidUser = uuidUser;
+    }
+
+    /**
+     * @return the totalSimpanan
+     */
+    public String getTotalSimpanan() {
+        return totalSimpanan;
+    }
+
+    /**
+     * @param totalSimpanan the totalSimpanan to set
+     */
+    public void setTotalSimpanan(String totalSimpanan) {
+        this.totalSimpanan = totalSimpanan;
     }
 }
