@@ -22,6 +22,7 @@ public class RoleModel implements Serializable{
     private String nama;
 
     @OneToMany(mappedBy = "role", fetch = FetchType.LAZY, cascade= CascadeType.ALL)
+    @JsonIgnore
     private List<UserModel> listUser;
 
 
