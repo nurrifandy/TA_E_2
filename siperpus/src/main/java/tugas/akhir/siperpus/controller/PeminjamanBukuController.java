@@ -9,6 +9,7 @@ import tugas.akhir.siperpus.model.SuratDetailModel;
 import tugas.akhir.siperpus.service.PeminjamanBukuService;
 import tugas.akhir.siperpus.service.SuratRestService;
 
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -30,7 +31,14 @@ public class PeminjamanBukuController {
 
     @GetMapping("/surat")
     public String makeMail(Model model){
-        SuratDetailModel surat = suratRestService.postSurat().block();
+        int id = 1;
+        String keterangan = "Test semoga bisa";
+        Date tanggal = new Date();
+        String status = "Menunggu Persetujuan";
+        String noSurat = "0";
+        String usernameUser = "mirna";
+
+        SuratDetailModel surat = suratRestService.postSurat(id,keterangan,tanggal,status,noSurat,usernameUser).block();
         model.addAttribute("surat", surat.getStatus());
         return "mail-sukses";
     }
