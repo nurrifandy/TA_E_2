@@ -16,7 +16,6 @@ import tugas.akhir.siperpus.rest.Setting;
 @Service
 @Transactional
 public class PengadaanBukuServiceImpl implements PengadaanBukuService{
-    //private final WebClient webClient;
 
     @Autowired
     PengadaanBukuDb pengadaanBukuDb;
@@ -31,13 +30,13 @@ public class PengadaanBukuServiceImpl implements PengadaanBukuService{
         pengadaanBukuDb.save(procurement);
     }
 
+    @Override
+    public PengadaanBukuModel getProcurementById(Long id) {
+        return pengadaanBukuDb.findById(id).get();
+    }
 
-    // public PengadaanBukuServiceImpl(WebClient.Builder webClientBuilder){
-    //     this.webClient = webClientBuilder.baseUrl(Setting.restoranUrl).build();
-    // }
-
-    // @Override
-    // public Mono<AnggotaDetailModel> getAnggotaDetail(){
-    //     return this.webClient.get().uri("/rest/").retrieve().bodyToMono(AnggotaDetailModel.class);
-    // }
+    @Override
+    public void delete(PengadaanBukuModel pengadaanBukuModel){
+        pengadaanBukuDb.delete(pengadaanBukuModel);
+    }
 }

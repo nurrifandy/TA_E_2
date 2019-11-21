@@ -1,19 +1,28 @@
 package tugas.akhir.siperpus.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import tugas.akhir.siperpus.model.BukuModel;
 import tugas.akhir.siperpus.model.PeminjamanBukuModel;
+
 import tugas.akhir.siperpus.repository.PeminjamanBukuDb;
 import tugas.akhir.siperpus.service.BukuService;
+
+import tugas.akhir.siperpus.model.SuratDetailModel;
+import tugas.akhir.siperpus.model.UserModel;
 import tugas.akhir.siperpus.service.PeminjamanBukuService;
+import tugas.akhir.siperpus.service.SuratRestService;
+import tugas.akhir.siperpus.service.UserService;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -28,11 +37,31 @@ public class PeminjamanBukuController {
     @Autowired
     BukuService bukuService;
 
+    @Autowired
+    SuratRestService suratRestService;
+
+    @Autowired
+    UserService userService;
+    
     @RequestMapping(value = "/view")
     public String view(Model model) {
         List<PeminjamanBukuModel> listPeminjaman = peminjamanBukuService.getPeminjamanList();
         model.addAttribute("peminjamanList", listPeminjaman);
         return "loan/view-loan";
+    }
+
+    @GetMapping("/surat")
+    public String makeMail(Model model){
+        int id = 1;
+        String keterangan = "Test semoga bisa";
+        Date tanggal = new Date();
+        String status = "Menunggu Persetujuan";
+        String noSurat = "0";
+        String usernameUser = "mirna";
+
+        SuratDetailModel surat = suratRestService.postSurat(id,keterangan,tanggal,status,noSurat,usernameUser).block();
+        model.addAttribute("surat", surat.getStatus());
+        return "mail-sukses";
     }
 
     @GetMapping("/update/{id}")
@@ -55,15 +84,27 @@ public class PeminjamanBukuController {
     @RequestMapping("/add/{idBuku}")
     public String addLoan(@PathVariable long idBuku, Model model) {
         BukuModel buku = bukuService.getBukuByIdBuku(idBuku).get();
+        UserModel user = userService.getUserByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
+        ArrayList<PeminjamanBukuModel> listPeminjaman = new ArrayList<>();
         if (buku.getJumlah() > 0){
             PeminjamanBukuModel newLoan = new PeminjamanBukuModel();
-            peminjamanBukuService.addPeminjamanBuku(newLoan, idBuku);
+            newLoan.setStatus(0);
+            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+            Date today = new Date();
+            dateFormat.format(today);
+            newLoan.setTanggalPeminjaman(today);
+            newLoan.setTanggalPengembalian(today);
+            newLoan.setUser(user);
+            listPeminjaman.add(newLoan);
+            buku.setListPeminjaman(listPeminjaman);
+            user.setListPeminjaman(listPeminjaman);
+            peminjamanBukuService.addPeminjamanBuku(newLoan);
             // model.addAttribute("hari_ini", hari_ini);
             model.addAttribute("buku", buku);
             return "loan/borrow-success";
         }
             
-        else{ System.out.println("ini masuk ke else");
+        else{
         return "loan/borrow-failed";
         }
         

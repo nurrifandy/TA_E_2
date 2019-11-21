@@ -14,7 +14,7 @@
         <nav th:replace="fragments/fragment :: navbar" class="overlay"></nav>
         <div class="landing-text-custom">
             <h1 class="display-4 font-weight-normal" data-aos="fade-in">Welcome</h1>
-            <p class="lead font-weight-normal"data-aos="fade-in" data-aos-delay="100"> Kucingku </p>
+            <p class="lead font-weight-normal"data-aos="fade-in" data-aos-delay="100" th:text="${#httpServletRequest.remoteUser}"></p>
             <a href="#service" class="main-btn" data-aos="fade-in" data-aos-delay="200">Explore</a>
         </div>
     </header>

@@ -11,9 +11,7 @@
 <body>
     <div th:text="${status.status}">
     </div>
-    <div th:each="item, stat:${user}">
-        <div th:text="${item[__stat.index__].idUser}"></div>
-    </div>
+    <div th:text="${status.user.nama}"></div>
     <!-- <nav th:replace="fragments/fragment :: navbar"></nav>
     <div class="row">
         <div class="col">

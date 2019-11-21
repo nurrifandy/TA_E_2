@@ -28,7 +28,7 @@ public class StatusDetail {
     public String message;
 
     @JsonProperty("result")
-	private Collection<UserDetail> listUser;
+	private UserDetail user;
 	
 	/**
      * @return the status
@@ -63,7 +63,23 @@ public class StatusDetail {
     /**
      * @param listUser the listUser to set
      */
-    public void setListUser(List<UserDetail> listUser) {
-        this.listUser = listUser;
+    public void setListUser(UserDetail user) {
+        this.user = user;
+    }
+    
+    /**
+     * @return the user
+     */
+    /**
+     * @return the user
+     */
+    public UserDetail getUser() {
+        return user;
+    }
+    /**
+     * @param user the user to set
+     */
+    public void setUser(UserDetail user) {
+        this.user = user;
     }
 }

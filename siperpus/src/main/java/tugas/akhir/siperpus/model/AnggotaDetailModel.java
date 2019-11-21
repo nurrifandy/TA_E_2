@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+
 public class AnggotaDetailModel{
     @JsonProperty("id")
     private Long id;
@@ -11,8 +12,14 @@ public class AnggotaDetailModel{
     @JsonProperty("nama")
     private String nama;
 
-    @JsonProperty("is-pengurus")
+    @JsonProperty("is_pengurus")
     private Boolean isPengurus;
+
+    @JsonProperty("uuid_user")
+    private String uuidUser;
+
+    @JsonProperty("total_simpanan")
+    private int totalSimpanan;
 
     /**
      * @return the id
@@ -49,5 +56,33 @@ public class AnggotaDetailModel{
      */
     public void setIsPengurus(Boolean isPengurus) {
         this.isPengurus = isPengurus;
+    }
+
+    /**
+     * @return the uuidUser
+     */
+    public String getUuidUser() {
+        return uuidUser;
+    }
+
+    /**
+     * @param uuidUser the uuidUser to set
+     */
+    public void setUuidUser(String uuidUser) {
+        this.uuidUser = uuidUser;
+    }
+
+    /**
+     * @return the totalSimpanan
+     */
+    public int getTotalSimpanan() {
+        return totalSimpanan;
+    }
+
+    /**
+     * @param totalSimpanan the totalSimpanan to set
+     */
+    public void setTotalSimpanan(int totalSimpanan) {
+        this.totalSimpanan = totalSimpanan;
     }
 }

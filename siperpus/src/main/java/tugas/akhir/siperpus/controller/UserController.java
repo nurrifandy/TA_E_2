@@ -1,6 +1,7 @@
 package tugas.akhir.siperpus.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,6 +17,7 @@ import tugas.akhir.siperpus.service.UserRestService;
 import tugas.akhir.siperpus.service.UserService;
 
 import java.io.Console;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -31,10 +33,20 @@ public class UserController {
     @RequestMapping(value="/addUser", method = RequestMethod.GET)
     private String addUserForm(Model model) {
         List<RoleModel> roleList = roleService.getListRole();
+        List<RoleModel> myList = new ArrayList<>();
+        for (RoleModel i : roleList){
+            if(i.getNama().equals("Pustakawan") || i.getNama().equals("pustakawan")){
+                if (myList.contains(i)) {
+                    continue;
+                } else {
+                    myList.add(i);
+                }
+            }
+        }
         UserDetail userDetail = new UserDetail();
+        model.addAttribute("rolePerpus", myList);
         model.addAttribute("user", userDetail);
-        model.addAttribute("roleList", roleList);
-        return "book/form-add-user";
+        return "user/form-add-user";
     }
 
     @RequestMapping(value="/addUser", method = RequestMethod.POST)
@@ -45,22 +57,22 @@ public class UserController {
         newUser.setUsername(user.getUsername());
         newUser.setPassword(user.getPassword());
         userService.addUser(newUser);
-        userRestService.register(user,newUser).subscribe(
-                value -> System.out.println(value),
-                error -> error.printStackTrace(),
-                () -> System.out.println("completed without a value")
-        );
-        return "book/add-user-submit";
+        userRestService.register(user,newUser).subscribe();
+        return "user/add-user-submit";
     }
     
-    // @RequestMapping(value="/profile", method = RequestMethod.GET)
-    // public String viewProfile( Model model){
-    //     //UserModel user = userService.getUserByUuid(uuid);
-    //     StatusDetail statusDetail = userRestService.getByUuid("4028e48b6e8441e2016e8446cb4f0001").block();
-    //     List<UserDetail> userDetail = statusDetail.getListUser();
-    //     //model.addAttribute("user", user);
-    //     model.addAttribute("status", statusDetail);
-    //     model.addAttribute("user", userDetail);
-    //     return "book/view-profile";
-    // }
+    @RequestMapping(value="/profile", method = RequestMethod.GET)
+    public String viewProfile( Model model){
+        //UserModel user = userService.getUserByUuid(uuid);
+        UserModel user = userService.getUserByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
+        String uuidUser = user.getUuid();
+        StatusDetail statusDetail = userRestService.getByUuid("4028e48b6e8441e2016e8446cb4f0001").block();
+        
+        
+        // List<UserDetail> userDetail = statusDetail.getListUser();
+        // //model.addAttribute("user", user);
+        model.addAttribute("status", statusDetail);
+        model.addAttribute("user", user);
+        return "book/view-profile";
+    }
 }

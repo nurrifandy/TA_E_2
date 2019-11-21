@@ -23,15 +23,26 @@
                         <br><br>
 
                         Password :
-                        <input class="form-control" type="text" name="password" />
+                        <input class="form-control" type="password" name="password" />
                         <br><br>
+
+<!--                        Role :-->
+<!--                        <input class="form-control" type="text"  disabled name="role" th:text="${rolePerpus.id}"-->
+<!--                        th:value="${rolePerpus.nama}">-->
+<!--                        <br><br>-->
 
                         <label>Role : </label>
                         <select class="form-control" form="test" name="role">
                             <option value="">--Pilih Role--</option>
-                            <option th:each="spes : ${roleList}" th:value="${spes.id}"
-                                    th:text="${spes.nama}"></option>
+                            <option th:each="spes : ${rolePerpus}" th:value="${spes.id}" th:text="${spes.nama}"></option>
                         </select>
+
+<!--                        <label>Supplier : </label>-->
+<!--                        <select class="form-control" form="test" name="idSupplier">-->
+<!--                            <option value="">&#45;&#45;Pilih Supplier&#45;&#45;</option>-->
+<!--                            <option th:each="spes : ${supplier}" th:value="${spes.idSupplier}"-->
+<!--                                    th:text="${spes.namaSupplier}" >-->
+<!--                        </select>-->
                         <br><br>
                         Nama :
                         <input class="form-control" type="text" name="nama" />

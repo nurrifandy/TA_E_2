@@ -25,21 +25,8 @@ public class PeminjamanBukuServiceImpl implements PeminjamanBukuService {
     BukuDb bukuDb;
 
     @Override
-    public void addPeminjamanBuku(PeminjamanBukuModel newLoan, long idBuku) {
-
-        newLoan.setStatus(0);
-
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-        Date today = new Date();
-        dateFormat.format(today); // 2016/11/16
-
-        newLoan.setTanggalPeminjaman(today);
-
-        newLoan.setTanggalPengembalian(today);
-
-        newLoan.setBuku(bukuDb.findById(idBuku).get()); // set id buku dan set id user
-
-        // peminjamanBukuDb.save(newLoan);
+    public void addPeminjamanBuku(PeminjamanBukuModel newLoan) {
+        peminjamanBukuDb.save(newLoan);
     }
 
     @Override

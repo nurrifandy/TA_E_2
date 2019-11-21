@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface PeminjamanBukuService {
 
-    void addPeminjamanBuku(PeminjamanBukuModel peminjamanBuku, long idBuku);
+    void addPeminjamanBuku(PeminjamanBukuModel peminjamanBuku);
 
     List<PeminjamanBukuModel> findAll();
 

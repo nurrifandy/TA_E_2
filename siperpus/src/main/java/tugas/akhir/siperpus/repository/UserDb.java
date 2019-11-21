@@ -1,5 +1,6 @@
 package tugas.akhir.siperpus.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,5 +12,8 @@ import tugas.akhir.siperpus.model.UserModel;
 
 @Repository
 public interface UserDb extends JpaRepository<UserModel, Long>{
-    UserModel findByUuid(String uuid);
+    List<UserModel> findByUuid(String uuid);
+    Optional<UserModel> findByUsername(String username);
+    Optional<UserModel> findByRoleId(Long id);
+    
 }
