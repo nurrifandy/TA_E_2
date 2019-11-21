@@ -2,8 +2,10 @@ package tugas.akhir.siperpus.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -87,9 +89,17 @@ public class PengadaanBukuController{
     public String deleteProcurement(@PathVariable Long id, Model model) {
         PengadaanBukuModel existingProcurement = pengadaanBukuService.getProcurementById(id);
         model.addAttribute("procurement", existingProcurement.getJudul());
-        if(existingProcurement.getStatus() == 0 || existingProcurement.getStatus() == 1){
-            pengadaanBukuService.delete(existingProcurement);
-            return "procurement/delete";
+        Optional<UserModel> user = userService.getUserByNama(SecurityContextHolder.getContext().getAuthentication().getName());
+        if(user.get().getRole().equals("Pustakawan")) {
+            if (existingProcurement.getStatus() == 0 || existingProcurement.getStatus() == 1) {
+                pengadaanBukuService.delete(existingProcurement);
+                return "procurement/delete";
+            }
+        } else if (user.get().getRole().equals("Guru") || user.get().getRole().equals("Siswa")){
+            if (existingProcurement.getStatus() == 0) {
+                pengadaanBukuService.delete(existingProcurement);
+                return "procurement/delete";
+            }
         }
         return "procurement/delete-fail";
     }
