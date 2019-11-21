@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
 
@@ -68,7 +68,7 @@
                         </td>
                         <td>
                             <div class="btn-group">
-                                <button class="btn btn-primary mr-2"><a class="text-light" th:href="@{/loan/update/{id}(id=${pinjam.id})}" style="text-decoration: none;">update</a></button>
+                                <button sec:authorize="hasAuthority('Pustakawan')" class="btn btn-primary mr-2"><a class="text-light" th:href="@{/loan/update/{id}(id=${pinjam.id})}" style="text-decoration: none;">update</a></button>
 
                                 <button class="btn btn-danger"><a class="text-light" th:href="@{/loan/delete/{id}(id=${pinjam.id})}">delete</a></button>
                             </div>
