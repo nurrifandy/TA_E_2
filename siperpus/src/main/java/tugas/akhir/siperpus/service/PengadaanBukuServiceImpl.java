@@ -29,4 +29,14 @@ public class PengadaanBukuServiceImpl implements PengadaanBukuService{
     public void addProcurement(PengadaanBukuModel procurement){
         pengadaanBukuDb.save(procurement);
     }
+
+    @Override
+    public PengadaanBukuModel getProcurementById(Long id) {
+        return pengadaanBukuDb.findById(id).get();
+    }
+
+    @Override
+    public void delete(PengadaanBukuModel pengadaanBukuModel){
+        pengadaanBukuDb.delete(pengadaanBukuModel);
+    }
 }

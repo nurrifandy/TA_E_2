@@ -10,6 +10,8 @@ public interface PengadaanBukuService{
     List<PengadaanBukuModel> getListPengadaan();
 
     void addProcurement(PengadaanBukuModel procurement);
+    PengadaanBukuModel getProcurementById(Long id);
+    void delete(PengadaanBukuModel pengadaanBukuModel);
 
     //Mono<AnggotaDetailModel> getAnggotaDetail();
 }

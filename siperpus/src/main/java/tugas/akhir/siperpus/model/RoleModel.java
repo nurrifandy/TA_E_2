@@ -16,6 +16,10 @@ public class RoleModel implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     @NotNull
     @Size(max = 200)
     @Column(name = "nama", nullable = false)
