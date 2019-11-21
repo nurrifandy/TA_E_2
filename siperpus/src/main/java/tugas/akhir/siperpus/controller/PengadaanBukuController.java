@@ -37,7 +37,7 @@ public class PengadaanBukuController{
 
     @PostMapping(value = "add")
     public String submitAddProcurement(@ModelAttribute PengadaanBukuModel pengadaan, Model model){
-
+        
         int status = 0;
         if( false/**user.getRole().getNama().equals("Pustakawan")*/){
             status = 1;
