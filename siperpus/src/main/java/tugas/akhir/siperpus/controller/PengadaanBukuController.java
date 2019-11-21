@@ -95,7 +95,7 @@ public class PengadaanBukuController{
                 pengadaanBukuService.delete(existingProcurement);
                 return "procurement/delete";
             }
-        } else if (user.get().getRole().getNama().toLowerCase().equals("guru") || user.get().getRole().getNama().toLowerCase().equals("siswa")){
+        } else {
             if (existingProcurement.getStatus() == 0) {
                 pengadaanBukuService.delete(existingProcurement);
                 return "procurement/delete";

@@ -29,7 +29,7 @@
     </div>
 </div>
 <div class="row mt-5 ">
-    <div class="col-md-9 mx-auto">
+    <div class="col-md-11 mx-auto">
         <div class="card">
             <div class="card-header bg-dark text-white">
                 Daftar Peminjaman
@@ -39,7 +39,10 @@
                     <thead>
                     <tr>
                         <th>No</th>
-                        <th>Judul Buku</th>
+                        <th>Judul</th>
+                        <th>Pengarang</th>
+                        <th>Penerbit</th>
+                        <th>Jenis</th>
                         <th>Tanggal Peminjaman</th>
                         <th>Tanggal Pengembalian</th>
                         <th>Status</th>
@@ -50,6 +53,9 @@
                     <tr th:each="pinjam, iterationStatus : *{peminjamanList}">
                         <td th:text="${iterationStatus.count}"> </td>
                         <td th:text="${pinjam.buku.getJudul()}"></td>
+                        <td th:text="${pinjam.buku.getPengarang()}"></td>
+                        <td th:text="${pinjam.buku.getPenerbit()}"></td>
+                        <td th:text="${pinjam.buku.getJenisBuku().nama}"></td>
                         <td th:text="${#dates.format(pinjam.tanggalPeminjaman,'dd-MMM-yyyy')}"></td>
                         <td th:text="${#dates.format(pinjam.tanggalPengembalian,'dd-MMM-yyyy')}"></td>
                         <td>
