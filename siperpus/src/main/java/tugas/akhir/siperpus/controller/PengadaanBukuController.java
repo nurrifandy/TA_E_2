@@ -90,12 +90,12 @@ public class PengadaanBukuController{
         PengadaanBukuModel existingProcurement = pengadaanBukuService.getProcurementById(id);
         model.addAttribute("procurement", existingProcurement.getJudul());
         Optional<UserModel> user = userService.getUserByNama(SecurityContextHolder.getContext().getAuthentication().getName());
-        if(user.get().getRole().equals("Pustakawan")) {
-            if (existingProcurement.getStatus() == 0 || existingProcurement.getStatus() == 1) {
+        if(user.get().getRole().getNama().toLowerCase().equals("pustakawan")) {
+             if (existingProcurement.getStatus() == 0 || existingProcurement.getStatus() == 1) {
                 pengadaanBukuService.delete(existingProcurement);
                 return "procurement/delete";
             }
-        } else if (user.get().getRole().equals("Guru") || user.get().getRole().equals("Siswa")){
+        } else if (user.get().getRole().getNama().toLowerCase().equals("guru") || user.get().getRole().getNama().toLowerCase().equals("siswa")){
             if (existingProcurement.getStatus() == 0) {
                 pengadaanBukuService.delete(existingProcurement);
                 return "procurement/delete";
@@ -103,5 +103,4 @@ public class PengadaanBukuController{
         }
         return "procurement/delete-fail";
     }
-
 }
