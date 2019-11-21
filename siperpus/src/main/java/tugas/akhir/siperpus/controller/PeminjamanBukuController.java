@@ -1,16 +1,21 @@
 package tugas.akhir.siperpus.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import tugas.akhir.siperpus.model.PeminjamanBukuModel;
 import tugas.akhir.siperpus.model.SuratDetailModel;
+import tugas.akhir.siperpus.model.UserModel;
 import tugas.akhir.siperpus.service.PeminjamanBukuService;
 import tugas.akhir.siperpus.service.SuratRestService;
+import tugas.akhir.siperpus.service.UserService;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/loan")
@@ -22,11 +27,46 @@ public class PeminjamanBukuController {
     @Autowired
     SuratRestService suratRestService;
 
+    @Autowired
+    UserService userService;
+
     @RequestMapping(value = "/view")
     public String view(Model model){
+        Optional<UserModel> user = userService.getUserByNama(SecurityContextHolder.getContext().getAuthentication().getName());
+        List<PeminjamanBukuModel> myListGuru = new ArrayList<>();
+        List<PeminjamanBukuModel> myListSiswa = new ArrayList<>();
         List<PeminjamanBukuModel> listPeminjaman = peminjamanBukuService.getPeminjamanList();
-        model.addAttribute("peminjamanList", listPeminjaman);
-        return "loan/view-loan";
+        if(user.get().getRole().getNama().toLowerCase().equals("pustakawan")) {
+            model.addAttribute("peminjamanList", listPeminjaman);
+            return "loan/view-loan";
+        } else {
+            if(user.get().getRole().getNama().toLowerCase().equals("siswa")) {
+                for (PeminjamanBukuModel i : listPeminjaman) {
+                    if (i.getUser().getRole().getNama().toLowerCase().equals("siswa")) {
+                        if (myListSiswa.contains(i)) {
+                            continue;
+                        } else {
+                            myListSiswa.add(i);
+                            model.addAttribute("peminjamanList", myListSiswa);
+                            return "loan/view-loan";
+                        }
+                    }
+                }
+            } else {
+                for (PeminjamanBukuModel i : listPeminjaman) {
+                    if (i.getUser().getRole().getNama().toLowerCase().equals("guru")) {
+                        if (myListGuru.contains(i)) {
+                            continue;
+                        } else {
+                            myListGuru.add(i);
+                            model.addAttribute("peminjamanList", myListGuru);
+                            return "loan/view-loan";
+                        }
+                    }
+                }
+            }
+        }
+        return "loan/view-loan-fail";
     }
 
     @GetMapping("/surat")
@@ -37,7 +77,6 @@ public class PeminjamanBukuController {
         String status = "Menunggu Persetujuan";
         String noSurat = "0";
         String usernameUser = "mirna";
-
         SuratDetailModel surat = suratRestService.postSurat(id,keterangan,tanggal,status,noSurat,usernameUser).block();
         model.addAttribute("surat", surat.getStatus());
         return "mail-sukses";

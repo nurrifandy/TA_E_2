@@ -13,4 +13,5 @@ public interface UserService {
 //    String generateNIP(UserDetail userDetail);
     UserModel getUserByUuid(String uuid);
     String encrypt(String password);
+    Optional <UserModel> getUserByNama(String username);
 }

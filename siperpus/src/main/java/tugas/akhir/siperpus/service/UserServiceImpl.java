@@ -45,6 +45,11 @@ public class UserServiceImpl implements UserService {
     public Optional<UserModel> getUserByRole (RoleModel role) { return userDb.findByRoleId(role.getId()); }
 
     @Override
+    public Optional<UserModel> getUserByNama(String username){
+        return userDb.findByUsername(username);
+    }
+
+    @Override
     public UserModel createDummyUserPengadaanIfNotExist (RoleModel role) {
         if(getUserByRole(role).isEmpty()){
             UserModel userNya = new UserModel();
