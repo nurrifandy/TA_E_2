@@ -35,31 +35,34 @@ public class PeminjamanBukuController {
         Optional<UserModel> user = userService.getUserByNama(SecurityContextHolder.getContext().getAuthentication().getName());
         List<PeminjamanBukuModel> myListGuru = new ArrayList<>();
         List<PeminjamanBukuModel> myListSiswa = new ArrayList<>();
+        List<PeminjamanBukuModel> listPeminjaman = peminjamanBukuService.getPeminjamanList();
         if(user.get().getRole().getNama().toLowerCase().equals("pustakawan")) {
-            List<PeminjamanBukuModel> listPeminjaman = peminjamanBukuService.getPeminjamanList();
             model.addAttribute("peminjamanList", listPeminjaman);
             return "loan/view-loan";
         } else {
-            List<PeminjamanBukuModel> listPeminjaman = peminjamanBukuService.getPeminjamanList();
-            for(PeminjamanBukuModel  i : listPeminjaman) {
-                if (i.getUser().getRole().getNama().equals("siswa")) {
-                    if (myListSiswa.contains(i)) {
-                        continue;
-                    } else {
-                        myListSiswa.add(i);
-                        model.addAttribute("peminjamanList", myListSiswa);
-                        return "loan/view-loan";
+            if(user.get().getRole().getNama().toLowerCase().equals("siswa")) {
+                for (PeminjamanBukuModel i : listPeminjaman) {
+                    if (i.getUser().getRole().getNama().toLowerCase().equals("siswa")) {
+                        if (myListSiswa.contains(i)) {
+                            continue;
+                        } else {
+                            myListSiswa.add(i);
+                            model.addAttribute("peminjamanList", myListSiswa);
+                            return "loan/view-loan";
+                        }
                     }
-                } else if (i.getUser().getRole().getNama().equals("guru")) {
-                    if (myListGuru.contains(i)) {
-                        continue;
-                    } else {
-                        myListGuru.add(i);
-                        model.addAttribute("peminjamanList", myListGuru);
-                        return "loan/view-loan";
+                }
+            } else {
+                for (PeminjamanBukuModel i : listPeminjaman) {
+                    if (i.getUser().getRole().getNama().toLowerCase().equals("guru")) {
+                        if (myListGuru.contains(i)) {
+                            continue;
+                        } else {
+                            myListGuru.add(i);
+                            model.addAttribute("peminjamanList", myListGuru);
+                            return "loan/view-loan";
+                        }
                     }
-                } else {
-                    return "loan/view-loan-fail";
                 }
             }
         }

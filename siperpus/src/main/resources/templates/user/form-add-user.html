@@ -36,13 +36,7 @@
                             <option value="">--Pilih Role--</option>
                             <option th:each="spes : ${rolePerpus}" th:value="${spes.id}" th:text="${spes.nama}"></option>
                         </select>
-
-<!--                        <label>Supplier : </label>-->
-<!--                        <select class="form-control" form="test" name="idSupplier">-->
-<!--                            <option value="">&#45;&#45;Pilih Supplier&#45;&#45;</option>-->
-<!--                            <option th:each="spes : ${supplier}" th:value="${spes.idSupplier}"-->
-<!--                                    th:text="${spes.namaSupplier}" >-->
-<!--                        </select>-->
+                        
                         <br><br>
                         Nama :
                         <input class="form-control" type="text" name="nama" />
