@@ -26,6 +26,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/loan/view/**").hasAnyAuthority("Pustakawan", "Guru", "Siswa")
                 .antMatchers("/procurement/delete/**").hasAnyAuthority("Pustakawan", "Guru", "Siswa")
                 .antMatchers("/user/addUser/**").hasAnyAuthority("Pustakawan")
+                .antMatchers("/loan/update/**").hasAnyAuthority("Pustakawan")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
