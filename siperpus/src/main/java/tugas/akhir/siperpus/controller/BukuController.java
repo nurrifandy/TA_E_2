@@ -65,12 +65,12 @@ public class BukuController{
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String submitAddBook(@RequestParam("id") Long id,
+    public String submitAddBook(@RequestParam("idJenis") Long id,
                                 @RequestParam("judul") String judul,
                                 @RequestParam("pengarang") String pengarang,
-                                @ModelAttribute BukuModel buku, Model model) {
+                                @ModelAttribute BukuModel book, Model model) {
         JenisBukuModel jenis = jenisBukuService.getJenisByIdJenis(id).get();
-        buku.setJenisBuku(jenis);
+        book.setJenisBuku(jenis);
         List<BukuModel> bukuModelList = bukuService.getListBuku();
         if (bukuModelList != null){
             for (BukuModel i : bukuModelList){
@@ -79,7 +79,7 @@ public class BukuController{
                 }
             }
         }
-        bukuService.addBook(buku);
+        bukuService.addBook(book);
         model.addAttribute("namaBuku", judul);
         return "book/add-book-submit";
     }

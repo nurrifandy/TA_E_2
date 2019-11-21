@@ -36,7 +36,7 @@
                         <br>
 
                         <label>Jenis : </label>
-                        <select class="form-control" form="test" name="id">
+                        <select class="form-control" form="test" name="idJenis">
                             <option value="">--Pilih Jenis--</option>
                             <option th:each="spes : ${jenisBuku}" th:value="${spes.id}"
                                     th:text="${spes.nama}"></option>
