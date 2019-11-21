@@ -26,6 +26,11 @@ public class UserServiceImpl implements UserService {
         return new Random().nextInt(spread + 1) + min;
     }
 
+    @Override
+    public UserModel getUserByUuid(String uuid) {
+        return userDb.findByUuid(uuid);
+    }
+
 //    @Override
 //    public String generateNIP(UserDetail userDetail){
 //        String newKode = new String();

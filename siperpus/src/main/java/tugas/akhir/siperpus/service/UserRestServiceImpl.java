@@ -7,6 +7,7 @@ import reactor.core.publisher.Mono;
 import tugas.akhir.siperpus.model.UserModel;
 import tugas.akhir.siperpus.repository.UserDb;
 import tugas.akhir.siperpus.rest.Setting;
+import tugas.akhir.siperpus.rest.StatusDetail;
 import tugas.akhir.siperpus.rest.UserDetail;
 
 import javax.transaction.Transactional;
@@ -92,6 +93,11 @@ public class UserRestServiceImpl implements UserRestService{
 
     public UserRestServiceImpl(WebClient.Builder webClientBuilder) {
         this.webClient = webClientBuilder.baseUrl(Setting.sivitasUrl).build();
+    }
+
+    @Override
+    public Mono<StatusDetail> getByUuid(String uuid) {
+        return this.webClient.get().uri("/employees/"+ uuid).retrieve().bodyToMono(StatusDetail.class);
     }
 
 }

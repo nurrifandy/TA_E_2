@@ -81,11 +81,11 @@ public class PeminjamanBukuModel implements Serializable {
         this.buku = buku;
     }
 
-   public UserModel getUser() {
-       return user;
-   }
+    public UserModel getUser() {
+        return user;
+    }
 
-   public void setUser(UserModel user) {
-       this.user = user;
-   }
+    public void setUser(UserModel user) {
+        this.user = user;
+    }
 }

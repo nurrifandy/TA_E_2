@@ -18,7 +18,6 @@ public class PengadaanBukuRestServiceImpl implements PengadaanBukuRestService{
     //ServiceProducer
     @Override
     public PengadaanBukuModel addProcurement(PengadaanBukuModel pengadaanBuku) {
-        UserModel userNya = UserService
         return pengadaanBukuDb.save(pengadaanBuku);
     }
 }

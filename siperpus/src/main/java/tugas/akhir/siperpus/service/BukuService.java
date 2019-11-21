@@ -15,4 +15,6 @@ public interface BukuService{
     void addBook(BukuModel book);
     List<BukuModel> getListBuku();
     Optional<BukuModel> getBukuByIdBuku(Long id);
+    
+    int availableBook(int jumlahBuku);
 }

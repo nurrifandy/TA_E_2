@@ -86,7 +86,6 @@ public class BukuController{
 
     @RequestMapping("/detail")
     public String bookDetails(Model model){
-        BukuModel buku;
         List<BukuModel> bookList = bukuService.getListBuku();
         List<Integer> bookSum = new ArrayList<Integer>();
         for (BukuModel book:bookList){
@@ -100,7 +99,7 @@ public class BukuController{
             available = book.getJumlah()-jumlah;
             bookSum.add(Integer.valueOf(available));
         }
-
+        
         model.addAttribute("bookList", bookList);
         model.addAttribute("available", bookSum);
         return "book/view-detail";
@@ -117,4 +116,6 @@ public class BukuController{
         //TODO: process POST request
         return "";
     }
+    
+    
 }

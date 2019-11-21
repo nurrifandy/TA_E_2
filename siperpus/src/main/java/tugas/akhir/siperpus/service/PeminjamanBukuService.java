@@ -1,12 +1,13 @@
 package tugas.akhir.siperpus.service;
 
+import tugas.akhir.siperpus.model.BukuModel;
 import tugas.akhir.siperpus.model.PeminjamanBukuModel;
 
 import java.util.List;
 
 public interface PeminjamanBukuService {
 
-    void addPeminjamanBuku(PeminjamanBukuModel peminjamanBuku);
+    void addPeminjamanBuku(PeminjamanBukuModel peminjamanBuku, long idBuku);
 
     List<PeminjamanBukuModel> findAll();
 

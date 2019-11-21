@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import tugas.akhir.siperpus.model.RoleModel;
 import tugas.akhir.siperpus.model.UserModel;
+import tugas.akhir.siperpus.rest.StatusDetail;
 import tugas.akhir.siperpus.rest.UserDetail;
 import tugas.akhir.siperpus.service.RoleService;
 import tugas.akhir.siperpus.service.UserRestService;
@@ -51,4 +52,15 @@ public class UserController {
         );
         return "book/add-user-submit";
     }
+    
+    // @RequestMapping(value="/profile", method = RequestMethod.GET)
+    // public String viewProfile( Model model){
+    //     //UserModel user = userService.getUserByUuid(uuid);
+    //     StatusDetail statusDetail = userRestService.getByUuid("4028e48b6e8441e2016e8446cb4f0001").block();
+    //     List<UserDetail> userDetail = statusDetail.getListUser();
+    //     //model.addAttribute("user", user);
+    //     model.addAttribute("status", statusDetail);
+    //     model.addAttribute("user", userDetail);
+    //     return "book/view-profile";
+    // }
 }
