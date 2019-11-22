@@ -4,39 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Update Book</title>
+    <title>View Profile</title>
     <object th:include="fragments/fragment :: js" th:remove="tag"></object>
     <object th:include="fragments/fragment :: css" th:remove="tag"></object>
 </head>
-<body>
-    <div th:text="${user.username}"></div>
-    <div th:if="${s}">
-        <div th:text="${status.user.nama}"></div>
-        <div th:text="${status.user.tempatLahir}"></div>
-        <div th:text="${status.user.tanggalLahir}"></div>
-        <div th:text="${status.user.alamat}"></div>
-    </div>
-    <!-- <nav th:replace="fragments/fragment :: navbar"></nav>
+<body style="font-family: 'Montserrat', sans-serif;">
+    <nav th:replace="fragments/fragment :: navbar"></nav>
     <div class="row">
         <div class="col">
-            <th>Nama</th><br>
-            <th>ID</th><br>
-            <th>Tempat Lahir</th><br>
-            <th>Tanggal Lahir</th><br>
-            <th>Alamat</th><br>
-            <th>Nomor Telepon</th><br>
+            <th>Username:</th><br>
+            <div th:if="${s}">
+                <th>Name:</th><br>
+                <th>Tempat Lahir:</th><br>
+                <th>Tanggal Lahir:</th><br>
+                <th>Alamat:</th><br>
+            </div>
         </div>
         <div class="col">
-            <td th:text="${user.nama}"></td><br>
-            <td th:text="${pasien.nik}"></td><br>
-            <td th:text="${pasien.kode}"></td><br>
-            <td th:text="${pasien.jenis_kelamin}"></td><br>
-            <td th:text="${pasien.tempat_lahir}"></td><br>
-            <td th:text="${pasien.tanggal_lahir}"></td><br>
-            <td th:text="${pasien.emergencyContact.nama}"></td> - <td th:text="${pasien.emergencyContact.nik}"></td>
-            - <td th:text="${pasien.emergencyContact.no_hp}"></td>
+            <td th:text="${user.username}"></td><br>
+            <div th:if="${s}">
+                <div th:text="${status.user.nama}"></div>
+                <div th:text="${status.user.tempatLahir}"></div>
+                <div th:text="${status.user.tanggalLahir}"></div>
+                <div th:text="${status.user.alamat}"></div>
+            </div>
         </div>
-    </div> -->
-    
+    </div>
 </body>
 </html>

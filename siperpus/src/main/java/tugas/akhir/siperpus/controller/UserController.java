@@ -63,14 +63,11 @@ public class UserController {
     
     @RequestMapping(value="/profile", method = RequestMethod.GET)
     public String viewProfile( Model model){
-        //UserModel user = userService.getUserByUuid(uuid);
         UserModel user = userService.getUserByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
         String uuidUser = user.getUuid();
-        System.out.println(uuidUser);
         
         try{
             StatusDetail statusDetail = userRestService.getByUuid(uuidUser).block();
-            System.out.println("masuk try");
             model.addAttribute("s", true);
             model.addAttribute("status", statusDetail);
         }
