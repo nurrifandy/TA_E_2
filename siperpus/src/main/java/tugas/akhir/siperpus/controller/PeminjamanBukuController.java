@@ -5,14 +5,23 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import tugas.akhir.siperpus.model.BukuModel;
 import tugas.akhir.siperpus.model.PeminjamanBukuModel;
+
+import tugas.akhir.siperpus.repository.PeminjamanBukuDb;
+import tugas.akhir.siperpus.service.BukuService;
+
 import tugas.akhir.siperpus.model.SuratDetailModel;
 import tugas.akhir.siperpus.model.UserModel;
 import tugas.akhir.siperpus.service.PeminjamanBukuService;
 import tugas.akhir.siperpus.service.SuratRestService;
 import tugas.akhir.siperpus.service.UserService;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -25,6 +34,9 @@ public class PeminjamanBukuController {
     PeminjamanBukuService peminjamanBukuService;
 
     @Autowired
+    BukuService bukuService;
+
+    @Autowired
     SuratRestService suratRestService;
 
     @Autowired
@@ -35,6 +47,7 @@ public class PeminjamanBukuController {
         Optional<UserModel> user = userService.getUserByNama(SecurityContextHolder.getContext().getAuthentication().getName());
         List<PeminjamanBukuModel> myListGuru = new ArrayList<>();
         List<PeminjamanBukuModel> myListSiswa = new ArrayList<>();
+
         List<PeminjamanBukuModel> listPeminjaman = peminjamanBukuService.getPeminjamanList();
         if(user.get().getRole().getNama().toLowerCase().equals("pustakawan")) {
             model.addAttribute("peminjamanList", listPeminjaman);
@@ -83,19 +96,48 @@ public class PeminjamanBukuController {
     }
 
     @GetMapping("/update/{id}")
-    public String formUpdateLoan(@PathVariable long id, Model model){
+    public String formUpdateLoan(@PathVariable long id, Model model) {
         PeminjamanBukuModel loan = peminjamanBukuService.findLoanByIdLoan(id);
         model.addAttribute("loan", loan);
         return "loan/form-update-loan";
     }
 
     @PostMapping("/update/{id}")
-    public String submitUpdateLoan(@PathVariable long id, @ModelAttribute PeminjamanBukuModel loan, Model model){
+    public String submitUpdateLoan(@PathVariable long id, @ModelAttribute PeminjamanBukuModel loan, Model model) {
         PeminjamanBukuModel updateLoan = peminjamanBukuService.updateStatus(loan);
         List<PeminjamanBukuModel> listPeminjaman = peminjamanBukuService.getPeminjamanList();
         model.addAttribute("peminjamanList", listPeminjaman);
         model.addAttribute("loan", updateLoan);
         model.addAttribute("ubahStatus", true);
         return "loan/view-loan";
+    }
+
+    @RequestMapping("/add/{idBuku}")
+    public String addLoan(@PathVariable long idBuku, Model model) {
+        BukuModel buku = bukuService.getBukuByIdBuku(idBuku).get();
+        UserModel user = userService.getUserByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
+        ArrayList<PeminjamanBukuModel> listPeminjaman = new ArrayList<>();
+        if (buku.getJumlah() > 0){
+            PeminjamanBukuModel newLoan = new PeminjamanBukuModel();
+            newLoan.setStatus(0);
+            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+            Date today = new Date();
+            dateFormat.format(today);
+            newLoan.setTanggalPeminjaman(today);
+            newLoan.setTanggalPengembalian(today);
+            newLoan.setUser(user);
+            listPeminjaman.add(newLoan);
+            buku.setListPeminjaman(listPeminjaman);
+            user.setListPeminjaman(listPeminjaman);
+            peminjamanBukuService.addPeminjamanBuku(newLoan);
+            // model.addAttribute("hari_ini", hari_ini);
+            model.addAttribute("buku", buku);
+            return "loan/borrow-success";
+        }
+            
+        else{
+        return "loan/borrow-failed";
+        }
+        
     }
 }

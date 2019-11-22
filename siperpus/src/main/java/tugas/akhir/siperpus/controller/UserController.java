@@ -1,6 +1,7 @@
 package tugas.akhir.siperpus.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import tugas.akhir.siperpus.model.RoleModel;
 import tugas.akhir.siperpus.model.UserModel;
+import tugas.akhir.siperpus.rest.StatusDetail;
 import tugas.akhir.siperpus.rest.UserDetail;
 import tugas.akhir.siperpus.service.RoleService;
 import tugas.akhir.siperpus.service.UserRestService;
@@ -57,5 +59,20 @@ public class UserController {
         userService.addUser(newUser);
         userRestService.register(user,newUser).subscribe();
         return "user/add-user-submit";
+    }
+    
+    @RequestMapping(value="/profile", method = RequestMethod.GET)
+    public String viewProfile( Model model){
+        //UserModel user = userService.getUserByUuid(uuid);
+        UserModel user = userService.getUserByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
+        String uuidUser = user.getUuid();
+        StatusDetail statusDetail = userRestService.getByUuid("4028e48b6e8441e2016e8446cb4f0001").block();
+        
+        
+        // List<UserDetail> userDetail = statusDetail.getListUser();
+        // //model.addAttribute("user", user);
+        model.addAttribute("status", statusDetail);
+        model.addAttribute("user", user);
+        return "book/view-profile";
     }
 }

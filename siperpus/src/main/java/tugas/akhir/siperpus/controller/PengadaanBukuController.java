@@ -20,7 +20,7 @@ import tugas.akhir.siperpus.service.UserService;
 
 @Controller
 @RequestMapping("/procurement")
-public class PengadaanBukuController{
+public class PengadaanBukuController {
     @Autowired
     PengadaanBukuService pengadaanBukuService;
 
@@ -36,12 +36,14 @@ public class PengadaanBukuController{
     }
 
     @PostMapping(value = "add")
-    public String submitAddProcurement(@ModelAttribute PengadaanBukuModel pengadaan, Model model){
+    public String submitAddProcurement(@ModelAttribute PengadaanBukuModel pengadaan, Model model) {
 
         int status = 0;
-        if( false/**user.getRole().getNama().equals("Pustakawan")*/){
+        if (false/** user.getRole().getNama().equals("Pustakawan") */
+        ) {
             status = 1;
         }
+
         
         //cari getAnggotaDetail(uuid) :)
         AnggotaDetailModel koperasi = pengadaanBukuRestService.getAnggotaDetail(1).block();
@@ -65,24 +67,24 @@ public class PengadaanBukuController{
         
         pengadaanBukuService.addProcurement(pengadaan);
         model.addAttribute("pengadaan", pengadaan);
-        return"procurement/add-procurement-submit";
+        return "procurement/add-procurement-submit";
     }
 
     @GetMapping("/view")
-    public String displayAllProcurement(Model model){
+    public String displayAllProcurement(Model model) {
         /**
-         if(){
-
-         }else if(){
-
-         }else if{
-
-         }
+         * if(){
+         * 
+         * }else if(){
+         * 
+         * }else if{
+         * 
+         * }
          */
 
         List<PengadaanBukuModel> listPengadaan = pengadaanBukuService.getListPengadaan();
         model.addAttribute("listPengadaan", listPengadaan);
-        return"procurement/view-procurement";
+        return "procurement/view-procurement";
     }
 
     @GetMapping("/delete/{id}")

@@ -11,6 +11,8 @@ public interface UserService {
     Optional<UserModel> getUserByRole (RoleModel role);
     UserModel createDummyUserPengadaanIfNotExist (RoleModel role);
 //    String generateNIP(UserDetail userDetail);
+
+    UserModel getUserByUserName(String username);
     UserModel getUserByUuid(String uuid);
     String encrypt(String password);
     Optional <UserModel> getUserByNama(String username);

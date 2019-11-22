@@ -66,6 +66,11 @@ public class UserServiceImpl implements UserService {
         int spread = max - min;
         return new Random().nextInt(spread + 1) + min;
     }
+    
+    @Override
+    public UserModel getUserByUserName(String username){
+        return userDb.findByUsername(username).get();
+    }
 
 //    @Override
 //    public String generateNIP(UserDetail userDetail){
