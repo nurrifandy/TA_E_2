@@ -22,6 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/css/**").permitAll()
                 .antMatchers("/js/**").permitAll()
                 .antMatchers("/register").permitAll()
+                .antMatchers("/api/**").permitAll()
                 .antMatchers("/book/add/**").hasAnyAuthority("Pustakawan")
                 .antMatchers("/book/update/**").hasAnyAuthority("Pustakawan")
                 .antMatchers("/loan/view/**").hasAnyAuthority("Pustakawan", "Guru", "Siswa")
