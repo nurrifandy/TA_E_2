@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
 
@@ -29,7 +29,7 @@
     </div>
 </div>
 <div class="row mt-5 ">
-    <div class="col-md-9 mx-auto">
+    <div class="col-md-11 mx-auto">
         <div class="card">
             <div class="card-header bg-dark text-white">
                 Daftar Peminjaman
@@ -39,16 +39,23 @@
                     <thead>
                     <tr>
                         <th>No</th>
-                        <th>Judul Buku</th>
+                        <th>Judul</th>
+                        <th>Pengarang</th>
+                        <th>Penerbit</th>
+                        <th>Jenis</th>
                         <th>Tanggal Peminjaman</th>
                         <th>Tanggal Pengembalian</th>
                         <th>Status</th>
+                        <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="pinjam, iterationStatus : *{peminjamanList}">
                         <td th:text="${iterationStatus.count}"> </td>
                         <td th:text="${pinjam.buku.getJudul()}"></td>
+                        <td th:text="${pinjam.buku.getPengarang()}"></td>
+                        <td th:text="${pinjam.buku.getPenerbit()}"></td>
+                        <td th:text="${pinjam.buku.getJenisBuku().nama}"></td>
                         <td th:text="${#dates.format(pinjam.tanggalPeminjaman,'dd-MMM-yyyy')}"></td>
                         <td th:text="${#dates.format(pinjam.tanggalPengembalian,'dd-MMM-yyyy')}"></td>
                         <td>
@@ -61,7 +68,7 @@
                         </td>
                         <td>
                             <div class="btn-group">
-                                <button class="btn btn-primary mr-2"><a class="text-light" th:href="@{/loan/update/{id}(id=${pinjam.id})}" style="text-decoration: none;">update</a></button>
+                                <button sec:authorize="hasAuthority('Pustakawan')" class="btn btn-primary mr-2"><a class="text-light" th:href="@{/loan/update/{id}(id=${pinjam.id})}" style="text-decoration: none;">update</a></button>
 
                                 <button class="btn btn-danger"><a class="text-light" th:href="@{/loan/delete/{id}(id=${pinjam.id})}">delete</a></button>
                             </div>
