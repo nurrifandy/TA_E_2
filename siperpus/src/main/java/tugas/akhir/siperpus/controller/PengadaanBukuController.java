@@ -20,7 +20,7 @@ import tugas.akhir.siperpus.service.UserService;
 
 @Controller
 @RequestMapping("/procurement")
-public class PengadaanBukuController{
+public class PengadaanBukuController {
     @Autowired
     PengadaanBukuService pengadaanBukuService;
 
@@ -37,12 +37,13 @@ public class PengadaanBukuController{
 
     @PostMapping(value = "add")
     public String submitAddProcurement(@ModelAttribute PengadaanBukuModel pengadaan, Model model){
-        UserModel user = userService.getUserByNama(SecurityContextHolder.getContext().getAuthentication().getName()).orElse(null);
+        UserModel user = userService.getUserByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
 
         int status = 0;
         if( user.getRole().getNama().equals("Pustakawan")){
             status = 1;
         }
+
         
         //cari getAnggotaDetail(uuid) :)
         AnggotaDetailModel koperasi = pengadaanBukuRestService.getAnggotaDetail(user.getUuid()).block();
@@ -67,12 +68,12 @@ public class PengadaanBukuController{
         pengadaanBukuService.addProcurement(pengadaan);
         model.addAttribute("user", user);
         model.addAttribute("pengadaan", pengadaan);
-        return"procurement/add-procurement-submit";
+        return "procurement/add-procurement-submit";
     }
 
     @GetMapping("/view")
     public String displayAllProcurement(Model model){
-        UserModel user = userService.getUserByNama(SecurityContextHolder.getContext().getAuthentication().getName()).orElse(null);
+        UserModel user = userService.getUserByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
         List<PengadaanBukuModel> listPengadaan = new ArrayList<>();
         if(user.getRole().getNama().equals("Pustakawan")){
             listPengadaan = pengadaanBukuService.getListPengadaan();
@@ -82,15 +83,15 @@ public class PengadaanBukuController{
         
         model.addAttribute("user", user);
         model.addAttribute("listPengadaan", listPengadaan);
-        return"procurement/view-procurement";
+        return "procurement/view-procurement";
     }
 
     @GetMapping("/delete/{id}")
     public String deleteProcurement(@PathVariable Long id, Model model) {
         PengadaanBukuModel existingProcurement = pengadaanBukuService.getProcurementById(id);
         model.addAttribute("procurement", existingProcurement.getJudul());
-        Optional<UserModel> user = userService.getUserByNama(SecurityContextHolder.getContext().getAuthentication().getName());
-        if(user.get().getRole().getNama().toLowerCase().equals("pustakawan")) {
+        UserModel user = userService.getUserByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
+        if(user.getRole().getNama().toLowerCase().equals("pustakawan")) {
              if (existingProcurement.getStatus() == 0 || existingProcurement.getStatus() == 1) {
                 pengadaanBukuService.delete(existingProcurement);
                 return "procurement/delete";

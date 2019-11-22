@@ -1,5 +1,6 @@
 package tugas.akhir.siperpus.service;
 
+import tugas.akhir.siperpus.model.BukuModel;
 import tugas.akhir.siperpus.model.PeminjamanBukuModel;
 
 import java.util.List;

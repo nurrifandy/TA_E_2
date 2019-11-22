@@ -35,3 +35,4 @@ public class PengadaanBukuRestServiceImpl implements PengadaanBukuRestService{
          return this.webClient.get().uri("/rest/koperasi/anggota/" + uuid).retrieve().bodyToMono(AnggotaDetailModel.class);
     }
 }
+
