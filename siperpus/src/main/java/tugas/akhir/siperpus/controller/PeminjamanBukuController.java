@@ -44,16 +44,16 @@ public class PeminjamanBukuController {
 
     @RequestMapping(value = "/view")
     public String view(Model model){
-        Optional<UserModel> user = userService.getUserByNama(SecurityContextHolder.getContext().getAuthentication().getName());
+        UserModel user = userService.getUserByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
         List<PeminjamanBukuModel> myListGuru = new ArrayList<>();
         List<PeminjamanBukuModel> myListSiswa = new ArrayList<>();
 
         List<PeminjamanBukuModel> listPeminjaman = peminjamanBukuService.getPeminjamanList();
-        if(user.get().getRole().getNama().toLowerCase().equals("pustakawan")) {
+        if(user.getRole().getNama().toLowerCase().equals("pustakawan")) {
             model.addAttribute("peminjamanList", listPeminjaman);
             return "loan/view-loan";
         } else {
-            if(user.get().getRole().getNama().toLowerCase().equals("siswa")) {
+            if(user.getRole().getNama().toLowerCase().equals("siswa")) {
                 for (PeminjamanBukuModel i : listPeminjaman) {
                     if (i.getUser().getRole().getNama().toLowerCase().equals("siswa")) {
                         if (myListSiswa.contains(i)) {
