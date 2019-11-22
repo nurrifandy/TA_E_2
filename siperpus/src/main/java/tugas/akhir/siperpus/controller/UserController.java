@@ -66,13 +66,20 @@ public class UserController {
         //UserModel user = userService.getUserByUuid(uuid);
         UserModel user = userService.getUserByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
         String uuidUser = user.getUuid();
-        StatusDetail statusDetail = userRestService.getByUuid("4028e48b6e8441e2016e8446cb4f0001").block();
+        System.out.println(uuidUser);
         
+        try{
+            StatusDetail statusDetail = userRestService.getByUuid(uuidUser).block();
+            System.out.println("masuk try");
+            model.addAttribute("s", true);
+            model.addAttribute("status", statusDetail);
+        }
+        catch (Exception e){
+            model.addAttribute("s", false);
+        }
         
-        // List<UserDetail> userDetail = statusDetail.getListUser();
-        // //model.addAttribute("user", user);
-        model.addAttribute("status", statusDetail);
         model.addAttribute("user", user);
-        return "book/view-profile";
+        
+        return "user/view-profile";
     }
 }

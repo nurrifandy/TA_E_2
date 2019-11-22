@@ -9,9 +9,13 @@
     <object th:include="fragments/fragment :: css" th:remove="tag"></object>
 </head>
 <body>
-    <div th:text="${status.status}">
+    <div th:text="${user.username}"></div>
+    <div th:if="${s}">
+        <div th:text="${status.user.nama}"></div>
+        <div th:text="${status.user.tempatLahir}"></div>
+        <div th:text="${status.user.tanggalLahir}"></div>
+        <div th:text="${status.user.alamat}"></div>
     </div>
-    <div th:text="${status.user.nama}"></div>
     <!-- <nav th:replace="fragments/fragment :: navbar"></nav>
     <div class="row">
         <div class="col">
