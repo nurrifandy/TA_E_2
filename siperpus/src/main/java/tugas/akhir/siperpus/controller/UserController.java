@@ -35,7 +35,7 @@ public class UserController {
         List<RoleModel> roleList = roleService.getListRole();
         List<RoleModel> myList = new ArrayList<>();
         for (RoleModel i : roleList){
-            if(i.getNama().equals("Pustakawan") || i.getNama().equals("pustakawan")){
+            if(i.getNama().toLowerCase().equals("pustakawan")){
                 if (myList.contains(i)) {
                     continue;
                 } else {

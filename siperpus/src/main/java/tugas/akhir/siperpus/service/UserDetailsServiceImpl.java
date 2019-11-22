@@ -1,5 +1,6 @@
 package tugas.akhir.siperpus.service;
 
+import org.springframework.context.annotation.Primary;
 import tugas.akhir.siperpus.model.UserModel;
 import tugas.akhir.siperpus.repository.UserDb;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Service
+@Primary
 public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private UserDb userDb;

@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.*;
 
 import tugas.akhir.siperpus.model.BukuModel;
 import tugas.akhir.siperpus.model.PeminjamanBukuModel;
-
-import tugas.akhir.siperpus.repository.PeminjamanBukuDb;
 import tugas.akhir.siperpus.service.BukuService;
 
 import tugas.akhir.siperpus.model.SuratDetailModel;
@@ -21,8 +19,6 @@ import tugas.akhir.siperpus.service.UserService;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -42,12 +38,44 @@ public class PeminjamanBukuController {
 
     @Autowired
     UserService userService;
-    
+
     @RequestMapping(value = "/view")
-    public String view(Model model) {
+    public String view(Model model){
+        Optional<UserModel> user = userService.getUserByNama(SecurityContextHolder.getContext().getAuthentication().getName());
+        List<PeminjamanBukuModel> myListGuru = new ArrayList<>();
+        List<PeminjamanBukuModel> myListSiswa = new ArrayList<>();
         List<PeminjamanBukuModel> listPeminjaman = peminjamanBukuService.getPeminjamanList();
-        model.addAttribute("peminjamanList", listPeminjaman);
-        return "loan/view-loan";
+        if(user.get().getRole().getNama().toLowerCase().equals("pustakawan")) {
+            model.addAttribute("peminjamanList", listPeminjaman);
+            return "loan/view-loan";
+        } else {
+            if(user.get().getRole().getNama().toLowerCase().equals("siswa")) {
+                for (PeminjamanBukuModel i : listPeminjaman) {
+                    if (i.getUser().getRole().getNama().toLowerCase().equals("siswa")) {
+                        if (myListSiswa.contains(i)) {
+                            continue;
+                        } else {
+                            myListSiswa.add(i);
+                            model.addAttribute("peminjamanList", myListSiswa);
+                            return "loan/view-loan";
+                        }
+                    }
+                }
+            } else {
+                for (PeminjamanBukuModel i : listPeminjaman) {
+                    if (i.getUser().getRole().getNama().toLowerCase().equals("guru")) {
+                        if (myListGuru.contains(i)) {
+                            continue;
+                        } else {
+                            myListGuru.add(i);
+                            model.addAttribute("peminjamanList", myListGuru);
+                            return "loan/view-loan";
+                        }
+                    }
+                }
+            }
+        }
+        return "loan/view-loan-fail";
     }
 
     @GetMapping("/surat")
@@ -58,7 +86,6 @@ public class PeminjamanBukuController {
         String status = "Menunggu Persetujuan";
         String noSurat = "0";
         String usernameUser = "mirna";
-
         SuratDetailModel surat = suratRestService.postSurat(id,keterangan,tanggal,status,noSurat,usernameUser).block();
         model.addAttribute("surat", surat.getStatus());
         return "mail-sukses";
@@ -86,20 +113,22 @@ public class PeminjamanBukuController {
         BukuModel buku = bukuService.getBukuByIdBuku(idBuku).get();
         UserModel user = userService.getUserByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
         ArrayList<PeminjamanBukuModel> listPeminjaman = new ArrayList<>();
-        if (buku.getJumlah() > 0){
+		if (bukuService.availableBook(buku) > 0){
             PeminjamanBukuModel newLoan = new PeminjamanBukuModel();
             newLoan.setStatus(0);
             DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
             Date today = new Date();
             dateFormat.format(today);
+            String hari_ini = dateFormat.format(today);
             newLoan.setTanggalPeminjaman(today);
             newLoan.setTanggalPengembalian(today);
             newLoan.setUser(user);
+            newLoan.setBuku(buku);
             listPeminjaman.add(newLoan);
             buku.setListPeminjaman(listPeminjaman);
             user.setListPeminjaman(listPeminjaman);
             peminjamanBukuService.addPeminjamanBuku(newLoan);
-            // model.addAttribute("hari_ini", hari_ini);
+            model.addAttribute("hari_ini", hari_ini);
             model.addAttribute("buku", buku);
             return "loan/borrow-success";
         }

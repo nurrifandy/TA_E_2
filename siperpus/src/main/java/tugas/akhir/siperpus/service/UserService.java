@@ -15,4 +15,5 @@ public interface UserService {
     UserModel getUserByUserName(String username);
     UserModel getUserByUuid(String uuid);
     String encrypt(String password);
+    Optional <UserModel> getUserByNama(String username);
 }

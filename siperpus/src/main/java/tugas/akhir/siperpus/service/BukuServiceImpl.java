@@ -5,38 +5,40 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import tugas.akhir.siperpus.model.BukuModel;
+import tugas.akhir.siperpus.model.PeminjamanBukuModel;
 import tugas.akhir.siperpus.repository.BukuDb;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @Transactional
 
-public class BukuServiceImpl implements BukuService{
+public class BukuServiceImpl implements BukuService {
     @Autowired
     private BukuDb bukuDb;
 
     @Override
-    public BukuModel findByIdBook(long id){
+    public BukuModel findByIdBook(long id) {
         return bukuDb.findById(id).get();
     }
 
     @Override
-    public BukuModel updateBook(BukuModel book){
-        try{
+    public BukuModel updateBook(BukuModel book) {
+        try {
             BukuModel currBook = bukuDb.findById(book.getId()).get();
             currBook.setJumlah(book.getJumlah());
             bukuDb.save(currBook);
             return currBook;
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             return null;
         }
 
     }
 
     @Override
-    public void deleteBook(BukuModel book){
+    public void deleteBook(BukuModel book) {
         bukuDb.deleteById(book.getId());
     }
 
@@ -46,14 +48,28 @@ public class BukuServiceImpl implements BukuService{
     }
 
     @Override
-    public List<BukuModel> getListBuku(){
+    public List<BukuModel> getListBuku() {
         return bukuDb.findAll();
     }
 
+    @Override
+    public Optional<BukuModel> getBukuByIdBuku(Long id) {
+        return bukuDb.findBukuModelById(id);
+    }
 
     @Override
-    public Optional<BukuModel> getBukuByIdBuku(Long id){
-        return bukuDb.findBukuModelById(id);
+    public int availableBook(BukuModel book) {
+        int jumlah = 0;
+        int available = 0;
+        for (PeminjamanBukuModel peminjaman:book.getListPeminjaman()){
+            if (peminjaman.getStatus() != 4){
+                jumlah++;
+            }
+        }
+        available = book.getJumlah()-jumlah;
+        
+        return available;
+
     }
 
 

@@ -65,21 +65,21 @@ public class BukuController{
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String submitAddBook(@RequestParam("id") Long id,
-                                @RequestParam String judul,
-                                @RequestParam String pengarang,
-                                @ModelAttribute BukuModel buku, Model model) {
+    public String submitAddBook(@RequestParam("idJenis") Long id,
+                                @RequestParam("judul") String judul,
+                                @RequestParam("pengarang") String pengarang,
+                                @ModelAttribute BukuModel book, Model model) {
         JenisBukuModel jenis = jenisBukuService.getJenisByIdJenis(id).get();
-        buku.setJenisBuku(jenis);
+        book.setJenisBuku(jenis);
         List<BukuModel> bukuModelList = bukuService.getListBuku();
         if (bukuModelList != null){
             for (BukuModel i : bukuModelList){
-                if(i.getJudul().equals(judul) && i.getPengarang().equals(pengarang)) {
+                if(i.getJudul().toLowerCase().equals(judul.toLowerCase()) && i.getPengarang().toLowerCase().equals(pengarang.toLowerCase())) {
                     return "book/add-book-fail";
                 }
             }
         }
-        bukuService.addBook(buku);
+        bukuService.addBook(book);
         model.addAttribute("namaBuku", judul);
         return "book/add-book-submit";
     }
@@ -88,15 +88,17 @@ public class BukuController{
     public String bookDetails(Model model){
         List<BukuModel> bookList = bukuService.getListBuku();
         List<Integer> bookSum = new ArrayList<Integer>();
+        // bukuService.availableBook(bookList, bookSum);
         for (BukuModel book:bookList){
-            int jumlah = 0;
-            int available = 0;
-            for (PeminjamanBukuModel peminjaman:book.getListPeminjaman()){
-                if (peminjaman.getStatus() != 4){
-                    jumlah++;
-                }
-            }
-            available = book.getJumlah()-jumlah;
+            int available = bukuService.availableBook(book);
+        //     int jumlah = 0;
+        //     int available = 0;
+        //     for (PeminjamanBukuModel peminjaman:book.getListPeminjaman()){
+        //         if (peminjaman.getStatus() != 4){
+        //             jumlah++;
+        //         }
+        //     }
+        //     available = book.getJumlah()-jumlah;
             bookSum.add(Integer.valueOf(available));
         }
         
