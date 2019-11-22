@@ -31,7 +31,8 @@ public class PengadaanBukuRestServiceImpl implements PengadaanBukuRestService{
     }
 
     @Override
-    public Mono<AnggotaDetailModel> getAnggotaDetail(int id){
-         return this.webClient.get().uri("/rest/koperasi/anggota/" + id).retrieve().bodyToMono(AnggotaDetailModel.class);
+    public Mono<AnggotaDetailModel> getAnggotaDetail(String uuid){
+         return this.webClient.get().uri("/rest/koperasi/anggota/" + uuid).retrieve().bodyToMono(AnggotaDetailModel.class);
     }
 }
+

@@ -19,7 +19,9 @@ import tugas.akhir.siperpus.service.UserService;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,15 +43,15 @@ public class PeminjamanBukuController {
 
     @RequestMapping(value = "/view")
     public String view(Model model){
-        Optional<UserModel> user = userService.getUserByNama(SecurityContextHolder.getContext().getAuthentication().getName());
+        UserModel user = userService.getUserByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
         List<PeminjamanBukuModel> myListGuru = new ArrayList<>();
         List<PeminjamanBukuModel> myListSiswa = new ArrayList<>();
         List<PeminjamanBukuModel> listPeminjaman = peminjamanBukuService.getPeminjamanList();
-        if(user.get().getRole().getNama().toLowerCase().equals("pustakawan")) {
+        if(user.getRole().getNama().toLowerCase().equals("pustakawan")) {
             model.addAttribute("peminjamanList", listPeminjaman);
             return "loan/view-loan";
         } else {
-            if(user.get().getRole().getNama().toLowerCase().equals("siswa")) {
+            if(user.getRole().getNama().toLowerCase().equals("siswa")) {
                 for (PeminjamanBukuModel i : listPeminjaman) {
                     if (i.getUser().getRole().getNama().toLowerCase().equals("siswa")) {
                         if (myListSiswa.contains(i)) {
@@ -120,8 +122,16 @@ public class PeminjamanBukuController {
             Date today = new Date();
             dateFormat.format(today);
             String hari_ini = dateFormat.format(today);
+        
+            GregorianCalendar cal = new GregorianCalendar();
+            cal.setTime(today);
+            cal.add(Calendar.DATE, 7);
+            
+            Date seminggu = cal.getTime();
+            
             newLoan.setTanggalPeminjaman(today);
-            newLoan.setTanggalPengembalian(today);
+    
+            newLoan.setTanggalPengembalian(seminggu);
             newLoan.setUser(user);
             newLoan.setBuku(buku);
             listPeminjaman.add(newLoan);

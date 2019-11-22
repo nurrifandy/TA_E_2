@@ -7,5 +7,5 @@ import tugas.akhir.siperpus.model.PengadaanBukuModel;
 public interface PengadaanBukuRestService {
     PengadaanBukuModel addProcurement(PengadaanBukuModel pengadaanBuku);
 
-    Mono<AnggotaDetailModel> getAnggotaDetail(int id);
+    Mono<AnggotaDetailModel> getAnggotaDetail(String uuid);
 }
