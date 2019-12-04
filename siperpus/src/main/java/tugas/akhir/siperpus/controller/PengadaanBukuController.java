@@ -45,8 +45,8 @@ public class PengadaanBukuController {
         }
 
         
-        //cari getAnggotaDetail(uuid) :)
-        AnggotaDetailModel koperasi = pengadaanBukuRestService.getAnggotaDetail(user.getUuid()).block();
+        //cari getAnggotaDetail(uuid) :) id sementara pada post man =402881e86e8ed64a016e8ed953b10000
+        AnggotaDetailModel koperasi = pengadaanBukuRestService.getAnggotaDetail("402881e86e8ed64a016e8ed953b10000").block();
         
         if(koperasi.getIsPengurus() && koperasi.getTotalSimpanan() == 1000000){
             status = 3;
