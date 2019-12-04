@@ -88,15 +88,17 @@ public class BukuController{
     public String bookDetails(Model model){
         List<BukuModel> bookList = bukuService.getListBuku();
         List<Integer> bookSum = new ArrayList<Integer>();
+        // bukuService.availableBook(bookList, bookSum);
         for (BukuModel book:bookList){
-            int jumlah = 0;
-            int available = 0;
-            for (PeminjamanBukuModel peminjaman:book.getListPeminjaman()){
-                if (peminjaman.getStatus() != 4){
-                    jumlah++;
-                }
-            }
-            available = book.getJumlah()-jumlah;
+            int available = bukuService.availableBook(book);
+        //     int jumlah = 0;
+        //     int available = 0;
+        //     for (PeminjamanBukuModel peminjaman:book.getListPeminjaman()){
+        //         if (peminjaman.getStatus() != 4){
+        //             jumlah++;
+        //         }
+        //     }
+        //     available = book.getJumlah()-jumlah;
             bookSum.add(Integer.valueOf(available));
         }
         

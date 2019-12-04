@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.*;
 
 import tugas.akhir.siperpus.model.BukuModel;
 import tugas.akhir.siperpus.model.PeminjamanBukuModel;
-
-import tugas.akhir.siperpus.repository.PeminjamanBukuDb;
 import tugas.akhir.siperpus.service.BukuService;
 
 import tugas.akhir.siperpus.model.SuratDetailModel;
@@ -23,6 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,7 +46,6 @@ public class PeminjamanBukuController {
         UserModel user = userService.getUserByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
         List<PeminjamanBukuModel> myListGuru = new ArrayList<>();
         List<PeminjamanBukuModel> myListSiswa = new ArrayList<>();
-
         List<PeminjamanBukuModel> listPeminjaman = peminjamanBukuService.getPeminjamanList();
         if(user.getRole().getNama().toLowerCase().equals("pustakawan")) {
             model.addAttribute("peminjamanList", listPeminjaman);
@@ -117,20 +115,30 @@ public class PeminjamanBukuController {
         BukuModel buku = bukuService.getBukuByIdBuku(idBuku).get();
         UserModel user = userService.getUserByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
         ArrayList<PeminjamanBukuModel> listPeminjaman = new ArrayList<>();
-        if (buku.getJumlah() > 0){
+		if (bukuService.availableBook(buku) > 0){
             PeminjamanBukuModel newLoan = new PeminjamanBukuModel();
             newLoan.setStatus(0);
             DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
             Date today = new Date();
             dateFormat.format(today);
+            String hari_ini = dateFormat.format(today);
+        
+            GregorianCalendar cal = new GregorianCalendar();
+            cal.setTime(today);
+            cal.add(Calendar.DATE, 7);
+            
+            Date seminggu = cal.getTime();
+            
             newLoan.setTanggalPeminjaman(today);
-            newLoan.setTanggalPengembalian(today);
+    
+            newLoan.setTanggalPengembalian(seminggu);
             newLoan.setUser(user);
+            newLoan.setBuku(buku);
             listPeminjaman.add(newLoan);
             buku.setListPeminjaman(listPeminjaman);
             user.setListPeminjaman(listPeminjaman);
             peminjamanBukuService.addPeminjamanBuku(newLoan);
-            // model.addAttribute("hari_ini", hari_ini);
+            model.addAttribute("hari_ini", hari_ini);
             model.addAttribute("buku", buku);
             return "loan/borrow-success";
         }

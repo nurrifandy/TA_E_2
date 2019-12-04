@@ -90,7 +90,7 @@ public class UserRestServiceImpl implements UserRestService{
                 .exchange()
                 .flatMap(clientResponse -> clientResponse.bodyToMono(String.class));
     }
-
+    
     public UserRestServiceImpl(WebClient.Builder webClientBuilder) {
         this.webClient = webClientBuilder.baseUrl(Setting.sivitasUrl).build();
     }

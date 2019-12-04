@@ -9,8 +9,13 @@
     <object th:include="fragments/fragment :: css" th:remove="tag"></object>
 </head>
 <body>
-Success
-    <!-- <h2 th:text="'Buku ' + ${buku.judul} + ' berhasil dipinjam. '"></h2>
-    <h2 th:text="'Tanggal peminjaman: ' + ${hari_ini}"></h2> -->
+    <nav th:replace="fragments/fragment :: navbar"></nav>
+    <div class="container p-5 text-center">
+        <h2 th:text="'Buku dengan judul ' + ${buku.judul} + ' berhasil dipinjam. '"></h2>
+        <h2 th:text="'Tanggal peminjaman: ' + ${hari_ini}"></h2>
+        
+        <a href="/">Back to Home</a>
+    </div>
+    
 </body>
 </html>

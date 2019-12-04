@@ -1,6 +1,7 @@
 package tugas.akhir.siperpus.service;
 
 import tugas.akhir.siperpus.model.BukuModel;
+import tugas.akhir.siperpus.model.PeminjamanBukuModel;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,5 +19,6 @@ public interface BukuService{
     
     Optional<BukuModel> getBukuByIdBuku(Long id);
     
-    // int availableBook(int jumlahBuku);
+    int availableBook(BukuModel book);
+
 }
