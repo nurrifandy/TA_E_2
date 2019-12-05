@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserModel createDummyUserPengadaanIfNotExist (RoleModel role) {
-        if(getUserByRole(role).isEmpty()){
+        if(getUserByRole(role).orElse(null)==null){
             UserModel userNya = new UserModel();
             userNya.setUsername("PengajuPengadaanBukuEksternal");
             userNya.setPassword("PasswordPengajuPengadaanBukuEksternal");
