@@ -8,13 +8,15 @@
     <object th:include="fragments/fragment :: js" th:remove="tag"></object>
     <object th:include="fragments/fragment :: css" th:remove="tag"></object>
 </head>
-<body>
+<body class="h-100">
     <nav th:replace="fragments/fragment :: navbar"></nav>
-    <div class="row">
+
+    <div class="row jumbotron h-100">
         <div class="col-md-4"></div>
-        <div class="col-md-4">
+        <div class="col-md-4 jumbotron">
+            <div class="jumbotron">
             <div class="card">
-                <div class="card-header">Update Book</div>
+                <div class="card-header text-center">Update Book</div>
                 <div class="card-body">
                     <div>
                         <form th:action="@{/book/update/{id}(id=${book.id})}" th:object="${book}" method="POST">
@@ -25,13 +27,43 @@
                                 </div>
                             </div>
                             <div class="d-flex justify-content-center mb-2">
-                                <button class="btn btn-primary" type="submit">Submit</button>
+                                <button class="btn btn-primary pl-4 pr-4 p-2" type="submit">Submit</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
+            </div>
         </div>
     </div>
 </body>
+<style>
+.jumbotron{
+    background-color:transparent !important;
+}
+
+.card{
+    box-shadow: 0px 0px 8px #424242;
+    border:none;
+}
+.card-header{
+    color:white;
+    background-color:#162229;
+}
+
+.btn-primary{
+    background-color: #05828e;
+    border: none;
+}
+
+.btn-primary:hover{
+    background-color: #00bfa5;
+    border: none;
+}
+
+.btn-primary:active{
+    background-color: #00bfa5 !important;
+    border: none;
+}
+</style>
 </html>
