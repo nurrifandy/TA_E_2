@@ -42,8 +42,10 @@ public class BukuController{
     @PostMapping("/update/{id}")
     public String submitUpdateBook(@PathVariable long id,@ModelAttribute BukuModel book, Model model){
         BukuModel updateBook = bukuService.updateBook(book);
+        Boolean isSuccess = true;
+        model.addAttribute("isSuccess", isSuccess);
         model.addAttribute("book", updateBook);
-        return "book/form-update-book";
+        return "redirect:/book/detail";
     }
 
     @GetMapping("/delete/{id}")
@@ -51,7 +53,7 @@ public class BukuController{
         BukuModel existingBook = bukuService.findByIdBook(id);
         model.addAttribute("book", existingBook);
         bukuService.deleteBook(existingBook);
-        return "book/delete-book";
+        return "redirect:/book/detail";
     }
 
 
