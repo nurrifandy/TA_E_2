@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 
 <head>
     <title>Home</title>
-
     <object th:include="fragments/fragment :: css" th:remove="tag"></object>
     <object th:include="fragments/fragment :: js" th:remove="tag"></object>
 </head>
@@ -22,12 +21,144 @@
                 <p> Please login to continue </p>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-sm btn-danger text-white" data-dismiss="modal"> Close </button>
+                <button class="btn btn-sm btn-success text-white" data-dismiss="modal"> Close </button>
             </div>
         </div>
     </div>
 </div>
+
 <div class="container-fluid">
+    <div class="text-center h1" style="color: #05828e;"></div>
+    <div class="">
+        <div class="row mt-5 pt-5">
+            <div class="col-md-1"></div>
+            <div class="col-md-9 row">
+                <div class="col-xl-5 mb-3 mt-5">
+                        <div class="d-flex justify-content-center">
+                            <img th:src=@{/images/3054605.jpg} alt="Learning Image" class="img-thumbnail"/>
+                        </div>
+                        <div class="text-center">
+                                <div class="h4">Buku Adalah Gudang Ilmu Pengetahuan</div>
+                                <div class="" style="color:grey ;">Kami menyediakan seluruh buku yang sedang anda cari</div>
+                        </div>
+                </div>
+                        <div class="col-md-7 my-auto">
+                            <div class="row">
+                                <div class="col-md-1"></div>
+                                <div class="col-md-9">
+                                    <div th:if="${isRegister}" class=" card">
+                                        <div class="card-body">
+                                            <div>
+                                                <div class="h3">Register</div>
+                                                <div class="p">Sudah punya akun Perpus Corner? <span><a th:href="@{/login}" style="color:#05828e"><b>Masuk</b></a></span> </div>
+                                            </div>
+                                            <div class="card card-border pl-4 pr-4">
+                                                <div class="card-body">
+                                                        <div th:if="${param.error}">
+                                                                <span style="color: red">Invalid username or password</span>
+                                                            </div>
+                                                            <form th:action="@{/register}" method="POST" id="register">
+                                                                <div class="input-field">
+                                                                        <input id="username" type="text" name="username" class="validate">
+                                                                        <label for="username">Username</label>
+                                                                        <span class="helper-text" data-error="wrong" data-success="right"></span>
+                                                                </div>
+                                                                <div class="input-field">
+                                                                        <input id="password" type="password" name="password" class="validate">
+                                                                        <label for="password">Password</label>
+                                                                        <span class="helper-text" data-error="contains alfa-numeric" data-success="right">password must more than 8 character</span>
+                                                                </div>
+                                                                <div class="input-field mt-4">
+                                                                    <select name="role">
+                                                                            <option value="">--Pilih Role--</option>
+                                                                            <option th:each="roleAvailable : ${listRole}" th:value="${roleAvailable.id}" th:text="${roleAvailable.nama}"></option>
+                                                                    </select>
+                                                                    <label>Materialize Select</label>
+                                                              </div>
+
+                                                                <!-- <label> Username </label>
+                                                                <input type="text" name="username" class="form-control"/>
+                                        
+                                                                <label> Password </label>
+                                                                <input type="password" name="password" class="form-control"/>
+                                        
+                                                                <label> Role </label>
+                                                                <select class="form-control" form="register" name="role">
+                                                                    <option value="">--Pilih Role--</option>
+                                                                    <option th:each="roleAvailable : ${listRole}" th:value="${roleAvailable.id}" th:text="${roleAvailable.nama}"></option>
+                                                                </select> -->
+                                        
+                                                                <br>
+                                                                <button type="submit" class="btn btn-primary"> Register </button>
+                                                            </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                        <div th:if="${isLogin}" class="card">
+                                                <div class="card-body">
+                                                    <div class="pl-4 pr-4 pt-4 ">
+                                                        <div class="h3">Welcome to Perpus Corner</div>
+                                                        <div class="p" style="color: grey;">Kami memberikan apa yang Anda butuhkan, segudang ilmu di dalam selembar kertas hitam putih.</div>
+                                                    </div>
+                                                    <div class="card card-border pl-4 pr-4">
+                                                        <div class="card-body">
+                                                                <div th:if="${param.error}">
+                                                                        <span style="color: red">Invalid username or password</span>
+                                                                    </div>
+                                                                    <form th:action="@{/login}" method="POST">
+                                                                        <!-- <div class="row form-group">
+                                                                            <label>Username:</label>
+                                                                            <input type="text" class="form-control input-sm" name="username">
+                                                                        </div>
+                                                                        <div class="row form-group">
+                                                                            <label class="">Password:</label>
+                                                                            <input type="password" class="form-control input-sm" name="password">
+                                                                        </div> -->
+                                                                        <div class="input-field">
+                                                                                <input id="username" type="text" name="username" class="validate">
+                                                                                <label for="username">Username</label>
+                                                                                <span class="helper-text" data-error="wrong" data-success="right"></span>
+                                                                        </div>
+                                                                        <div class="input-field">
+                                                                                <input id="password" type="password" name="password" class="validate">
+                                                                                <label for="password">Password</label>
+                                                                                <span class="helper-text" data-error="contains alfa-numeric" data-success="right">password must more than 8 character</span>
+                                                                        </div>
+                                                                        <div class="row form-group">
+                                                                            <button type="submit" class="btn btn-primary pl-3 pr-3">Get Login</button>
+                                                                        </div>
+                                                                    </form>
+                                                        </div>
+                                                    </div>
+            
+                                                </div>
+                                            </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+    </div>
+
+    <!-- <div class="row">
+            <form class="col s12">
+              <div class="row">
+                <div class="input-field col s6">
+                  <i class="material-icons prefix">account_circle</i>
+                  <input id="icon_prefix" type="text" class="validate">
+                  <label for="icon_prefix">First Name</label>
+                </div>
+                <div class="input-field col s6">
+                  <i class="material-icons prefix">phone</i>
+                  <input id="icon_telephone" type="tel" class="validate">
+                  <label for="icon_telephone">Telephone</label>
+                </div>
+              </div>
+            </form>
+          </div>
     <h2>Hello !</h2>
     <div class="row">
         <div class="col-md-4">
@@ -55,8 +186,62 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 </div>
 </body>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" rel="stylesheet">
+<script>
+     document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('select');
+    var instances = M.FormSelect.init(elems, options);
+  });
+
+  // Or with jQuery
+
+  $(document).ready(function(){
+    $('select').formSelect();
+  });
+</script>
+<style>
+    .head{
+        font-family: 'Lobster', cursive;
+        color: #05828e;
+        letter-spacing: 2px;
+
+    }
+
+    .img-thumbnail{
+        background-color: transparent !important;
+        border:none;
+        max-width:100%;
+    }
+    .jumbotron{
+        background-color: white;
+    }
+    .card-border{
+        border: none !important;
+        box-shadow: none !important;
+    }
+    .btn-primary{
+        background-color: #05828e;
+    }
+
+    .btn-primary:active{
+        background-color: #00bfa5 !important;
+    }
+
+    @media screen and (max-width: 720px) {
+        .img-thumbnail{
+            max-width: 90%;
+            border: none;
+        }
+    }
+</style>
 </html>

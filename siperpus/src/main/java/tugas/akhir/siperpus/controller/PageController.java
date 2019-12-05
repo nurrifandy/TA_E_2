@@ -29,15 +29,23 @@ public class PageController {
     }
 
     @RequestMapping("/login")
-    public String login(){
+    public String login(Model model){
+        Boolean isLogin = true;
+        Boolean isRegister = false;
+        model.addAttribute("isLogin", isLogin);
+        model.addAttribute("isRegister", isRegister);
         return "login";
     }
 
     @RequestMapping(value="/register", method = RequestMethod.GET)
     private String registerUserForm(Model model) {
         List<RoleModel> roleList = roleService.getListRole();
+        Boolean isLogin = false;
+        Boolean isRegister = true;
+        model.addAttribute("isLogin", isLogin);
+        model.addAttribute("isRegister", isRegister);
         model.addAttribute("listRole", roleList);
-        return "register";
+        return "login";
     }
 
     @RequestMapping(value="/register", method = RequestMethod.POST)
@@ -46,6 +54,10 @@ public class PageController {
         user.setRole(role);
         userService.addUser(user);
         model.addAttribute("registered", true);
+        Boolean isLogin = true;
+        Boolean isRegister = false;
+        model.addAttribute("isLogin", isLogin);
+        model.addAttribute("isRegister", isRegister);
         return "login";
     }
 }
