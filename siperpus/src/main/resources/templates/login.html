@@ -33,9 +33,9 @@
         <div class="row mt-5 pt-5">
             <div class="col-md-1"></div>
             <div class="col-md-9 row">
-                <div class="col-xl-5 mb-3 mt-5">
+                <div class="col-xl-5 mb-3 mt-3">
                         <div class="d-flex justify-content-center">
-                            <img th:src=@{/images/3054605.jpg} alt="Learning Image" class="img-thumbnail"/>
+                            <img th:src=@{/images/content.jpg} alt="Learning Image" class="img-thumbnail"/>
                         </div>
                         <div class="text-center">
                                 <div class="h4">Buku Adalah Gudang Ilmu Pengetahuan</div>
@@ -43,7 +43,7 @@
                         </div>
                 </div>
                         <div class="col-md-7 my-auto">
-                            <div class="row">
+                            <div class="row my-auto">
                                 <div class="col-md-1"></div>
                                 <div class="col-md-9">
                                     <div th:if="${isRegister}" class=" card">
@@ -95,7 +95,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                        <div th:if="${isLogin}" class="card">
+                                        <div th:if="${isLogin}" class="card my-auto">
                                                 <div class="card-body">
                                                     <div class="pl-4 pr-4 pt-4 ">
                                                         <div class="h3">Welcome to Perpus Corner</div>
@@ -220,7 +220,7 @@
     .img-thumbnail{
         background-color: transparent !important;
         border:none;
-        max-width:100%;
+        min-width:110%;
     }
     .jumbotron{
         background-color: white;
