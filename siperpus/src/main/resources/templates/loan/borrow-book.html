@@ -38,9 +38,7 @@
                                 <td th:text="${available[__${iterationStatus.index}__]}"></td>
                                 <td>
                                     <div class="btn-group">
-                                        <button class="btn btn-primary mr-2"><a class="text-light" th:href="@{/book/update/{idBook}(idBook=${book.id})}" style="text-decoration: none;">update</a></button>
                                         <button class="btn btn-primary mr-2"><a class="text-light" th:href="@{/loan/add/{idBook}(idBook = ${book.id})}" style="text-decoration: none;">borrow</a></button>
-                                        <button class="btn btn-danger"><a class="text-light" th:href="@{/book/delete/{idBook}(idBook=${book.id})}">delete</a></button>
                                     </div>
                                 </td>
                             </tr>
