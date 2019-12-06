@@ -10,11 +10,16 @@
 </head>
 <body>
     <nav th:replace="fragments/fragment :: navbar"></nav>
-    <div class="row">
+    <div class=" container">
+            <div th:if="${isBerhasil}" class="alert alert-success" th:text="${message}"></div>
+            <div th:if="${isGagal}" class="alert alert-danger" th:text="${message}"></div>
+    </div>
+    <div class="">
+    <div class="row jumbotron">
         <div class="col-md-1"></div>
         <div class="col-md-10">
             <div>
-                <table class="table border text-center table-striped table-responsive-sm">
+                <table class="table border text-center table-striped table-responsive-sm shadow">
                     <thead class="thead-dark">
                         <tr >
                             <th class="pt-3 pb-3">No</th>
@@ -100,6 +105,7 @@
         </div>
         <div class="col-md-1"></div>
     </div>
+</div>
 </body>
 <style>
         .jumbotron{
