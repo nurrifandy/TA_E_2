@@ -93,13 +93,6 @@ public class PeminjamanBukuController {
         return "mail-sukses";
     }
 
-    @GetMapping("/update/{id}")
-    public String formUpdateLoan(@PathVariable long id, Model model) {
-        PeminjamanBukuModel loan = peminjamanBukuService.findLoanByIdLoan(id);
-        model.addAttribute("loan", loan);
-        return "loan/form-update-loan";
-    }
-
     @PostMapping("/update/{id}")
     public String submitUpdateLoan(@ModelAttribute PeminjamanBukuModel loan) {
         PeminjamanBukuModel updateLoan = peminjamanBukuService.updateStatus(loan);
