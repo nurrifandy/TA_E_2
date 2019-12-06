@@ -85,6 +85,7 @@
 
                         <td>
                             <div class="btn-group">
+
                                     <button sec:authorize="hasAuthority('Pustakawan')" class="btn btn-primary" data-toggle="modal" th:attr="data-target='#update'+${pinjam.id}"><a class="text-light" style="text-decoration: none;">update</a></button>
                                 <button sec:authorize="hasAuthority('Pustakawan')" class="btn btn-info"><a class="text-light" th:href="@{/loan/overdue/{id}(id=${pinjam.id})}">Overdue</a></button>
                             </div>

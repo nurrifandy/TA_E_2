@@ -54,30 +54,20 @@ public class PeminjamanBukuController {
             if(user.getRole().getNama().toLowerCase().equals("siswa")) {
                 for (PeminjamanBukuModel i : listPeminjaman) {
                     if (i.getUser().getRole().getNama().toLowerCase().equals("siswa")) {
-                        if (myListSiswa.contains(i)) {
-                            continue;
-                        } else {
-                            myListSiswa.add(i);
-                            model.addAttribute("peminjamanList", myListSiswa);
-                            return "loan/view-loan";
-                        }
+                        myListSiswa.add(i);
+                        model.addAttribute("peminjamanList", myListSiswa);
                     }
                 }
             } else {
                 for (PeminjamanBukuModel i : listPeminjaman) {
                     if (i.getUser().getRole().getNama().toLowerCase().equals("guru")) {
-                        if (myListGuru.contains(i)) {
-                            continue;
-                        } else {
-                            myListGuru.add(i);
-                            model.addAttribute("peminjamanList", myListGuru);
-                            return "loan/view-loan";
-                        }
+                        myListGuru.add(i);
+                        model.addAttribute("peminjamanList", myListGuru);
                     }
                 }
             }
         }
-        return "loan/view-loan-fail";
+        return "loan/view-loan";
     }
 
     @GetMapping("/overdue/{idPeminjaman}")
