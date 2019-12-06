@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,10 +49,16 @@ public class PengadaanBukuController {
 
         
         //cari getAnggotaDetail(uuid) :) id sementara pada post man =402881e86e8ed64a016e8ed953b10000
-        AnggotaDetailModel koperasi = pengadaanBukuRestService.getAnggotaDetail("402881e86e8ed64a016e8ed953b10000").block();
-        
-        if(koperasi.getIsPengurus() && koperasi.getTotalSimpanan() >= 1000000){
-            status = 3;
+        AnggotaDetailModel koperasi = new AnggotaDetailModel();
+        try{
+            koperasi = pengadaanBukuRestService.getAnggotaDetail(user.getUuid()).block();
+        }catch(Exception e){
+            koperasi = null;
+        }
+        if(koperasi != null){
+            if(koperasi.getIsPengurus() && koperasi.getTotalSimpanan() >= 1000000){
+                status = 3;
+            }
         }
 
         //set status pengadaan untuk user yang sedang login, dilakukan pengecekan terlebih dahulu

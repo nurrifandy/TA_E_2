@@ -23,7 +23,7 @@ public class SuratRestServiceImpl implements SuratRestService{
     
     public Mono<String> postSurat(int idJenisSurat, String keterangan, Date tanggalPengajuan, String status, String noSurat, String usernameUser, String password){
         MultiValueMap<String, Object> data = new LinkedMultiValueMap();
-        data.add("idJenisSurat", idJenisSurat);
+        data.add("idJenisSurat", 1);
         data.add("keterangan", keterangan);
         data.add("tanggalPengajuan", tanggalPengajuan);
         data.add("status", "Menunggu Persetujuan");
