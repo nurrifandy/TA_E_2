@@ -104,37 +104,55 @@ public class PeminjamanBukuController {
         BukuModel buku = bukuService.getBukuByIdBuku(idBuku).get();
         UserModel user = userService.getUserByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
         ArrayList<PeminjamanBukuModel> listPeminjaman = new ArrayList<>();
-		if (bukuService.availableBook(buku) > 0){
+
+        if (bukuService.availableBook(buku) > 0){
             PeminjamanBukuModel newLoan = new PeminjamanBukuModel();
             newLoan.setStatus(0);
+
+            //loan Date
             DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
             Date today = new Date();
             dateFormat.format(today);
-            String hari_ini = dateFormat.format(today);
-        
+
+
             GregorianCalendar cal = new GregorianCalendar();
             cal.setTime(today);
             cal.add(Calendar.DATE, 7);
-            
+            //return Date
             Date seminggu = cal.getTime();
-            
+
             newLoan.setTanggalPeminjaman(today);
-    
             newLoan.setTanggalPengembalian(seminggu);
             newLoan.setUser(user);
             newLoan.setBuku(buku);
+
             listPeminjaman.add(newLoan);
             buku.setListPeminjaman(listPeminjaman);
             user.setListPeminjaman(listPeminjaman);
             peminjamanBukuService.addPeminjamanBuku(newLoan);
+
+            String hari_ini = dateFormat.format(today);
             model.addAttribute("hari_ini", hari_ini);
             model.addAttribute("buku", buku);
             return "loan/borrow-success";
         }
-            
+
         else{
-        return "loan/borrow-failed";
+            return "loan/borrow-failed";
         }
-        
+
+    }
+    @RequestMapping("/tambah")
+    public String bookDetails(Model model){
+        List<BukuModel> bookList = bukuService.getListBuku();
+        List<Integer> bookSum = new ArrayList<Integer>();
+        for (BukuModel book:bookList){
+            int available = bukuService.availableBook(book);
+            bookSum.add(Integer.valueOf(available));
+        }
+
+        model.addAttribute("bookList", bookList);
+        model.addAttribute("available", bookSum);
+        return "loan/borrow-book";
     }
 }
