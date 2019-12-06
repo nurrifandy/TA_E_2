@@ -2,6 +2,7 @@ package tugas.akhir.siperpus.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException.NotFound;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import reactor.core.publisher.Mono;
@@ -9,6 +10,8 @@ import tugas.akhir.siperpus.model.AnggotaDetailModel;
 import tugas.akhir.siperpus.model.PengadaanBukuModel;
 import tugas.akhir.siperpus.repository.PengadaanBukuDb;
 import tugas.akhir.siperpus.rest.Setting;
+
+import java.util.NoSuchElementException;
 
 import javax.transaction.Transactional;
 
@@ -32,7 +35,8 @@ public class PengadaanBukuRestServiceImpl implements PengadaanBukuRestService{
 
     @Override
     public Mono<AnggotaDetailModel> getAnggotaDetail(String uuid){
-         return this.webClient.get().uri("/rest/koperasi/anggota/" + uuid).retrieve().bodyToMono(AnggotaDetailModel.class);
+            return this.webClient.get().uri("/api/anggotaKoperasi/" + uuid).retrieve().bodyToMono(AnggotaDetailModel.class);
+        
     }
 }
 

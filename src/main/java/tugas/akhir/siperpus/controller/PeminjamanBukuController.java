@@ -70,17 +70,26 @@ public class PeminjamanBukuController {
         return "loan/view-loan";
     }
 
-    @GetMapping("/surat")
-    public String makeMail(Model model){
+    @GetMapping("/overdue/{idPeminjaman}")
+    public String makeMail(@PathVariable long idPeminjaman, Model model){
+        PeminjamanBukuModel peminjaman = peminjamanBukuService.findLoanByIdLoan(idPeminjaman);
+        UserModel user = peminjaman.getUser();
         int id = 1;
-        String keterangan = "Test semoga bisa";
+        String keterangan = "Peminjaman telah jatuh tempo, surat jatuh tempo harus dibuat";
         Date tanggal = new Date();
         String status = "Menunggu Persetujuan";
         String noSurat = "0";
-        String usernameUser = "mirna";
-        SuratDetailModel surat = suratRestService.postSurat(id,keterangan,tanggal,status,noSurat,usernameUser).block();
-        model.addAttribute("surat", surat.getStatus());
-        return "mail-sukses";
+        String usernameUser = user.getUsername();
+        String password = user.getPassword();
+        String message = suratRestService.postSurat(id,keterangan,tanggal,status,noSurat,usernameUser, password).block();
+        if (message.equalsIgnoreCase("berhasil")){
+            message = "Surat peringatan untuk " + user.getUsername() + " berhasil dibuat!";
+        }
+        else if(message.equalsIgnoreCase("gagal")){
+            message = "Surat peringatan untuk " + user.getUsername() + " gagal dibuat!";
+        }
+        model.addAttribute("message", message);
+        return "redirect:loan/view";
     }
 
     @PostMapping("/update/{id}")
