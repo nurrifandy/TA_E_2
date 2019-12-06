@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeLeaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -87,9 +87,9 @@
                                   </div>
 
                               <div class="btn-group">
-                                            <button class="btn btn-primary" data-toggle="modal" th:attr="data-target='#model'+${book.id}"><a class="text-light" style="text-decoration: none;">update</a></button>
+                                            <button sec:authorize="hasAuthority('Pustakawan')" class="btn btn-primary" data-toggle="modal" th:attr="data-target='#model'+${book.id}"><a class="text-light" style="text-decoration: none;">update</a></button>
                                             <button class="btn btn-dark"><a class="text-light" th:href="@{/loan/add/{idBook}(idBook = ${book.id})}" style="text-decoration: none;">borrow</a></button>
-                                            <button class="btn btn-danger" data-toggle="modal" th:attr="data-target='#delete'+${book.id}"><a class="text-light">delete</a></button>
+                                            <button sec:authorize="hasAuthority('Pustakawan')" class="btn btn-danger" data-toggle="modal" th:attr="data-target='#delete'+${book.id}"><a class="text-light">delete</a></button>
                                         </div>
                                     </td>
                                 </tr>
