@@ -10,24 +10,6 @@
 
 <body style="font-family: 'Montserrat', sans-serif;">
 <nav th:replace="fragments/fragment :: navbar"></nav>
-<div th:if="${ubahStatus == true}" id="pesan" class="modal fade" role="dialog">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Perubahan Status Berhasil</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p th:text="'Status pengajuan peminjaman buku dengan id ' + ${loan.id} + ' berhasil diubah!'"> </p>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-sm btn-danger text-white" data-dismiss="modal">Tutup</button>
-            </div>
-        </div>
-    </div>
-</div>
 <div class="row mt-5 ">
     <div class="col-md-11 mx-auto">
         <div class="card">
@@ -66,10 +48,44 @@
                             <span th:if="${pinjam.status==4}">Sudah Dikembalikan</span>
                             <span th:if="${pinjam.status==5}">Overdue</span>
                         </td>
+
+                        <!-- Modal Update -->
+                        <div class="modal fade" th:attr="id='update'+${pinjam.id}+${pinjam.status}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Update Status</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <form th:action="@{/loan/update/{id}(id=${pinjam.id})}" th:object="${pinjam}" method="POST">
+                                        <div class="modal-body">
+                                            <div class="form-group row">
+                                                <label class="col-md-4 col-form-label" for="inputStatus" style="font-size: 16px;"><b>Status:</b></label>
+                                                <div class="col-md-8">
+                                                    <select id="inputStatus" class="form-control border rounded-pill" name="status">
+                                                        <option th:value="0">Menunggu Persetujuan</option>
+                                                        <option th:value="1">Ditolak</option>
+                                                        <option th:value="2">Disetujui</option>
+                                                        <option th:value="3">Sudah Diambil</option>
+                                                        <option th:value="4">Sudah Dikembalikan</option>
+                                                        <option th:value="5">Overdue</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-primary pl-4 pr-4 p-2" type="submit">Submit</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
                         <td>
                             <div class="btn-group">
-                                <button sec:authorize="hasAuthority('Pustakawan')" class="btn btn-primary mr-2"><a class="text-light" th:href="@{/loan/update/{id}(id=${pinjam.id})}" style="text-decoration: none;">update</a></button>
-
+                                <button sec:authorize="hasAuthority('Pustakawan')" class="btn btn-primary" data-toggle="modal" th:attr="data-target='#update'+${pinjam.id}+${pinjam.status}"><a class="text-light" style="text-decoration: none;">update</a></button>
                                 <button class="btn btn-danger"><a class="text-light" th:href="@{/loan/delete/{id}(id=${pinjam.id})}">delete</a></button>
                             </div>
                         </td>
@@ -81,4 +97,42 @@
     </div>
 </div>
 </body>
+<style>
+    .jumbotron{
+        background-color:transparent !important;
+    }
+    .close{
+        color:white;
+    }
+
+    .close:hover{
+        color:white;
+    }
+
+    .card{
+        box-shadow: 0px 0px 8px #424242;
+        border:none;
+    }
+    .modal-header{
+        color:white;
+        background-color:#162229;
+    }
+
+    .btn-primary{
+        background-color: #279286;
+        border: none;
+    }
+
+    .btn-primary:hover{
+        background-color: #05828e;
+        border: none;
+    }
+
+    .btn-primary:active{
+        background-color: #05828e !important;
+        border: none;
+    }
+
+
+</style>
 </html>
