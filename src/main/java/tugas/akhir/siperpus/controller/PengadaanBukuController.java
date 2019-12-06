@@ -57,8 +57,9 @@ public class PengadaanBukuController {
         }catch(Exception e){
             koperasi = null;
         }
+
         if(koperasi != null){
-            if(koperasi.getIsPengurus() && koperasi.getTotalSimpanan() >= 1000000){
+            if(user.getRole().getNama().equals("Guru") && koperasi.getIsPengurus() && koperasi.getTotalSimpanan() >= 1000000){
                 status = 3;
             }
         }
