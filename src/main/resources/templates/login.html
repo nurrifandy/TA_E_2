@@ -220,7 +220,7 @@
     .img-thumbnail{
         background-color: transparent !important;
         border:none;
-        min-width:110%;
+        max-width:90%;
     }
     .jumbotron{
         background-color: white;
@@ -235,6 +235,14 @@
 
     .btn-primary:active{
         background-color: #00bfa5 !important;
+    }
+
+    @media screen and (min-width:1200px){
+        .img-thumbnail{
+            background-color: transparent !important;
+            border:none;
+            min-width:110%;
+         }
     }
 
     @media screen and (max-width: 720px) {
