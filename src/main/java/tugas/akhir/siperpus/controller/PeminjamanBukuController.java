@@ -80,15 +80,19 @@ public class PeminjamanBukuController {
         Boolean isBerhasil = false;
         Boolean isGagal = false;
         int id = 1;
+        
         String keterangan = "Peminjaman telah jatuh tempo, surat jatuh tempo harus dibuat";
-        Date tanggal = new Date();
+        SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
+        String date = formatDate.format(new Date());
         String status = "Menunggu Persetujuan";
-        int noSurat = 0;
+        String noSurat = "0";
         String usernameUser = user.getUsername();
-        String password = user.getPassword();
+        String password = "pacil54321";
+    
+
         String message = "";
         try{
-            message = suratRestService.postSurat(id,keterangan,tanggal,status,noSurat,usernameUser, password).block();
+            message = suratRestService.postSurat(id,keterangan,date,status,noSurat,usernameUser, password).block();
         }catch(NullPointerException e){
             message = "gagal";
         }
