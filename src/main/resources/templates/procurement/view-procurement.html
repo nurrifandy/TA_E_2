@@ -10,6 +10,24 @@
 
 <body style="font-family: 'Montserrat', sans-serif;" >
 <nav th:replace="fragments/fragment :: navbar"></nav>
+<div th:if="${failed}" id="pesanGagal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"> Failed! </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p> Pengadaan tidak berhasil dihapus!  </p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-success text-white" data-dismiss="modal"> Close </button>
+            </div>
+        </div>
+    </div>
+</div>
 <div th:if="${ubahStatus == true}" id="pesan" class="modal fade" role="dialog">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -28,7 +46,7 @@
         </div>
     </div>
 </div>
-<div class="row mt-5 text-center jumbotron">
+<div class="row mt-5 text-center">
     <div class="col-md-9 mx-auto">
         <div class="card">
             <div class="card-header bg-dark text-white">
@@ -66,9 +84,41 @@
                             <span th:if="${pengadaan.status==4}">Sudah Dikembalikan</span>
                             <span th:if="${pengadaan.status==5}">Overdue</span>
                         </td>
-                        <td th:if="${user.role.nama}=='Pustakawan'">
+
+                        <!-- Modal delete -->
+                        <div class="modal fade" th:attr="id='delete'+${pengadaan.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenter" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Delete Procurement</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div>
+                                            <div>Apakah anda yakin ingin menghapus pengadaan buku <b th:text="${pengadaan.judul}+' ?'"></b></div>
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer d-flex justify-content-center">
+                                        <button class="btn btn-primary pr-5 pl-5"><a class="text-light" th:href="@{/procurement/delete/} + ${pengadaan.id}" style="text-decoration: none !important;">Yes</a></button>
+                                        <button class="btn btn-danger pr-5 pl-5" data-dismiss="modal" aria-label="Close">No</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <td>
                             <div class="btn-group">
-                                <button class="btn btn-danger"><a class="text-light" th:href="@{/procurement/delete/{id}(id=${pengadaan.id})}">delete</a></button>
+                                <!-- <button class="btn btn-primary mr-2" data-toggle="modal" tah:attr="data-target='#update'+${pengadaan.id}"><a class="text-light" style="text-decoration: none;">update</a></button> -->
+
+<!--                                <button class="btn btn-danger"><a class="text-light" th:href="@{/procurement/delete/{id}(id=${pengadaan.id})}">delete</a></button>-->
+                                <button th:if="${pengadaan.status==0||pengadaan.status==1}" class="btn btn-danger" data-toggle="modal" th:attr="data-target='#delete'+${pengadaan.id}"><a class="text-light">delete</a></button>
+
+<!--                        <td th:if="${user.role.nama}=='Pustakawan'">-->
+<!--                            <div class="btn-group">-->
+<!--                                <button class="btn btn-danger"><a class="text-light" th:href="@{/procurement/delete/{id}(id=${pengadaan.id})}">delete</a></button>-->
+
                             </div>
                         </td>
                     </tr>

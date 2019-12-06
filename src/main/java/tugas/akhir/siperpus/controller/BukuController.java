@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 
@@ -33,20 +34,28 @@ public class BukuController{
     private PeminjamanBukuService peminjamanBukuService;
 
     @PostMapping("/update/{id}")
-    public String submitUpdateBook(@PathVariable long id,@ModelAttribute BukuModel book, Model model){
+    public String submitUpdateBook(@PathVariable long id,@ModelAttribute BukuModel book, Model model, RedirectAttributes directModel){
         BukuModel buku = bukuService.getBukuByIdBuku(id).get();
         BukuModel updateBook = null;
+        Boolean isSuccess = false;
+        Boolean isGagal = true;
+        String message = "Update Gagal!";
         if(book.getJumlah()>=(buku.getJumlah()-bukuService.availableBook(buku))){
             updateBook = bukuService.updateBook(book);
+            isSuccess = true;
+            isGagal = false;
+            message = "Update Berhasil!";
         }
-        Boolean isSuccess = true;
-        model.addAttribute("isSuccess", isSuccess);
-        model.addAttribute("book", updateBook);
+        
+        directModel.addFlashAttribute("book", updateBook);
+        directModel.addFlashAttribute("message", message);
+        directModel.addFlashAttribute("isBerhasil", isSuccess);
+        directModel.addFlashAttribute("isGagal", isGagal);
         return "redirect:/book/detail";
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteBuku(@PathVariable Long id, Model model) {
+    public String deleteBuku(@PathVariable Long id, Model model, RedirectAttributes directModel) {
         BukuModel existingBook = bukuService.findByIdBook(id);
         model.addAttribute("book", existingBook);
         bukuService.deleteBook(existingBook);
@@ -74,13 +83,20 @@ public class BukuController{
         if (bukuModelList != null){
             for (BukuModel i : bukuModelList){
                 if(i.getJudul().toLowerCase().equals(judul.toLowerCase()) && i.getPengarang().toLowerCase().equals(pengarang.toLowerCase())) {
-                    return "book/add-book-fail";
+
+                    List<JenisBukuModel> listJenisBuku = jenisBukuService.getJenisBukuList();
+                    model.addAttribute("jenisBuku", listJenisBuku);
+                    model.addAttribute("gagal", true);
+                    return "book/form-add-book";
                 }
             }
         }
         bukuService.addBook(book);
+        List<JenisBukuModel> listJenisBuku = jenisBukuService.getJenisBukuList();
+        model.addAttribute("jenisBuku", listJenisBuku);
         model.addAttribute("namaBuku", judul);
-        return "book/add-book-submit";
+        model.addAttribute("added", true);
+        return "book/form-add-book";
     }
 
     @RequestMapping("/detail")

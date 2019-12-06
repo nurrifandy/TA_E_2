@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Fail</title>
+    <title>500 Internal Error</title>
     <object th:include="fragments/fragment :: js" th:remove="tag"></object>
     <object th:include="fragments/fragment :: css" th:remove="tag"></object>
 </head>
 <body>
 <nav th:replace="fragments/fragment :: navbar"></nav>
 <div class="container p-5 text-center">
-    <h2 th:text="'Permintaan pengadaan buku ' + ${procurement} + ' tidak berhasil dihapus'"></h2>
+    <div class="h1">500 Internal Server</div>
+    <h2 th:text="'500 Internal Error'"></h2>
     <a href="/">Kembali ke Home</a>
 </div>
 </body>

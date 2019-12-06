@@ -9,6 +9,45 @@
 </head>
 
 <body style="font-family: 'Montserrat', sans-serif; color">
+<!--<div th:if="${isSuccess}" class="alert alert-success">Pengadaan berhasil ditambahkan!</div>-->
+<!--Pop Up-->
+<div th:if="${added}" id="pesan" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"> Success! </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p> Buku berhasil ditambahkan!  </p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-success text-white" data-dismiss="modal"> Close </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:if="${gagal}" id="pesan" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"> Failed! </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p> Buku dengan judul dan pengarang yang sama sudah ada!  </p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-success text-white" data-dismiss="modal"> Close </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <nav th:replace="fragments/fragment :: navbar"></nav>
 <h1 class="text-center font-weight-bold mt-5" > Tambah Buku </h1>
 <div class="row mt-5 ">
