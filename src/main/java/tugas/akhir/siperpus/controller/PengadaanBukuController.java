@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpServerErrorException.InternalServerError;
 
 import reactor.core.publisher.Mono;
 import tugas.akhir.siperpus.model.AnggotaDetailModel;
@@ -53,7 +54,7 @@ public class PengadaanBukuController {
         koperasi = new AnggotaDetailModel();
         try{
             koperasi = pengadaanBukuRestService.getAnggotaDetail(user.getUuid()).block();
-        }catch(NullPointerException e){
+        }catch(Exception e){
             koperasi = null;
         }
         if(koperasi != null){
