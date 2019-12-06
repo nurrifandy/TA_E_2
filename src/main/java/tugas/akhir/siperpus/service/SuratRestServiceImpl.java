@@ -18,17 +18,18 @@ public class SuratRestServiceImpl implements SuratRestService{
     private final WebClient webClient;
 
     public SuratRestServiceImpl(WebClient.Builder webClientBuilder){
-        this.webClient = webClientBuilder.baseUrl(Setting.mockApi).build();
+        this.webClient = webClientBuilder.baseUrl(Setting.situUrl).build();
    }
     
-    public Mono<SuratDetailModel> postSurat(int idJenisSurat, String keterangan, Date tanggalPengajuan, String status, String noSurat, String usernameUser){
+    public Mono<String> postSurat(int idJenisSurat, String keterangan, Date tanggalPengajuan, String status, String noSurat, String usernameUser, String password){
         MultiValueMap<String, Object> data = new LinkedMultiValueMap();
         data.add("idJenisSurat", idJenisSurat);
         data.add("keterangan", keterangan);
         data.add("tanggalPengajuan", tanggalPengajuan);
-        data.add("status", status);
-        data.add("noSurat", noSurat);
+        data.add("status", "Menunggu Persetujuan");
+        data.add("noSurat", 0);
         data.add("usernameUser", usernameUser);
-        return this.webClient.post().uri("/rest/api").syncBody(data).retrieve().bodyToMono(SuratDetailModel.class);
+        data.add("password", password);
+        return this.webClient.post().uri("/pengajuan-surat/add").syncBody(data).retrieve().bodyToMono(String.class);
     }
 }
