@@ -77,13 +77,17 @@ public class BukuController{
         if (bukuModelList != null){
             for (BukuModel i : bukuModelList){
                 if(i.getJudul().toLowerCase().equals(judul.toLowerCase()) && i.getPengarang().toLowerCase().equals(pengarang.toLowerCase())) {
-                    return "book/add-book-fail";
+                    model.addAttribute("gagal", true);
+                    return "book/form-add-book";
                 }
             }
         }
         bukuService.addBook(book);
+        List<JenisBukuModel> listJenisBuku = jenisBukuService.getJenisBukuList();
+        model.addAttribute("jenisBuku", listJenisBuku);
         model.addAttribute("namaBuku", judul);
-        return "book/add-book-submit";
+        model.addAttribute("added", true);
+        return "book/form-add-book";
     }
 
     @RequestMapping("/detail")

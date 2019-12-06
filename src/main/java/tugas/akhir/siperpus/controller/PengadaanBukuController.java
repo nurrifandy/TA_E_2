@@ -94,12 +94,12 @@ public class PengadaanBukuController {
         if(user.getRole().getNama().toLowerCase().equals("pustakawan")) {
              if (existingProcurement.getStatus() == 0 || existingProcurement.getStatus() == 1) {
                 pengadaanBukuService.delete(existingProcurement);
-                return "procurement/delete";
+                return "redirect:/procurement/view";
             }
         } else {
             if (existingProcurement.getStatus() == 0) {
                 pengadaanBukuService.delete(existingProcurement);
-                return "procurement/delete";
+                return "redirect:/procurement/view";
             }
         }
         return "procurement/delete-fail";
