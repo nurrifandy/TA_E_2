@@ -10,6 +10,10 @@
 
 <body style="font-family: 'Montserrat', sans-serif;">
 <nav th:replace="fragments/fragment :: navbar"></nav>
+<div class="container">
+    <div th:if="${isBerhasil}" class="alert alert-success" th:text="${message}"></div>
+    <div th:if="${isGagal}" class="alert alert-danger" th:text="${message}"></div>
+</div>
 <div class="row mt-5 ">
     <div class="col-md-11 mx-auto">
         <div class="card">
