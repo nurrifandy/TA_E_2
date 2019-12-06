@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 
@@ -33,20 +34,28 @@ public class BukuController{
     private PeminjamanBukuService peminjamanBukuService;
 
     @PostMapping("/update/{id}")
-    public String submitUpdateBook(@PathVariable long id,@ModelAttribute BukuModel book, Model model){
+    public String submitUpdateBook(@PathVariable long id,@ModelAttribute BukuModel book, Model model, RedirectAttributes directModel){
         BukuModel buku = bukuService.getBukuByIdBuku(id).get();
         BukuModel updateBook = null;
+        Boolean isSuccess = false;
+        Boolean isGagal = true;
+        String message = "Update Gagal!";
         if(book.getJumlah()>=(buku.getJumlah()-bukuService.availableBook(buku))){
             updateBook = bukuService.updateBook(book);
+            isSuccess = true;
+            isGagal = false;
+            message = "Update Berhasil!";
         }
-        Boolean isSuccess = true;
-        model.addAttribute("isSuccess", isSuccess);
-        model.addAttribute("book", updateBook);
+        
+        directModel.addFlashAttribute("book", updateBook);
+        directModel.addFlashAttribute("message", message);
+        directModel.addFlashAttribute("isBerhasil", isSuccess);
+        directModel.addFlashAttribute("isGagal", isGagal);
         return "redirect:/book/detail";
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteBuku(@PathVariable Long id, Model model) {
+    public String deleteBuku(@PathVariable Long id, Model model, RedirectAttributes directModel) {
         BukuModel existingBook = bukuService.findByIdBook(id);
         model.addAttribute("book", existingBook);
         bukuService.deleteBook(existingBook);
@@ -97,14 +106,6 @@ public class BukuController{
         // bukuService.availableBook(bookList, bookSum);
         for (BukuModel book:bookList){
             int available = bukuService.availableBook(book);
-        //     int jumlah = 0;
-        //     int available = 0;
-        //     for (PeminjamanBukuModel peminjaman:book.getListPeminjaman()){
-        //         if (peminjaman.getStatus() != 4){
-        //             jumlah++;
-        //         }
-        //     }
-        //     available = book.getJumlah()-jumlah;
             bookSum.add(Integer.valueOf(available));
         }
         

@@ -27,7 +27,7 @@ public class SuratRestServiceImpl implements SuratRestService{
         data.add("keterangan", keterangan);
         data.add("tanggalPengajuan", tanggalPengajuan);
         data.add("status", status);
-        data.add("noSurat", 0);
+        data.add("noSurat", noSurat);
         data.add("usernameUser", usernameUser);
         data.add("password", password);
 
@@ -39,6 +39,6 @@ public class SuratRestServiceImpl implements SuratRestService{
         // data.add("usernameUser", "");
         // data.add("password", "");
 
-        return this.webClient.post().uri("/pengajuan-surat/add").syncBody(data).retrieve().bodyToMono(String.class);
+        return this.webClient.post().uri("/api/v1/pengajuan-surat/add").syncBody(data).retrieve().bodyToMono(String.class);
     }
 }
