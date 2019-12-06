@@ -80,14 +80,13 @@ public class PeminjamanBukuController {
         Boolean isBerhasil = false;
         Boolean isGagal = false;
         int id = 1;
-        
         String keterangan = "Peminjaman telah jatuh tempo, surat jatuh tempo harus dibuat";
         SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
         String date = formatDate.format(new Date());
         String status = "Menunggu Persetujuan";
         String noSurat = "0";
         String usernameUser = user.getUsername();
-        String password = "pacil54321";
+        String password = user.getPassword();
     
 
         String message = "";
