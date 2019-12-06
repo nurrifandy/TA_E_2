@@ -21,24 +21,23 @@ public class SuratRestServiceImpl implements SuratRestService{
         this.webClient = webClientBuilder.baseUrl(Setting.situUrl).build();
    }
     
-    public Mono<String> postSurat(int idJenisSurat, String keterangan, Date tanggalPengajuan, String status, int noSurat, String usernameUser, String password){
+    public Mono<String> postSurat(int idJenisSurat, String keterangan, String tanggalPengajuan, String status, String noSurat, String usernameUser, String password){
         MultiValueMap<String, Object> data = new LinkedMultiValueMap();
-        data.add("idJenisSurat", idJenisSurat);
-        data.add("keterangan", keterangan);
-        data.add("tanggalPengajuan", tanggalPengajuan);
-        data.add("status", status);
-        data.add("noSurat", noSurat);
-        data.add("usernameUser", usernameUser);
-        data.add("password", password);
+        // data.add("idJenisSurat", idJenisSurat);
+        // data.add("keterangan", keterangan);
+        // data.add("tanggalPengajuan", tanggalPengajuan);
+        // data.add("status", status);
+        // data.add("noSurat", noSurat);
+        // data.add("usernameUser", usernameUser);
+        // data.add("password", password);
 
-        // data.add("idJenisSurat", 1);
-        // data.add("keterangan", "");
-        // data.add("tanggalPengajuan", "");
-        // data.add("status", "Menunggu Persetujuan");
-        // data.add("noSurat", 0);
-        // data.add("usernameUser", "");
-        // data.add("password", "");
-
-        return this.webClient.post().uri("/api/v1/pengajuan-surat/add").syncBody(data).retrieve().bodyToMono(String.class);
+        data.add("idJenisSurat", 1);
+        data.add("keterangan", "Test semoga bisa");
+        data.add("tanggalPengajuan", "2019-10-19");
+        data.add("status", "Menunggu Persetujuan");
+        data.add("noSurat", "0");
+        data.add("usernameUser", "mirna");
+        data.add("password", "mirna1234");
+        return this.webClient.post().uri("/api/v1/pengajuan-surat/add").header("Content-Type", "application/json").syncBody(data).retrieve().bodyToMono(String.class);
     }
 }
