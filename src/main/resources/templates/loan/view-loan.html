@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>Loan the Book</title>
+    <title>Daftar Peminjaman</title>
     <object th:include="fragments/fragment :: js" th:remove="tag"></object>
     <object th:include="fragments/fragment :: css" th:remove="tag"></object>
 </head>
@@ -17,7 +17,7 @@
                 Daftar Peminjaman
             </div>
             <div class="card-body">
-                <table class="table table-striped">
+                <table class="table table-striped text-center">
                     <thead>
                     <tr>
                         <th>No</th>
@@ -39,7 +39,7 @@
                         <td th:text="${pinjam.buku.getPenerbit()}"></td>
                         <td th:text="${pinjam.buku.getJenisBuku().nama}"></td>
                         <td th:text="${#dates.format(pinjam.tanggalPeminjaman,'dd-MMM-yyyy')}"></td>
-                        <td th:text="${#dates.format(pinjam.tanggalPengembalian,'dd-MMM-yyyy')}"></td>
+                        <td  th:text="${#dates.format(pinjam.tanggalPengembalian,'dd-MMM-yyyy')}"></td>
                         <td>
                             <span th:if="${pinjam.status==0}">Menunggu Persetujuan</span>
                             <span th:if="${pinjam.status==1}">Ditolak</span>
@@ -85,7 +85,8 @@
 
                         <td>
                             <div class="btn-group">
-                                <button sec:authorize="hasAuthority('Pustakawan')" class="btn btn-primary" data-toggle="modal" th:attr="data-target='#update'+${pinjam.id}"><a class="text-light" style="text-decoration: none;">update</a></button>
+
+                                    <button sec:authorize="hasAuthority('Pustakawan')" class="btn btn-primary" data-toggle="modal" th:attr="data-target='#update'+${pinjam.id}"><a class="text-light" style="text-decoration: none;">update</a></button>
                                 <button sec:authorize="hasAuthority('Pustakawan')" class="btn btn-info"><a class="text-light" th:href="@{/loan/overdue/{id}(id=${pinjam.id})}">Overdue</a></button>
                             </div>
                         </td>

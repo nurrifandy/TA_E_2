@@ -58,7 +58,8 @@ public class UserController {
         newUser.setPassword(user.getPassword());
         userService.addUser(newUser);
         userRestService.register(user,newUser).subscribe();
-        return "user/add-user-submit";
+        model.addAttribute("added", true);
+        return "user/form-add-user";
     }
     
     @RequestMapping(value="/profile", method = RequestMethod.GET)

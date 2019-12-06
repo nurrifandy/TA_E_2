@@ -15,8 +15,8 @@ public class AnggotaDetailModel{
     @JsonProperty("is_pengurus")
     private Boolean isPengurus;
 
-    @JsonProperty("uuid_user")
-    private String uuidUser;
+    @JsonProperty("nia")
+    private String nia;
 
     @JsonProperty("total_simpanan")
     private int totalSimpanan;
@@ -59,17 +59,17 @@ public class AnggotaDetailModel{
     }
 
     /**
-     * @return the uuidUser
+     * @return the nia
      */
-    public String getUuidUser() {
-        return uuidUser;
+    public String getNia() {
+        return nia;
     }
 
     /**
-     * @param uuidUser the uuidUser to set
+     * @param nia the nia to set
      */
-    public void setUuidUser(String uuidUser) {
-        this.uuidUser = uuidUser;
+    public void setNia(String nia) {
+        this.nia = nia;
     }
 
     /**
