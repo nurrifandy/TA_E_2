@@ -10,6 +10,7 @@
 </head>
 <body>
     <nav th:replace="fragments/fragment :: navbar"></nav>
+
     <div class="row">
         <div class="col-md-1"></div>
         <div class="col-md-10">
@@ -91,7 +92,7 @@
                                             <button sec:authorize="hasAuthority('Guru')"  class="btn btn-dark"><a class="text-light" th:href="@{/loan/add/{idBook}(idBook = ${book.id})}" style="text-decoration: none;">borrow</a></button>
                                             <button sec:authorize="hasAuthority('Siswa')"  class="btn btn-dark"><a class="text-light" th:href="@{/loan/add/{idBook}(idBook = ${book.id})}" style="text-decoration: none;">borrow</a></button>
                                             <button sec:authorize="hasAuthority('Pustakawan')" class="btn btn-danger" data-toggle="modal" th:attr="data-target='#delete'+${book.id}"><a class="text-light">delete</a></button>
-                                        </div>
+                              </div>
                                     </td>
                                 </tr>
                     </tbody>
