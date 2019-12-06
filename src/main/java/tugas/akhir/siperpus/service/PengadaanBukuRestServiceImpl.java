@@ -1,6 +1,7 @@
 package tugas.akhir.siperpus.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException.NotFound;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -35,8 +36,7 @@ public class PengadaanBukuRestServiceImpl implements PengadaanBukuRestService{
 
     @Override
     public Mono<AnggotaDetailModel> getAnggotaDetail(String uuid){
-            return this.webClient.get().uri("/api/anggotaKoperasi/" + uuid).retrieve().bodyToMono(AnggotaDetailModel.class);
-        
+       return this.webClient.get().uri("/api/anggotaKoperasi/" + uuid).retrieve().bodyToMono(AnggotaDetailModel.class);
     }
 }
 
