@@ -32,16 +32,13 @@ public class BukuController{
     @Autowired
     private PeminjamanBukuService peminjamanBukuService;
 
-    @GetMapping("/update/{id}")
-    public String formUpdateBook(@PathVariable long id, Model model){
-        BukuModel book = bukuService.findByIdBook(id);
-        model.addAttribute("book", book);
-        return "book/form-update-book";
-    }
-
     @PostMapping("/update/{id}")
     public String submitUpdateBook(@PathVariable long id,@ModelAttribute BukuModel book, Model model){
-        BukuModel updateBook = bukuService.updateBook(book);
+        BukuModel buku = bukuService.getBukuByIdBuku(id).get();
+        BukuModel updateBook = null;
+        if(book.getJumlah()>=(buku.getJumlah()-bukuService.availableBook(buku))){
+            updateBook = bukuService.updateBook(book);
+        }
         Boolean isSuccess = true;
         model.addAttribute("isSuccess", isSuccess);
         model.addAttribute("book", updateBook);

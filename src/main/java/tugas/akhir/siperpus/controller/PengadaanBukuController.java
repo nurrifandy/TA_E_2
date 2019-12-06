@@ -32,6 +32,8 @@ public class PengadaanBukuController {
 
     @GetMapping(value="/add")
     public String formAddProcurement(Model model){
+        Boolean isSuccess = false;
+        model.addAttribute("isSuccess", isSuccess);
         return "procurement/form-add-procurement";
     }
 
@@ -48,7 +50,7 @@ public class PengadaanBukuController {
         //cari getAnggotaDetail(uuid) :) id sementara pada post man =402881e86e8ed64a016e8ed953b10000
         AnggotaDetailModel koperasi = pengadaanBukuRestService.getAnggotaDetail("402881e86e8ed64a016e8ed953b10000").block();
         
-        if(koperasi.getIsPengurus() && koperasi.getTotalSimpanan() == 1000000){
+        if(koperasi.getIsPengurus() && koperasi.getTotalSimpanan() >= 1000000){
             status = 3;
         }
 
@@ -66,9 +68,11 @@ public class PengadaanBukuController {
         user.setListPengadaan(listPengadaan);
         pengadaanBukuService.addProcurement(pengadaan);
         
+        Boolean isSuccess = true;
+        model.addAttribute("isSuccess", isSuccess);
         model.addAttribute("user", user);
         model.addAttribute("pengadaan", pengadaan);
-        return "redirect:/procurement/add";
+        return "procurement/form-add-procurement";
     }
 
     @GetMapping("/view")
