@@ -92,7 +92,7 @@ public class PeminjamanBukuController {
         String usernameUser = user.getUsername();
         String password = user.getPassword();
         String message = suratRestService.postSurat(id,keterangan,tanggal,status,noSurat,usernameUser, password).block();
-        if (message.equalsIgnoreCase("sukses")){
+        if (message.equalsIgnoreCase("berhasil")){
             message = "Surat peringatan untuk " + user.getUsername() + " berhasil dibuat!";
         }
         else if(message.equalsIgnoreCase("gagal")){

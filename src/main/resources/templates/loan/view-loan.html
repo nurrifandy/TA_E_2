@@ -28,7 +28,7 @@
                         <th>Tanggal Peminjaman</th>
                         <th>Tanggal Pengembalian</th>
                         <th>Status</th>
-                        <th>Action</th>
+                        <th sec:authorize="hasAuthority('Pustakawan')">Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -39,7 +39,7 @@
                         <td th:text="${pinjam.buku.getPenerbit()}"></td>
                         <td th:text="${pinjam.buku.getJenisBuku().nama}"></td>
                         <td th:text="${#dates.format(pinjam.tanggalPeminjaman,'dd-MMM-yyyy')}"></td>
-                        <td th:text="${#dates.format(pinjam.tanggalPengembalian,'dd-MMM-yyyy')}"></td>
+                        <td  th:text="${#dates.format(pinjam.tanggalPengembalian,'dd-MMM-yyyy')}"></td>
                         <td>
                             <span th:if="${pinjam.status==0}">Menunggu Persetujuan</span>
                             <span th:if="${pinjam.status==1}">Ditolak</span>
@@ -85,9 +85,9 @@
 
                         <td>
                             <div class="btn-group">
-                                <button sec:authorize="hasAuthority('Pustakawan')" class="btn btn-primary mr-2"><a class="text-light" th:href="@{/loan/update/{id}(id=${pinjam.id})}" style="text-decoration: none;">update</a></button>
-                                <button class="btn btn-info"><a class="text-light" th:href="@{/loan/overdue/{id}(id=${pinjam.id})}">Overdue</a></button>
-                                <button class="btn btn-danger"><a class="text-light" th:href="@{/loan/delete/{id}(id=${pinjam.id})}">delete</a></button>
+                                <button sec:authorize="hasAuthority('Pustakawan')" class="btn btn-primary"><a class="text-light" th:href="@{/loan/update/{id}(id=${pinjam.id})}" style="text-decoration: none;">update</a></button>
+                                <button sec:authorize="hasAuthority('Pustakawan')" class="btn btn-info"><a class="text-light" th:href="@{/loan/overdue/{id}(id=${pinjam.id})}">Overdue</a></button>
+                                <button sec:authorize="hasAuthority('Pustakawan')" class="btn btn-danger"><a class="text-light" th:href="@{/loan/delete/{id}(id=${pinjam.id})}">delete</a></button>
                             </div>
                         </td>
                     </tr>
