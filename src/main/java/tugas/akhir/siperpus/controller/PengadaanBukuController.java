@@ -113,6 +113,6 @@ public class PengadaanBukuController {
                 return "redirect:/procurement/view";
             }
         }
-        return "procurement/delete-fail";
+        return "redirect:/procurement/view";
     }
 }

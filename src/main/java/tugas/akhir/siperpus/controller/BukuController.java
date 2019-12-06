@@ -74,6 +74,9 @@ public class BukuController{
         if (bukuModelList != null){
             for (BukuModel i : bukuModelList){
                 if(i.getJudul().toLowerCase().equals(judul.toLowerCase()) && i.getPengarang().toLowerCase().equals(pengarang.toLowerCase())) {
+
+                    List<JenisBukuModel> listJenisBuku = jenisBukuService.getJenisBukuList();
+                    model.addAttribute("jenisBuku", listJenisBuku);
                     model.addAttribute("gagal", true);
                     return "book/form-add-book";
                 }
