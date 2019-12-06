@@ -31,12 +31,17 @@ public class PengadaanBukuRestServiceImpl implements PengadaanBukuRestService{
     }
 
     public PengadaanBukuRestServiceImpl(WebClient.Builder webClientBuilder){
-         this.webClient = webClientBuilder.baseUrl(Setting.mockApi).build();
+         this.webClient = webClientBuilder.baseUrl(Setting.koperasiApi).build();
     }
 
     @Override
     public Mono<AnggotaDetailModel> getAnggotaDetail(String uuid){
-       return this.webClient.get().uri("/api/anggotaKoperasi/" + uuid).retrieve().bodyToMono(AnggotaDetailModel.class);
+        try{
+            return this.webClient.get().uri("/api/anggotaKoperasi/" + uuid).retrieve().bodyToMono(AnggotaDetailModel.class);
+        }catch(Exception e){
+            return null;
+        }
+       
     }
 }
 
