@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>404 Forbidden</title>
+    <title>404 Not Found</title>
     <object th:include="fragments/fragment :: js" th:remove="tag"></object>
     <object th:include="fragments/fragment :: css" th:remove="tag"></object>
 </head>
 <body>
 <nav th:replace="fragments/fragment :: navbar"></nav>
 <div class="container p-5 text-center">
+    <div class="h1">404 Not Found</div>
     <h2 th:text="'Halaman tidak ditemukan.'"></h2>
     <a href="/">Kembali ke Home</a>
 </div>
