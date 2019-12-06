@@ -48,10 +48,16 @@ public class PengadaanBukuController {
 
         
         //cari getAnggotaDetail(uuid) :) id sementara pada post man =402881e86e8ed64a016e8ed953b10000
-        AnggotaDetailModel koperasi = pengadaanBukuRestService.getAnggotaDetail("402881e86e8ed64a016e8ed953b10000").block();
-        
-        if(koperasi.getIsPengurus() && koperasi.getTotalSimpanan() >= 1000000){
-            status = 3;
+        AnggotaDetailModel koperasi = new AnggotaDetailModel();
+        try{
+            koperasi = pengadaanBukuRestService.getAnggotaDetail(user.getUuid()).block();
+        }catch(Exception e){
+            koperasi = null;
+        }
+        if(koperasi != null){
+            if(koperasi.getIsPengurus() && koperasi.getTotalSimpanan() >= 1000000){
+                status = 3;
+            }
         }
 
         //set status pengadaan untuk user yang sedang login, dilakukan pengecekan terlebih dahulu
