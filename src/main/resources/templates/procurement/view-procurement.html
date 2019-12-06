@@ -110,7 +110,7 @@
                         </div>
                         <td>
                             <div class="btn-group">
-                                <button class="btn btn-primary mr-2"><a class="text-light" th:href="@{/loan/update/{id}(id=${pengadaan.id})}" style="text-decoration: none;">update</a></button>
+                                <!-- <button class="btn btn-primary mr-2" data-toggle="modal" tah:attr="data-target='#update'+${pengadaan.id}"><a class="text-light" style="text-decoration: none;">update</a></button> -->
 
 <!--                                <button class="btn btn-danger"><a class="text-light" th:href="@{/procurement/delete/{id}(id=${pengadaan.id})}">delete</a></button>-->
                                 <button th:if="${pengadaan.status==0||pengadaan.status==1}" class="btn btn-danger" data-toggle="modal" th:attr="data-target='#delete'+${pengadaan.id}"><a class="text-light">delete</a></button>

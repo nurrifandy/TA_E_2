@@ -53,7 +53,7 @@ public class PengadaanBukuController {
         koperasi = new AnggotaDetailModel();
         try{
             koperasi = pengadaanBukuRestService.getAnggotaDetail(user.getUuid()).block();
-        }catch(Exception e){
+        }catch(NullPointerException e){
             koperasi = null;
         }
         if(koperasi != null){
