@@ -5,6 +5,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.reactive.result.view.RedirectView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import tugas.akhir.siperpus.model.BukuModel;
 import tugas.akhir.siperpus.model.PeminjamanBukuModel;
@@ -54,52 +56,62 @@ public class PeminjamanBukuController {
             if(user.getRole().getNama().toLowerCase().equals("siswa")) {
                 for (PeminjamanBukuModel i : listPeminjaman) {
                     if (i.getUser().getRole().getNama().toLowerCase().equals("siswa")) {
-                        if (myListSiswa.contains(i)) {
-                            continue;
-                        } else {
-                            myListSiswa.add(i);
-                            model.addAttribute("peminjamanList", myListSiswa);
-                            return "loan/view-loan";
-                        }
+                        myListSiswa.add(i);
+                        model.addAttribute("peminjamanList", myListSiswa);
                     }
                 }
             } else {
                 for (PeminjamanBukuModel i : listPeminjaman) {
                     if (i.getUser().getRole().getNama().toLowerCase().equals("guru")) {
-                        if (myListGuru.contains(i)) {
-                            continue;
-                        } else {
-                            myListGuru.add(i);
-                            model.addAttribute("peminjamanList", myListGuru);
-                            return "loan/view-loan";
-                        }
+                        myListGuru.add(i);
+                        model.addAttribute("peminjamanList", myListGuru);
                     }
                 }
             }
         }
-        return "loan/view-loan-fail";
+        return "loan/view-loan";
     }
 
     @GetMapping("/overdue/{idPeminjaman}")
-    public String makeMail(@PathVariable long idPeminjaman, Model model){
+    public String makeMail(@PathVariable long idPeminjaman,RedirectAttributes directModel, Model model){
         PeminjamanBukuModel peminjaman = peminjamanBukuService.findLoanByIdLoan(idPeminjaman);
         UserModel user = peminjaman.getUser();
+
+        Boolean isBerhasil = false;
+        Boolean isGagal = false;
         int id = 1;
         String keterangan = "Peminjaman telah jatuh tempo, surat jatuh tempo harus dibuat";
         Date tanggal = new Date();
         String status = "Menunggu Persetujuan";
-        String noSurat = "0";
+        int noSurat = 0;
         String usernameUser = user.getUsername();
         String password = user.getPassword();
-        String message = suratRestService.postSurat(id,keterangan,tanggal,status,noSurat,usernameUser, password).block();
+        String message = ""; 
+        try{
+            message = suratRestService.postSurat(id,keterangan,tanggal,status,noSurat,usernameUser, password).block();
+        }catch(NullPointerException e){
+            message = "gagal";
+        }
+        
+        if(message ==  null){
+            message = "";
+        }
+
         if (message.equalsIgnoreCase("berhasil")){
             message = "Surat peringatan untuk " + user.getUsername() + " berhasil dibuat!";
+            isBerhasil=true;
         }
-        else if(message.equalsIgnoreCase("gagal")){
+        else if(message.equalsIgnoreCase("gagal")  || message.equalsIgnoreCase("")){
             message = "Surat peringatan untuk " + user.getUsername() + " gagal dibuat!";
+            isGagal = true;
         }
+
         model.addAttribute("message", message);
-        return "redirect:loan/view";
+        RedirectView  redirectView = new RedirectView("/loan/view");
+        directModel.addFlashAttribute("isBerhasil", isBerhasil);
+        directModel.addFlashAttribute("isGagal", isGagal);
+        directModel.addFlashAttribute("message", message);
+        return "redirect:/loan/view";
     }
 
     @PostMapping("/update/{id}")

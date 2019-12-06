@@ -50,6 +50,7 @@ public class PengadaanBukuController {
         
         //cari getAnggotaDetail(uuid) :) id sementara pada post man =402881e86e8ed64a016e8ed953b10000
         AnggotaDetailModel koperasi = new AnggotaDetailModel();
+        koperasi = new AnggotaDetailModel();
         try{
             koperasi = pengadaanBukuRestService.getAnggotaDetail(user.getUuid()).block();
         }catch(Exception e){
@@ -105,14 +106,14 @@ public class PengadaanBukuController {
         if(user.getRole().getNama().toLowerCase().equals("pustakawan")) {
              if (existingProcurement.getStatus() == 0 || existingProcurement.getStatus() == 1) {
                 pengadaanBukuService.delete(existingProcurement);
-                return "procurement/delete";
+                return "redirect:/procurement/view";
             }
         } else {
             if (existingProcurement.getStatus() == 0) {
                 pengadaanBukuService.delete(existingProcurement);
-                return "procurement/delete";
+                return "redirect:/procurement/view";
             }
         }
-        return "procurement/delete-fail";
+        return "redirect:/procurement/view";
     }
 }
