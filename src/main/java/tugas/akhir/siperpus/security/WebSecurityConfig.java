@@ -3,6 +3,7 @@ package tugas.akhir.siperpus.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -24,20 +25,30 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/images/**").permitAll()
                 .antMatchers("/register").permitAll()
                 .antMatchers("/api/**").permitAll()
+                .antMatchers(HttpMethod.POST,"/api/**").permitAll()
+                .antMatchers(HttpMethod.GET,"/api/**").permitAll()
                 .antMatchers("/book/add/**").hasAnyAuthority("Pustakawan")
                 .antMatchers("/book/update/**").hasAnyAuthority("Pustakawan")
+                .antMatchers("/book/delete/**").hasAnyAuthority("Pustakawan")
                 .antMatchers("/loan/view/**").hasAnyAuthority("Pustakawan", "Guru", "Siswa")
+                .antMatchers("/loan/update/**").hasAnyAuthority("Pustakawan")
+                .antMatchers("/loan/add/**").hasAnyAuthority("Guru", "Siswa")
                 .antMatchers("/procurement/delete/**").hasAnyAuthority("Pustakawan", "Guru", "Siswa")
                 .antMatchers("/procurement/view/**").hasAnyAuthority("Pustakawan","Guru","Siswa")
                 .antMatchers("/user/addUser/**").hasAnyAuthority("Pustakawan")
-                .antMatchers("/loan/update/**").hasAnyAuthority("Pustakawan")
-                .antMatchers("/loan/add/**").hasAnyAuthority("Guru", "Siswa")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login").permitAll()
                 .and()
-                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login").permitAll();
+                .logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/login").permitAll()
+                .and()
+                .cors()
+                .and()
+                .csrf().disable();
+
     }
 
     @Bean
