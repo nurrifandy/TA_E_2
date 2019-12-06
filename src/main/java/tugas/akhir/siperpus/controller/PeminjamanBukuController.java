@@ -86,13 +86,13 @@ public class PeminjamanBukuController {
         int noSurat = 0;
         String usernameUser = user.getUsername();
         String password = user.getPassword();
-        String message = ""; 
+        String message = "";
         try{
             message = suratRestService.postSurat(id,keterangan,tanggal,status,noSurat,usernameUser, password).block();
         }catch(NullPointerException e){
             message = "gagal";
         }
-        
+
         if(message ==  null){
             message = "";
         }
@@ -121,7 +121,7 @@ public class PeminjamanBukuController {
     }
 
     @RequestMapping("/add/{idBuku}")
-    public String addLoan(@PathVariable long idBuku, Model model) {
+    public String addLoan(@PathVariable long idBuku, RedirectAttributes redirect) {
         BukuModel buku = bukuService.getBukuByIdBuku(idBuku).get();
         UserModel user = userService.getUserByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
         ArrayList<PeminjamanBukuModel> listPeminjaman = new ArrayList<>();
@@ -153,27 +153,15 @@ public class PeminjamanBukuController {
             peminjamanBukuService.addPeminjamanBuku(newLoan);
 
             String hari_ini = dateFormat.format(today);
-            model.addAttribute("hari_ini", hari_ini);
-            model.addAttribute("buku", buku);
-            return "loan/borrow-success";
+            redirect.addFlashAttribute("success", true);
+
         }
 
         else{
-            return "loan/borrow-failed";
+            redirect.addFlashAttribute("success", false);
         }
 
-    }
-    @RequestMapping("/tambah")
-    public String bookDetails(Model model){
-        List<BukuModel> bookList = bukuService.getListBuku();
-        List<Integer> bookSum = new ArrayList<Integer>();
-        for (BukuModel book:bookList){
-            int available = bukuService.availableBook(book);
-            bookSum.add(Integer.valueOf(available));
-        }
+        return "redirect:/book/detail";
 
-        model.addAttribute("bookList", bookList);
-        model.addAttribute("available", bookSum);
-        return "loan/borrow-book";
     }
 }
