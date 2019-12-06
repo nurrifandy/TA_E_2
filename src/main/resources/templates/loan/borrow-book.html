@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeLeaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Book Detail</title>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+
+<div class="row mt-5 ">
+    <div class="col-md-11 mx-auto">
+        <div class="card">
+            <div class="card-header bg-dark text-white">
+                Book Detail
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Type</th>
+                        <th>Book available</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="book, iterationStatus : ${bookList}">
+                        <td th:text="${iterationStatus.count}"> </td>
+                        <td th:text="${book.judul}"></td>
+                        <td th:text="${book.pengarang}"></td>
+                        <td th:text="${book.getJenisBuku().nama}"></td>
+                        <td th:text="${available[__${iterationStatus.index}__]}"></td>
+                        <td>
+                            <div class="btn-group">
+                                <button class="btn btn-dark"><a class="text-light" th:href="@{/loan/add/{idBook}(idBook = ${book.id})}" style="text-decoration: none;">borrow</a></button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -7,28 +7,35 @@
     <title>View Profile</title>
     <object th:include="fragments/fragment :: js" th:remove="tag"></object>
     <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <style>
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            max-width: 300px;
+            margin: auto;
+            text-align: center;
+        }
+
+        .title {
+            color: grey;
+            font-size: 18px;
+        }
+    </style>
 </head>
 <body style="font-family: 'Montserrat', sans-serif;">
-    <nav th:replace="fragments/fragment :: navbar"></nav>
-    <div class="row">
-        <div class="col">
-            <th>Username:</th><br>
-            <div th:if="${s}">
-                <th>Name:</th><br>
-                <th>Tempat Lahir:</th><br>
-                <th>Tanggal Lahir:</th><br>
-                <th>Alamat:</th><br>
-            </div>
-        </div>
-        <div class="col">
-            <td th:text="${user.username}"></td><br>
-            <div th:if="${s}">
-                <div th:text="${status.user.nama}"></div>
-                <div th:text="${status.user.tempatLahir}"></div>
-                <div th:text="${status.user.tanggalLahir}"></div>
-                <div th:text="${status.user.alamat}"></div>
-            </div>
-        </div>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<br><br><br>
+<div class="card">
+    <h1><td th:text="${user.username}"></td><br></h1>
+    <p class="title"><td th:text="${user.getRole().nama}"></td></p>
+    <div th:if="${s}">
+        <p>Nama: <td th:text="${status.user.nama}"></td></p><br>
+        <p>Nomor Telepon: <td th:text="${status.user.telepon}"></td></p><br>
+        <p>Tempat Lahir: <td th:text="${status.user.tempatLahir}"></td></p><br>
+        <p>Tanggal Lahir: <td th:text="${status.user.tanggalLahir}"></td></p><br>
+        <p>Alamat: <td th:text="${status.user.alamat}"></td></p><br>
+
     </div>
+</div>
+
 </body>
 </html>
