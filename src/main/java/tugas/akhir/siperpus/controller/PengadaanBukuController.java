@@ -35,7 +35,7 @@ public class PengadaanBukuController {
         return "procurement/form-add-procurement";
     }
 
-    @PostMapping(value = "add")
+    @PostMapping(value = "/add")
     public String submitAddProcurement(@ModelAttribute PengadaanBukuModel pengadaan, Model model){
         UserModel user = userService.getUserByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
 
@@ -64,11 +64,11 @@ public class PengadaanBukuController {
         List<PengadaanBukuModel> listPengadaan = new ArrayList<>();
         listPengadaan.add(pengadaan);
         user.setListPengadaan(listPengadaan);
-        
         pengadaanBukuService.addProcurement(pengadaan);
+        
         model.addAttribute("user", user);
         model.addAttribute("pengadaan", pengadaan);
-        return "procurement/add-procurement-submit";
+        return "redirect:/procurement/add";
     }
 
     @GetMapping("/view")
